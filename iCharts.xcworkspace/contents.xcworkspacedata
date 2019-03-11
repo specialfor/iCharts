@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "group:Shared"
+      name = "Shared">
+      <Group
+         location = "group:Resources"
+         name = "Resources">
+         <FileRef
+            location = "container:Shared/Resources/chart_data.json">
+         </FileRef>
+      </Group>
+   </Group>
+   <FileRef
+      location = "group:iChartsDemo/iChartsDemo.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:iCharts.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+</Workspace>
