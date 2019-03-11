@@ -29,8 +29,28 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
         label.text = "Hello, World!"
+        
+        let startDate = Date()
+        let datasets = parseDatasets()
+        let endDate = Date()
+        
+        let timeinterval = endDate.timeIntervalSince1970 - startDate.timeIntervalSince1970
+        print(timeinterval)
+    }
+    
+    private func parseDatasets() -> [Dataset] {
+        guard let filePath = Bundle.main.path(forResource: "chart_data", ofType: "json") else {
+            return []
+        }
+        
+        do {
+            let datasets = try DatasetJSONParser().parse(from: filePath)
+            return datasets
+        } catch {
+            print(error)
+            return []
+        }
     }
 }
 

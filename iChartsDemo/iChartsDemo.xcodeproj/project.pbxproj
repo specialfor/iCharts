@@ -12,6 +12,9 @@
 		4B19583D223687C700C32C76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B19583C223687C700C32C76 /* Assets.xcassets */; };
 		4B195840223687C700C32C76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B19583E223687C700C32C76 /* LaunchScreen.storyboard */; };
 		4BA9598822368F67005609C6 /* chart_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 4BA9598722368F67005609C6 /* chart_data.json */; };
+		4BA9598B223691FB005609C6 /* Dataset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA9598A223691FB005609C6 /* Dataset.swift */; };
+		4BA9598F2236941D005609C6 /* DatasetJSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA9598C22369303005609C6 /* DatasetJSONParser.swift */; };
+		4BA959912236ABCA005609C6 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA959902236ABCA005609C6 /* Result.swift */; };
 		6EC00BA330C9951F9CA44013 /* libPods-iChartsDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F448F82F6DFB1D11C50445EF /* libPods-iChartsDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +27,9 @@
 		4B19583F223687C700C32C76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B195841223687C700C32C76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BA9598722368F67005609C6 /* chart_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = chart_data.json; path = ../../../Shared/Resources/chart_data.json; sourceTree = "<group>"; };
+		4BA9598A223691FB005609C6 /* Dataset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dataset.swift; sourceTree = "<group>"; };
+		4BA9598C22369303005609C6 /* DatasetJSONParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatasetJSONParser.swift; sourceTree = "<group>"; };
+		4BA959902236ABCA005609C6 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		65FDBB5C18FF5D3178BC8EA5 /* Pods-iChartsDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChartsDemo.debug.xcconfig"; path = "Target Support Files/Pods-iChartsDemo/Pods-iChartsDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		F448F82F6DFB1D11C50445EF /* libPods-iChartsDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iChartsDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -61,6 +67,7 @@
 		4B195834223687C600C32C76 /* iChartsDemo */ = {
 			isa = PBXGroup;
 			children = (
+				4BA95989223691E3005609C6 /* Services */,
 				4BA9598622368F20005609C6 /* Resources */,
 				4B195835223687C600C32C76 /* AppDelegate.swift */,
 				4B195837223687C600C32C76 /* ViewController.swift */,
@@ -77,6 +84,24 @@
 				4B19583C223687C700C32C76 /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		4BA95989223691E3005609C6 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4BA9598E223693D4005609C6 /* DatasetJSONParser */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		4BA9598E223693D4005609C6 /* DatasetJSONParser */ = {
+			isa = PBXGroup;
+			children = (
+				4BA9598A223691FB005609C6 /* Dataset.swift */,
+				4BA9598C22369303005609C6 /* DatasetJSONParser.swift */,
+				4BA959902236ABCA005609C6 /* Result.swift */,
+			);
+			path = DatasetJSONParser;
 			sourceTree = "<group>";
 		};
 		8CB1113801BFCB334A79ED76 /* Frameworks */ = {
@@ -195,7 +220,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B195838223687C600C32C76 /* ViewController.swift in Sources */,
+				4BA959912236ABCA005609C6 /* Result.swift in Sources */,
 				4B195836223687C600C32C76 /* AppDelegate.swift in Sources */,
+				4BA9598B223691FB005609C6 /* Dataset.swift in Sources */,
+				4BA9598F2236941D005609C6 /* DatasetJSONParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
