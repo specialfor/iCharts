@@ -13,52 +13,85 @@ public final class ChartView: UIView {
     private let chartNormalizer = ChartNormalizer()
     
     private var props: Props? {
-        didSet { setNeedsDisplay() }
+        didSet { render() }
+    }
+    
+    private var shapeLayers: [CAShapeLayer]? {
+        get { return layer.sublayers as? [CAShapeLayer] }
+        set { layer.sublayers = newValue }
     }
     
     public override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
-        layer.sublayers?.forEach { $0.frame = layer.bounds }
-    }
-    
-    public override func draw(_ rect: CGRect) {
-        super.draw(rect)
+        shapeLayers?.forEach { $0.frame = layer.bounds }
         render()
     }
     
     public func render(props: Props) {
+        adjustNumberOfLayers(props: props)
         self.props = props
     }
     
-    private func render() {
-        // need to animate from one path to another, if the first one exists
-        layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+    private func adjustNumberOfLayers(props: Props) {
+        let layersCount = shapeLayers?.count ?? 0
+        let linesCount = props.chart.lines.count
         
-        guard let props = props else {
+        if layersCount < linesCount {
+            (0..<linesCount - layersCount).forEach { _ in
+                let shapeLayer = CAShapeLayer()
+                shapeLayer.fillColor = UIColor.clear.cgColor
+                layer.addSublayer(shapeLayer)
+            }
+        } else if layersCount > linesCount, let sublayers = shapeLayers {
+            shapeLayers = Array(sublayers.dropLast(layersCount - linesCount))
+        }
+    }
+    
+    private func render() {
+        guard let props = props, let layers = shapeLayers else {
             return
         }
         
-        let chart = chartNormalizer.normalizer(chart: props.chart, size: bounds.size)
+        let chart = chartNormalizer.normalize(chart: props.chart, size: bounds.size)
         
-        makeLayers(for: chart).forEach {
-            $0.frame = $0.bounds
-            layer.addSublayer($0)
+        chart.lines.enumerated().forEach { index, line in
+            let layer = layers[index]
+            layer.path = layer.presentation()?.path
+            layer.strokeColor = layer.presentation()?.strokeColor
         }
+        
+        CATransaction.begin()
+        CATransaction.setAnimationDuration(1)
+        
+        chart.lines.enumerated().forEach { index, line in
+            let layer = layers[index]
+            let animation = makeAnimation(for: layer, chart: chart, line: line)
+            layer.add(animation, forKey: "\(index).layer animation")
+        }
+        
+        CATransaction.commit()
     }
     
-    private func makeLayers(for chart: Props.LinearChart) -> [CAShapeLayer] {
-        return chart.lines.map { makeLayer(using: chart.xs, line: $0) }
-    }
-    
-    private func makeLayer(using xs: Props.Vector, line: Props.LinearChart.Line) -> CAShapeLayer {
-        let layer = CAShapeLayer()
+    private func makeAnimation(for layer: CAShapeLayer,
+                               chart: Props.LinearChart,
+                               line: Props.LinearChart.Line) -> CAAnimation {
+        let group = CAAnimationGroup()
         
-        layer.fillColor = UIColor.clear.cgColor
-        layer.strokeColor = line.color.cgColor
+        let pathAnimation = CABasicAnimation(keyPath: "path")
+        pathAnimation.fromValue = layer.path
+        let path = makePath(using: chart.xs, line: line).cgPath
+        pathAnimation.toValue = path
+        layer.path = path
         
-        layer.path = makePath(using: xs, line: line).cgPath
+        let strokeColorAnimation = CABasicAnimation(keyPath: "strokeColor")
+        strokeColorAnimation.fromValue = layer.strokeColor
+        let strokeColor = line.color.cgColor
+        strokeColorAnimation.toValue = strokeColor
+        layer.strokeColor = strokeColor
         
-        return layer
+        group.animations = [pathAnimation, strokeColorAnimation]
+        
+        return group
     }
     
     private func makePath(using xs: Props.Vector, line: Props.LinearChart.Line) -> UIBezierPath {

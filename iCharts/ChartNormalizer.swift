@@ -13,7 +13,7 @@ final class ChartNormalizer {
     typealias Vector = ChartView.Props.Vector
     typealias Line = Chart.Line
     
-    func normalizer(chart: Chart, size: CGSize) -> Chart {
+    func normalize(chart: Chart, size: CGSize) -> Chart {
         var chart = chart
         
         chart.xs = normalize(xs: chart.xs, width: size.width)
