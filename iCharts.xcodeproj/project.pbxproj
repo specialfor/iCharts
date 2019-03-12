@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2057D6456733C6D57CBACBA6 /* libPods-iCharts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C326C4E43E560017A329960C /* libPods-iCharts.a */; };
+		4B27CB9B2237A6E600AF42BB /* ChartNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27CB9A2237A6E600AF42BB /* ChartNormalizer.swift */; };
+		4BA959932236C57E005609C6 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA959922236C57E005609C6 /* ChartView.swift */; };
 		4BCE4730223686F7003D0117 /* iCharts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BCE4726223686F7003D0117 /* iCharts.framework */; };
 		4BCE4735223686F7003D0117 /* iChartsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCE4734223686F7003D0117 /* iChartsTests.swift */; };
 		4BCE4737223686F7003D0117 /* iCharts.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BCE4729223686F7003D0117 /* iCharts.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -26,6 +28,8 @@
 
 /* Begin PBXFileReference section */
 		4A12A840E7EEEDAEC3B78DEE /* Pods-iCharts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iCharts.release.xcconfig"; path = "Target Support Files/Pods-iCharts/Pods-iCharts.release.xcconfig"; sourceTree = "<group>"; };
+		4B27CB9A2237A6E600AF42BB /* ChartNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartNormalizer.swift; sourceTree = "<group>"; };
+		4BA959922236C57E005609C6 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		4BCE4726223686F7003D0117 /* iCharts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iCharts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BCE4729223686F7003D0117 /* iCharts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iCharts.h; sourceTree = "<group>"; };
 		4BCE472A223686F7003D0117 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -85,6 +89,8 @@
 			children = (
 				4BCE4729223686F7003D0117 /* iCharts.h */,
 				4BCE472A223686F7003D0117 /* Info.plist */,
+				4BA959922236C57E005609C6 /* ChartView.swift */,
+				4B27CB9A2237A6E600AF42BB /* ChartNormalizer.swift */,
 			);
 			path = iCharts;
 			sourceTree = "<group>";
@@ -182,6 +188,7 @@
 				TargetAttributes = {
 					4BCE4725223686F7003D0117 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 					4BCE472E223686F7003D0117 = {
 						CreatedOnToolsVersion = 10.1;
@@ -275,6 +282,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BA959932236C57E005609C6 /* ChartView.swift in Sources */,
+				4B27CB9B2237A6E600AF42BB /* ChartNormalizer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,6 +432,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FEA771BAB783E8937CDD9AE1 /* Pods-iCharts.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -441,6 +451,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.specialfor.iCharts;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -450,6 +461,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4A12A840E7EEEDAEC3B78DEE /* Pods-iCharts.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -477,6 +489,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 72E77D56FDA01BB97CF36B50 /* Pods-iChartsTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MQ7UXJJ9YY;
 				INFOPLIST_FILE = iChartsTests/Info.plist;
@@ -496,6 +509,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9FB95A0DAC997B04969436DE /* Pods-iChartsTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MQ7UXJJ9YY;
 				INFOPLIST_FILE = iChartsTests/Info.plist;

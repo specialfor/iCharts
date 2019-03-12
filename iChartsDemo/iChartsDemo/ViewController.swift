@@ -8,8 +8,11 @@
 
 import UIKit
 import SnapKit
+import iCharts
 
 class ViewController: UIViewController {
+    
+    // MARK: - Subviews
     
     lazy var label: UILabel = {
         let label = UILabel()
@@ -25,18 +28,41 @@ class ViewController: UIViewController {
         return label
     }()
     
+    lazy var chartView: ChartView = {
+        let view = ChartView()
+        
+        view.backgroundColor = UIColor.gray.withAlphaComponent(0.6)
+        
+        self.view.addSubview(view)
+        view.snp.makeConstraints { make in
+            make.top.equalTo(label).offset(32)
+            make.left.right.equalTo(label)
+            make.height.equalTo(320)
+        }
+        
+        return view
+    }()
+    
+    
+    // MARK: - UIViewController
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         label.text = "Hello, World!"
         
-        let startDate = Date()
-        let datasets = parseDatasets()
-        let endDate = Date()
-        
-        let timeinterval = endDate.timeIntervalSince1970 - startDate.timeIntervalSince1970
-        print(timeinterval)
+        chartView.render(props: makeProps())
+    }
+    
+    private func makeProps() -> ChartView.Props {
+        return .init(chart: .init(
+            xs: [1, 10, 50, 200],
+            lines: [
+                .init(
+                    ys: [10, 30, 20, 60],
+                    color: .red)
+            ]))
     }
     
     private func parseDatasets() -> [Dataset] {
