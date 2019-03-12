@@ -11,27 +11,81 @@
 		4B195838223687C600C32C76 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B195837223687C600C32C76 /* ViewController.swift */; };
 		4B19583D223687C700C32C76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B19583C223687C700C32C76 /* Assets.xcassets */; };
 		4B195840223687C700C32C76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B19583E223687C700C32C76 /* LaunchScreen.storyboard */; };
-		4BA9598822368F67005609C6 /* chart_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 4BA9598722368F67005609C6 /* chart_data.json */; };
+		4B27CBAA2238040300AF42BB /* iCharts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B27CBA12238040300AF42BB /* iCharts.framework */; };
+		4B27CBB12238040300AF42BB /* iChartsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27CBB02238040300AF42BB /* iChartsTests.swift */; };
+		4B27CBB32238040400AF42BB /* iCharts.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B27CBA32238040300AF42BB /* iCharts.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4B27CBB62238040400AF42BB /* iCharts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B27CBA12238040300AF42BB /* iCharts.framework */; };
+		4B27CBB72238040400AF42BB /* iCharts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B27CBA12238040300AF42BB /* iCharts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4B27CBC12238040D00AF42BB /* ChartNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27CBBF2238040C00AF42BB /* ChartNormalizer.swift */; };
+		4B27CBC22238040D00AF42BB /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27CBC02238040D00AF42BB /* ChartView.swift */; };
+		4B27CBC82238045E00AF42BB /* chart_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B27CBC72238045D00AF42BB /* chart_data.json */; };
+		4B27CBC92238045E00AF42BB /* chart_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B27CBC72238045D00AF42BB /* chart_data.json */; };
 		4BA9598B223691FB005609C6 /* Dataset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA9598A223691FB005609C6 /* Dataset.swift */; };
 		4BA9598F2236941D005609C6 /* DatasetJSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA9598C22369303005609C6 /* DatasetJSONParser.swift */; };
 		4BA959912236ABCA005609C6 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA959902236ABCA005609C6 /* Result.swift */; };
 		6EC00BA330C9951F9CA44013 /* libPods-iChartsDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F448F82F6DFB1D11C50445EF /* libPods-iChartsDemo.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4B27CBAB2238040300AF42BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B19582A223687C600C32C76 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B27CBA02238040300AF42BB;
+			remoteInfo = iCharts;
+		};
+		4B27CBAD2238040300AF42BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B19582A223687C600C32C76 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B195831223687C600C32C76;
+			remoteInfo = iChartsDemo;
+		};
+		4B27CBB42238040400AF42BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B19582A223687C600C32C76 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B27CBA02238040300AF42BB;
+			remoteInfo = iCharts;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4B27CBBD2238040400AF42BB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4B27CBB72238040400AF42BB /* iCharts.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		2DC43DA7FAAAFA9357A1EDD6 /* Pods-iChartsDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChartsDemo.release.xcconfig"; path = "Target Support Files/Pods-iChartsDemo/Pods-iChartsDemo.release.xcconfig"; sourceTree = "<group>"; };
 		4B195832223687C600C32C76 /* iChartsDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iChartsDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B195835223687C600C32C76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4B195837223687C600C32C76 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4B19583C223687C700C32C76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B19583F223687C700C32C76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B195841223687C700C32C76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4BA9598722368F67005609C6 /* chart_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = chart_data.json; path = ../../../Shared/Resources/chart_data.json; sourceTree = "<group>"; };
+		4B27CBA12238040300AF42BB /* iCharts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iCharts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B27CBA32238040300AF42BB /* iCharts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iCharts.h; sourceTree = "<group>"; };
+		4B27CBA42238040300AF42BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4B27CBA92238040300AF42BB /* iChartsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iChartsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B27CBB02238040300AF42BB /* iChartsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iChartsTests.swift; sourceTree = "<group>"; };
+		4B27CBB22238040400AF42BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4B27CBBF2238040C00AF42BB /* ChartNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartNormalizer.swift; sourceTree = "<group>"; };
+		4B27CBC02238040D00AF42BB /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		4B27CBC72238045D00AF42BB /* chart_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = chart_data.json; sourceTree = "<group>"; };
 		4BA9598A223691FB005609C6 /* Dataset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dataset.swift; sourceTree = "<group>"; };
 		4BA9598C22369303005609C6 /* DatasetJSONParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatasetJSONParser.swift; sourceTree = "<group>"; };
 		4BA959902236ABCA005609C6 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
-		65FDBB5C18FF5D3178BC8EA5 /* Pods-iChartsDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChartsDemo.debug.xcconfig"; path = "Target Support Files/Pods-iChartsDemo/Pods-iChartsDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		C5DC31BBD480C2705B3E0F46 /* Pods-iChartsDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChartsDemo.debug.xcconfig"; path = "Target Support Files/Pods-iChartsDemo/Pods-iChartsDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		F448F82F6DFB1D11C50445EF /* libPods-iChartsDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iChartsDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFEA6AC4FEC595A5B2FAC9F2 /* Pods-iChartsDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChartsDemo.release.xcconfig"; path = "Target Support Files/Pods-iChartsDemo/Pods-iChartsDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +94,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				6EC00BA330C9951F9CA44013 /* libPods-iChartsDemo.a in Frameworks */,
+				4B27CBB62238040400AF42BB /* iCharts.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B27CB9E2238040300AF42BB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B27CBA62238040300AF42BB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B27CBAA2238040300AF42BB /* iCharts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -49,10 +119,13 @@
 		4B195829223687C600C32C76 = {
 			isa = PBXGroup;
 			children = (
+				4B27CBC52238045D00AF42BB /* Shared */,
 				4B195834223687C600C32C76 /* iChartsDemo */,
+				4B27CBA22238040300AF42BB /* iCharts */,
+				4B27CBAF2238040300AF42BB /* iChartsTests */,
 				4B195833223687C600C32C76 /* Products */,
-				D80A36C188DE9E526632D517 /* Pods */,
 				8CB1113801BFCB334A79ED76 /* Frameworks */,
+				5F787D8EC4C6B4A0DAF03DFA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,6 +133,8 @@
 			isa = PBXGroup;
 			children = (
 				4B195832223687C600C32C76 /* iChartsDemo.app */,
+				4B27CBA12238040300AF42BB /* iCharts.framework */,
+				4B27CBA92238040300AF42BB /* iChartsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -77,10 +152,45 @@
 			path = iChartsDemo;
 			sourceTree = "<group>";
 		};
+		4B27CBA22238040300AF42BB /* iCharts */ = {
+			isa = PBXGroup;
+			children = (
+				4B27CBC02238040D00AF42BB /* ChartView.swift */,
+				4B27CBBF2238040C00AF42BB /* ChartNormalizer.swift */,
+				4B27CBA32238040300AF42BB /* iCharts.h */,
+				4B27CBA42238040300AF42BB /* Info.plist */,
+			);
+			path = iCharts;
+			sourceTree = "<group>";
+		};
+		4B27CBAF2238040300AF42BB /* iChartsTests */ = {
+			isa = PBXGroup;
+			children = (
+				4B27CBB02238040300AF42BB /* iChartsTests.swift */,
+				4B27CBB22238040400AF42BB /* Info.plist */,
+			);
+			path = iChartsTests;
+			sourceTree = "<group>";
+		};
+		4B27CBC52238045D00AF42BB /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				4B27CBC62238045D00AF42BB /* Resources */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		4B27CBC62238045D00AF42BB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4B27CBC72238045D00AF42BB /* chart_data.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		4BA9598622368F20005609C6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4BA9598722368F67005609C6 /* chart_data.json */,
 				4B19583C223687C700C32C76 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -104,6 +214,16 @@
 			path = DatasetJSONParser;
 			sourceTree = "<group>";
 		};
+		5F787D8EC4C6B4A0DAF03DFA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C5DC31BBD480C2705B3E0F46 /* Pods-iChartsDemo.debug.xcconfig */,
+				FFEA6AC4FEC595A5B2FAC9F2 /* Pods-iChartsDemo.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		8CB1113801BFCB334A79ED76 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -112,17 +232,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D80A36C188DE9E526632D517 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				65FDBB5C18FF5D3178BC8EA5 /* Pods-iChartsDemo.debug.xcconfig */,
-				2DC43DA7FAAAFA9357A1EDD6 /* Pods-iChartsDemo.release.xcconfig */,
-			);
-			name = Pods;
-			path = ../Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		4B27CB9C2238040300AF42BB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B27CBB32238040400AF42BB /* iCharts.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		4B195831223687C600C32C76 /* iChartsDemo */ = {
@@ -133,15 +254,54 @@
 				4B19582E223687C600C32C76 /* Sources */,
 				4B19582F223687C600C32C76 /* Frameworks */,
 				4B195830223687C600C32C76 /* Resources */,
+				4B27CBBD2238040400AF42BB /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4B27CBB52238040400AF42BB /* PBXTargetDependency */,
 			);
 			name = iChartsDemo;
 			productName = iChartsDemo;
 			productReference = 4B195832223687C600C32C76 /* iChartsDemo.app */;
 			productType = "com.apple.product-type.application";
+		};
+		4B27CBA02238040300AF42BB /* iCharts */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4B27CBBC2238040400AF42BB /* Build configuration list for PBXNativeTarget "iCharts" */;
+			buildPhases = (
+				4B27CB9C2238040300AF42BB /* Headers */,
+				4B27CB9D2238040300AF42BB /* Sources */,
+				4B27CB9E2238040300AF42BB /* Frameworks */,
+				4B27CB9F2238040300AF42BB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iCharts;
+			productName = iCharts;
+			productReference = 4B27CBA12238040300AF42BB /* iCharts.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4B27CBA82238040300AF42BB /* iChartsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4B27CBBE2238040400AF42BB /* Build configuration list for PBXNativeTarget "iChartsTests" */;
+			buildPhases = (
+				4B27CBA52238040300AF42BB /* Sources */,
+				4B27CBA62238040300AF42BB /* Frameworks */,
+				4B27CBA72238040300AF42BB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4B27CBAC2238040300AF42BB /* PBXTargetDependency */,
+				4B27CBAE2238040300AF42BB /* PBXTargetDependency */,
+			);
+			name = iChartsTests;
+			productName = iChartsTests;
+			productReference = 4B27CBA92238040300AF42BB /* iChartsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -155,6 +315,13 @@
 				TargetAttributes = {
 					4B195831223687C600C32C76 = {
 						CreatedOnToolsVersion = 10.1;
+					};
+					4B27CBA02238040300AF42BB = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					4B27CBA82238040300AF42BB = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 4B195831223687C600C32C76;
 					};
 				};
 			};
@@ -172,6 +339,8 @@
 			projectRoot = "";
 			targets = (
 				4B195831223687C600C32C76 /* iChartsDemo */,
+				4B27CBA02238040300AF42BB /* iCharts */,
+				4B27CBA82238040300AF42BB /* iChartsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -183,7 +352,22 @@
 			files = (
 				4B195840223687C700C32C76 /* LaunchScreen.storyboard in Resources */,
 				4B19583D223687C700C32C76 /* Assets.xcassets in Resources */,
-				4BA9598822368F67005609C6 /* chart_data.json in Resources */,
+				4B27CBC82238045E00AF42BB /* chart_data.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B27CB9F2238040300AF42BB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B27CBC92238045E00AF42BB /* chart_data.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B27CBA72238040300AF42BB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,7 +411,42 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4B27CB9D2238040300AF42BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B27CBC12238040D00AF42BB /* ChartNormalizer.swift in Sources */,
+				4B27CBC22238040D00AF42BB /* ChartView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B27CBA52238040300AF42BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B27CBB12238040300AF42BB /* iChartsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4B27CBAC2238040300AF42BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4B27CBA02238040300AF42BB /* iCharts */;
+			targetProxy = 4B27CBAB2238040300AF42BB /* PBXContainerItemProxy */;
+		};
+		4B27CBAE2238040300AF42BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4B195831223687C600C32C76 /* iChartsDemo */;
+			targetProxy = 4B27CBAD2238040300AF42BB /* PBXContainerItemProxy */;
+		};
+		4B27CBB52238040400AF42BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4B27CBA02238040300AF42BB /* iCharts */;
+			targetProxy = 4B27CBB42238040400AF42BB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4B19583E223687C700C32C76 /* LaunchScreen.storyboard */ = {
@@ -359,8 +578,9 @@
 		};
 		4B195845223687C700C32C76 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 65FDBB5C18FF5D3178BC8EA5 /* Pods-iChartsDemo.debug.xcconfig */;
+			baseConfigurationReference = C5DC31BBD480C2705B3E0F46 /* Pods-iChartsDemo.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MQ7UXJJ9YY;
@@ -379,8 +599,9 @@
 		};
 		4B195846223687C700C32C76 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2DC43DA7FAAAFA9357A1EDD6 /* Pods-iChartsDemo.release.xcconfig */;
+			baseConfigurationReference = FFEA6AC4FEC595A5B2FAC9F2 /* Pods-iChartsDemo.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MQ7UXJJ9YY;
@@ -394,6 +615,106 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4B27CBB82238040400AF42BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = MQ7UXJJ9YY;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = iCharts/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.specialfor.iCharts;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4B27CBB92238040400AF42BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = MQ7UXJJ9YY;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = iCharts/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.specialfor.iCharts;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		4B27CBBA2238040400AF42BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MQ7UXJJ9YY;
+				INFOPLIST_FILE = iChartsTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.specialfor.iChartsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iChartsDemo.app/iChartsDemo";
+			};
+			name = Debug;
+		};
+		4B27CBBB2238040400AF42BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MQ7UXJJ9YY;
+				INFOPLIST_FILE = iChartsTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.specialfor.iChartsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iChartsDemo.app/iChartsDemo";
 			};
 			name = Release;
 		};
@@ -414,6 +735,24 @@
 			buildConfigurations = (
 				4B195845223687C700C32C76 /* Debug */,
 				4B195846223687C700C32C76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4B27CBBC2238040400AF42BB /* Build configuration list for PBXNativeTarget "iCharts" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B27CBB82238040400AF42BB /* Debug */,
+				4B27CBB92238040400AF42BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4B27CBBE2238040400AF42BB /* Build configuration list for PBXNativeTarget "iChartsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B27CBBA2238040400AF42BB /* Debug */,
+				4B27CBBB2238040400AF42BB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

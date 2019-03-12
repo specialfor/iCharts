@@ -52,7 +52,7 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
         label.text = "Cheburek"
         
-        chartView.render(props: makeProps())
+        chartView.render(props: makeProps3())
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(tap))
         chartView.addGestureRecognizer(recognizer)
         chartView.isUserInteractionEnabled = true
@@ -61,13 +61,13 @@ class ViewController: UIViewController {
     var counter = 0
     
     @objc private func tap() {
-        counter = (counter + 1) % 2
-        
-        if counter == 0 {
-            chartView.render(props: makeProps())
-        } else {
-            chartView.render(props: makeProps2())
-        }
+//        counter = (counter + 1) % 2
+//
+//        if counter == 0 {
+//            chartView.render(props: makeProps())
+//        } else {
+//            chartView.render(props: makeProps2())
+//        }
     }
     
     private func makeProps() -> ChartView.Props {
@@ -92,6 +92,20 @@ class ViewController: UIViewController {
                     color: .green
                 )
             ]))
+    }
+    
+    private func makeProps3() -> ChartView.Props {
+        let dataset = parseDatasets()[0]
+        
+        return .init(chart: .init(
+            xs: dataset.xs.dots,
+            lines: [
+                .init(
+                    ys: dataset.charts[0].vector.dots,
+                    color: .orange
+                )
+            ]
+            ))
     }
     
     private func parseDatasets() -> [Dataset] {

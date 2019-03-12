@@ -13,7 +13,7 @@ public final class ChartView: UIView {
     private let chartNormalizer = ChartNormalizer()
     
     private var props: Props? {
-        didSet { render() }
+        didSet { setNeedsLayout() }
     }
     
     private var shapeLayers: [CAShapeLayer]? {

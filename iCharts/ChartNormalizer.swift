@@ -32,7 +32,7 @@ final class ChartNormalizer {
             return xs
         }
         
-        let normalizedXS = xs.map { $0 / min }
+        let normalizedXS = xs.map { $0 / min - 1 }
         
         return normalize(vector: normalizedXS, side: width, max: normalizedXS.last)
     }

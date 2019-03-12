@@ -2,7 +2,7 @@
 //  iChartsTests.swift
 //  iChartsTests
 //
-//  Created by Volodymyr Hryhoriev on 3/11/19.
+//  Created by Volodymyr Hryhoriev on 3/12/19.
 //  Copyright © 2019 Volodymyr Hryhoriev. All rights reserved.
 //
 
