@@ -16,10 +16,18 @@
 		4B27CBB32238040400AF42BB /* iCharts.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B27CBA32238040300AF42BB /* iCharts.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B27CBB62238040400AF42BB /* iCharts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B27CBA12238040300AF42BB /* iCharts.framework */; };
 		4B27CBB72238040400AF42BB /* iCharts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B27CBA12238040300AF42BB /* iCharts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4B27CBC12238040D00AF42BB /* ChartNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27CBBF2238040C00AF42BB /* ChartNormalizer.swift */; };
+		4B27CBC12238040D00AF42BB /* Normalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27CBBF2238040C00AF42BB /* Normalizer.swift */; };
 		4B27CBC22238040D00AF42BB /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27CBC02238040D00AF42BB /* ChartView.swift */; };
 		4B27CBC82238045E00AF42BB /* chart_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B27CBC72238045D00AF42BB /* chart_data.json */; };
 		4B27CBC92238045E00AF42BB /* chart_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B27CBC72238045D00AF42BB /* chart_data.json */; };
+		4B2C064B22390A92008B2D69 /* SizeNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C064A22390A92008B2D69 /* SizeNormalizer.swift */; };
+		4B2C064D22390B8D008B2D69 /* MinLengthNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C064C22390B8D008B2D69 /* MinLengthNormalizer.swift */; };
+		4B2C064F22390BB8008B2D69 /* NormalizerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C064E22390BB8008B2D69 /* NormalizerFactory.swift */; };
+		4B2C065122391B1A008B2D69 /* Array+CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C065022391B1A008B2D69 /* Array+CGFloat.swift */; };
+		4B2C065422391C20008B2D69 /* LineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C065322391C20008B2D69 /* LineLayer.swift */; };
+		4B2C06562239201D008B2D69 /* Array+CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C06552239201D008B2D69 /* Array+CGPoint.swift */; };
+		4B2C06582239202C008B2D69 /* Array+Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C06572239202C008B2D69 /* Array+Values.swift */; };
+		4B2C065A22392196008B2D69 /* zipInto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C065922392196008B2D69 /* zipInto.swift */; };
 		4BA9598B223691FB005609C6 /* Dataset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA9598A223691FB005609C6 /* Dataset.swift */; };
 		4BA9598F2236941D005609C6 /* DatasetJSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA9598C22369303005609C6 /* DatasetJSONParser.swift */; };
 		4BA959912236ABCA005609C6 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA959902236ABCA005609C6 /* Result.swift */; };
@@ -77,9 +85,17 @@
 		4B27CBA92238040300AF42BB /* iChartsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iChartsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B27CBB02238040300AF42BB /* iChartsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iChartsTests.swift; sourceTree = "<group>"; };
 		4B27CBB22238040400AF42BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4B27CBBF2238040C00AF42BB /* ChartNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartNormalizer.swift; sourceTree = "<group>"; };
+		4B27CBBF2238040C00AF42BB /* Normalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Normalizer.swift; sourceTree = "<group>"; };
 		4B27CBC02238040D00AF42BB /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		4B27CBC72238045D00AF42BB /* chart_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = chart_data.json; sourceTree = "<group>"; };
+		4B2C064A22390A92008B2D69 /* SizeNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeNormalizer.swift; sourceTree = "<group>"; };
+		4B2C064C22390B8D008B2D69 /* MinLengthNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinLengthNormalizer.swift; sourceTree = "<group>"; };
+		4B2C064E22390BB8008B2D69 /* NormalizerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalizerFactory.swift; sourceTree = "<group>"; };
+		4B2C065022391B1A008B2D69 /* Array+CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+CGFloat.swift"; sourceTree = "<group>"; };
+		4B2C065322391C20008B2D69 /* LineLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineLayer.swift; sourceTree = "<group>"; };
+		4B2C06552239201D008B2D69 /* Array+CGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+CGPoint.swift"; sourceTree = "<group>"; };
+		4B2C06572239202C008B2D69 /* Array+Values.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Values.swift"; sourceTree = "<group>"; };
+		4B2C065922392196008B2D69 /* zipInto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = zipInto.swift; sourceTree = "<group>"; };
 		4BA9598A223691FB005609C6 /* Dataset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dataset.swift; sourceTree = "<group>"; };
 		4BA9598C22369303005609C6 /* DatasetJSONParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatasetJSONParser.swift; sourceTree = "<group>"; };
 		4BA959902236ABCA005609C6 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
@@ -155,8 +171,9 @@
 		4B27CBA22238040300AF42BB /* iCharts */ = {
 			isa = PBXGroup;
 			children = (
+				4B2C065222391C13008B2D69 /* Layers */,
+				4B2C064922390A7C008B2D69 /* Normalizer */,
 				4B27CBC02238040D00AF42BB /* ChartView.swift */,
-				4B27CBBF2238040C00AF42BB /* ChartNormalizer.swift */,
 				4B27CBA32238040300AF42BB /* iCharts.h */,
 				4B27CBA42238040300AF42BB /* Info.plist */,
 			);
@@ -186,6 +203,29 @@
 				4B27CBC72238045D00AF42BB /* chart_data.json */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		4B2C064922390A7C008B2D69 /* Normalizer */ = {
+			isa = PBXGroup;
+			children = (
+				4B27CBBF2238040C00AF42BB /* Normalizer.swift */,
+				4B2C064A22390A92008B2D69 /* SizeNormalizer.swift */,
+				4B2C064C22390B8D008B2D69 /* MinLengthNormalizer.swift */,
+				4B2C064E22390BB8008B2D69 /* NormalizerFactory.swift */,
+				4B2C065022391B1A008B2D69 /* Array+CGFloat.swift */,
+				4B2C06552239201D008B2D69 /* Array+CGPoint.swift */,
+				4B2C06572239202C008B2D69 /* Array+Values.swift */,
+				4B2C065922392196008B2D69 /* zipInto.swift */,
+			);
+			path = Normalizer;
+			sourceTree = "<group>";
+		};
+		4B2C065222391C13008B2D69 /* Layers */ = {
+			isa = PBXGroup;
+			children = (
+				4B2C065322391C20008B2D69 /* LineLayer.swift */,
+			);
+			path = Layers;
 			sourceTree = "<group>";
 		};
 		4BA9598622368F20005609C6 /* Resources */ = {
@@ -220,7 +260,6 @@
 				C5DC31BBD480C2705B3E0F46 /* Pods-iChartsDemo.debug.xcconfig */,
 				FFEA6AC4FEC595A5B2FAC9F2 /* Pods-iChartsDemo.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -415,8 +454,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B27CBC12238040D00AF42BB /* ChartNormalizer.swift in Sources */,
+				4B2C06582239202C008B2D69 /* Array+Values.swift in Sources */,
+				4B2C065122391B1A008B2D69 /* Array+CGFloat.swift in Sources */,
+				4B2C064B22390A92008B2D69 /* SizeNormalizer.swift in Sources */,
+				4B2C064D22390B8D008B2D69 /* MinLengthNormalizer.swift in Sources */,
+				4B2C064F22390BB8008B2D69 /* NormalizerFactory.swift in Sources */,
+				4B2C06562239201D008B2D69 /* Array+CGPoint.swift in Sources */,
+				4B27CBC12238040D00AF42BB /* Normalizer.swift in Sources */,
+				4B2C065422391C20008B2D69 /* LineLayer.swift in Sources */,
 				4B27CBC22238040D00AF42BB /* ChartView.swift in Sources */,
+				4B2C065A22392196008B2D69 /* zipInto.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

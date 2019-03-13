@@ -10,8 +10,6 @@ import UIKit
 
 public final class ChartView: UIView {
     
-    private let chartNormalizer = ChartNormalizer()
-    
     private var props: Props? {
         didSet { setNeedsLayout() }
     }
@@ -52,7 +50,8 @@ public final class ChartView: UIView {
             return
         }
         
-        let chart = chartNormalizer.normalize(chart: props.chart, size: bounds.size)
+        let normalizer = NormalizerFactory().makeNormalizer(kind: .size(bounds.size))
+        let chart = normalizer.normalize(chart: props.chart)
         
         chart.lines.enumerated().forEach { index, line in
             let layer = layers[index]
@@ -79,7 +78,7 @@ public final class ChartView: UIView {
         
         let pathAnimation = CABasicAnimation(keyPath: "path")
         pathAnimation.fromValue = layer.path
-        let path = makePath(using: chart.xs, line: line).cgPath
+        let path = makePath(using: line).cgPath
         pathAnimation.toValue = path
         layer.path = path
         
@@ -94,10 +93,10 @@ public final class ChartView: UIView {
         return group
     }
     
-    private func makePath(using xs: Props.Vector, line: Props.LinearChart.Line) -> UIBezierPath {
+    private func makePath(using line: Props.LinearChart.Line) -> UIBezierPath {
         let path = UIBezierPath()
         
-        var points = zip(xs, line.ys).map { CGPoint(x: $0, y: $1) }
+        var points = line.points
         
         let first = points.removeFirst()
         
@@ -111,6 +110,7 @@ public final class ChartView: UIView {
 public extension ChartView {
     
     public struct Props {
+        public typealias Points = [CGPoint]
         public typealias Vector = [CGFloat]
         
         public let chart: LinearChart
@@ -124,21 +124,25 @@ public extension ChartView {
 public extension ChartView.Props {
     
     public struct LinearChart {
-        public var xs: Vector
         public var lines: [Line]
         
-        public init(xs: Vector, lines: [Line]) {
-            self.xs = xs
+        public init(lines: [Line]) {
             self.lines = lines
         }
         
         public struct Line {
-            let ys: Vector
+            let points: Points
             let color: UIColor
             
-            public init(ys: Vector, color: UIColor) {
-                self.ys = ys
+            public init(points: Points, color: UIColor) {
+                self.points = points
                 self.color = color
+            }
+            
+            public init(xs: [CGFloat], ys: [CGFloat], color: UIColor) {
+                self.init(
+                    points: zipToPoints(xs, ys),
+                    color: color)
             }
         }
     }
