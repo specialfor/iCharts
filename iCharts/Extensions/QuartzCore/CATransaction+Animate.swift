@@ -24,9 +24,16 @@ extension CATransaction {
         }
     }
     
-    static func perform(_ closure: (CATransaction.Type) -> Void) {
+    static func performWithoutAnimation(_ job: Job) {
+        perform { transaction in
+            transaction.setDisableActions(true)
+            job(transaction)
+        }
+    }
+    
+    static func perform(_ job: Job) {
         CATransaction.begin()
-        closure(self)
+        job(self)
         CATransaction.commit()
     }
 }
