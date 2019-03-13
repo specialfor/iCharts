@@ -7,14 +7,28 @@
 //
 
 typealias Chart = ChartView.Props.LinearChart
-typealias Vector = ChartView.Props.Vector
-typealias Line = Chart.Line
+
 
 protocol Normalizer {
-    func normalize(chart: Chart) -> Chart
+    func unsafeNormalize(line: Line) -> Line
 }
 
 extension Normalizer {
+    
+    func normalize(chart: Chart) -> Chart {
+        var chart = chart
+        
+        chart.lines = chart.lines.map(normalize(line:))
+        return chart
+    }
+    
+    func normalize(line: Line) -> Line {
+        guard !line.points.isEmpty else {
+            return line
+        }
+        
+        return unsafeNormalize(line: line)
+    }
     
     /// Xmin = X0, X ~> X' = { x' in [0, C] }
     func normalize(xs: Vector, after closure: ((CGFloat) -> CGFloat)? = nil) -> Vector {

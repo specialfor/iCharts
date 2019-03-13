@@ -16,17 +16,11 @@ final class SizeNormalizer: Normalizer {
         self.size = size
     }
     
-    func normalize(chart: Chart) -> Chart {
-        var chart = chart
+    func unsafeNormalize(line: Line) -> Line {
+        let xs = normalize(xs: line.points.xs, width: size.width)
+        let ys = normalize(vector: line.points.ys, side: size.height).map { size.height - $0 }
         
-        chart.lines = chart.lines.map { line in
-            let xs = normalize(xs: line.points.xs, width: size.width)
-            let ys = normalize(vector: line.points.ys, side: size.height).map { size.height - $0 }
-            
-            return Line(xs: xs, ys: ys, color: line.color)
-        }
-        
-        return chart
+        return Line(xs: xs, ys: ys, color: line.color)
     }
     
     /// Xmin = X0, X ~> X' = { x' in [0, width] }

@@ -28,6 +28,10 @@
 		4B2C06562239201D008B2D69 /* Array+CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C06552239201D008B2D69 /* Array+CGPoint.swift */; };
 		4B2C06582239202C008B2D69 /* Array+Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C06572239202C008B2D69 /* Array+Values.swift */; };
 		4B2C065A22392196008B2D69 /* zipInto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C065922392196008B2D69 /* zipInto.swift */; };
+		4B2C065D22392A1E008B2D69 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C065C22392A1E008B2D69 /* Line.swift */; };
+		4B2C066122392A4B008B2D69 /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C066022392A4B008B2D69 /* Typealiases.swift */; };
+		4B2C066322392AF1008B2D69 /* LineChartLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C066222392AF1008B2D69 /* LineChartLayer.swift */; };
+		4B2C06672239364B008B2D69 /* CATransaction+Animate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C06662239364B008B2D69 /* CATransaction+Animate.swift */; };
 		4BA9598B223691FB005609C6 /* Dataset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA9598A223691FB005609C6 /* Dataset.swift */; };
 		4BA9598F2236941D005609C6 /* DatasetJSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA9598C22369303005609C6 /* DatasetJSONParser.swift */; };
 		4BA959912236ABCA005609C6 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA959902236ABCA005609C6 /* Result.swift */; };
@@ -96,6 +100,10 @@
 		4B2C06552239201D008B2D69 /* Array+CGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+CGPoint.swift"; sourceTree = "<group>"; };
 		4B2C06572239202C008B2D69 /* Array+Values.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Values.swift"; sourceTree = "<group>"; };
 		4B2C065922392196008B2D69 /* zipInto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = zipInto.swift; sourceTree = "<group>"; };
+		4B2C065C22392A1E008B2D69 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		4B2C066022392A4B008B2D69 /* Typealiases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
+		4B2C066222392AF1008B2D69 /* LineChartLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartLayer.swift; sourceTree = "<group>"; };
+		4B2C06662239364B008B2D69 /* CATransaction+Animate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CATransaction+Animate.swift"; sourceTree = "<group>"; };
 		4BA9598A223691FB005609C6 /* Dataset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dataset.swift; sourceTree = "<group>"; };
 		4BA9598C22369303005609C6 /* DatasetJSONParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatasetJSONParser.swift; sourceTree = "<group>"; };
 		4BA959902236ABCA005609C6 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
@@ -171,6 +179,8 @@
 		4B27CBA22238040300AF42BB /* iCharts */ = {
 			isa = PBXGroup;
 			children = (
+				4B2C06642239361E008B2D69 /* Extensions */,
+				4B2C065B22392A16008B2D69 /* Models */,
 				4B2C065222391C13008B2D69 /* Layers */,
 				4B2C064922390A7C008B2D69 /* Normalizer */,
 				4B27CBC02238040D00AF42BB /* ChartView.swift */,
@@ -224,8 +234,34 @@
 			isa = PBXGroup;
 			children = (
 				4B2C065322391C20008B2D69 /* LineLayer.swift */,
+				4B2C066222392AF1008B2D69 /* LineChartLayer.swift */,
 			);
 			path = Layers;
+			sourceTree = "<group>";
+		};
+		4B2C065B22392A16008B2D69 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4B2C065C22392A1E008B2D69 /* Line.swift */,
+				4B2C066022392A4B008B2D69 /* Typealiases.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4B2C06642239361E008B2D69 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4B2C066522393636008B2D69 /* QuartzCore */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4B2C066522393636008B2D69 /* QuartzCore */ = {
+			isa = PBXGroup;
+			children = (
+				4B2C06662239364B008B2D69 /* CATransaction+Animate.swift */,
+			);
+			path = QuartzCore;
 			sourceTree = "<group>";
 		};
 		4BA9598622368F20005609C6 /* Resources */ = {
@@ -458,11 +494,15 @@
 				4B2C065122391B1A008B2D69 /* Array+CGFloat.swift in Sources */,
 				4B2C064B22390A92008B2D69 /* SizeNormalizer.swift in Sources */,
 				4B2C064D22390B8D008B2D69 /* MinLengthNormalizer.swift in Sources */,
+				4B2C06672239364B008B2D69 /* CATransaction+Animate.swift in Sources */,
+				4B2C066322392AF1008B2D69 /* LineChartLayer.swift in Sources */,
 				4B2C064F22390BB8008B2D69 /* NormalizerFactory.swift in Sources */,
 				4B2C06562239201D008B2D69 /* Array+CGPoint.swift in Sources */,
 				4B27CBC12238040D00AF42BB /* Normalizer.swift in Sources */,
 				4B2C065422391C20008B2D69 /* LineLayer.swift in Sources */,
+				4B2C066122392A4B008B2D69 /* Typealiases.swift in Sources */,
 				4B27CBC22238040D00AF42BB /* ChartView.swift in Sources */,
+				4B2C065D22392A1E008B2D69 /* Line.swift in Sources */,
 				4B2C065A22392196008B2D69 /* zipInto.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
