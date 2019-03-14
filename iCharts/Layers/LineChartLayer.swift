@@ -9,14 +9,27 @@
 import Foundation
 
 final class LineChartLayer: CAShapeLayer {
-
+    
+    override init() {
+        super.init()
+        masksToBounds = true
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        masksToBounds = true
+    }
+    
     private var lineLayers: [LineLayer] {
         get { return (sublayers as? [LineLayer]) ?? [] }
         set { sublayers = newValue }
     }
     
     func render(props: Props) {
-        adjustNumberOfLayers(props: props)
+        CATransaction.performWithoutAnimation { _ in
+            frame = CGRect(origin: .zero, size: props.rectSize)
+            adjustNumberOfLayers(props: props)
+        }
         animate(props: props)
     }
     
@@ -24,23 +37,27 @@ final class LineChartLayer: CAShapeLayer {
         let layersCount = lineLayers.count
         let linesCount = props.lines.count
         
-        CATransaction.performWithoutAnimation { _ in
-            if layersCount < linesCount {
-                (0..<linesCount - layersCount).forEach { _ in
-                    let layer = LineLayer() // TODO: need to think
-                    layer.fillColor = UIColor.clear.cgColor
-                    lineLayers.append(layer)
-                }
-            } else if layersCount > linesCount {
-                lineLayers = Array(lineLayers.dropLast(layersCount - linesCount))
+        if layersCount < linesCount {
+            (0..<linesCount - layersCount).forEach { _ in
+                let layer = LineLayer()
+                layer.fillColor = UIColor.clear.cgColor
+                lineLayers.append(layer)
             }
+        } else if layersCount > linesCount {
+            lineLayers = Array(lineLayers.dropLast(layersCount - linesCount))
         }
     }
     
     private func animate(props: Props) {
-        CATransaction.animate(duration: 0.3) { _ in
-            props.lines.enumerated().forEach { index, line in
-                let lineProps = LineLayer.Props(line: line, renderMode: props.renderMode)
+        let normalizer = NormalizerFactory().makeNormalizer(kind: props.renderMode.normalizerKind)
+        
+        var chart = LinearChart(lines: props.lines)
+        chart = normalizer.normalize(chart: chart, rectSize: props.rectSize)
+        
+        CATransaction.animate(duration: 2) { _ in
+            chart.lines.enumerated().forEach { index, line in
+                let lineProps = LineLayer.Props(
+                    line: line)
                 lineLayers[index].render(props: lineProps)
             }
         }
@@ -48,10 +65,35 @@ final class LineChartLayer: CAShapeLayer {
 }
 
 extension LineChartLayer {
-    typealias RenderMode = LineLayer.Props.RenderMode
     
     struct Props {
         let lines: [Line]
         let renderMode: RenderMode
+        let rectSize: CGSize
+        
+        enum RenderMode {
+            case scaleToFill
+            case aspectFit
+        }
+    }
+}
+
+
+private extension LineChartLayer.Props.RenderMode {
+    
+    var normalizerKind: NormalizerFactory.Kind {
+        return .init(renderMode: self)
+    }
+}
+
+private extension NormalizerFactory.Kind {
+    
+    init(renderMode: LineChartLayer.Props.RenderMode) {
+        switch renderMode {
+        case .scaleToFill:
+            self = .size
+        case .aspectFit:
+            self = .minLength(1)
+        }
     }
 }

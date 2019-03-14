@@ -11,14 +11,14 @@ import CoreGraphics
 final class NormalizerFactory {
     
     enum Kind {
-        case size(CGSize)
+        case size
         case minLength(CGFloat)
     }
     
     func makeNormalizer(kind: Kind) -> Normalizer {
         switch kind {
-        case let .size(size):
-            return SizeNormalizer(size: size)
+        case .size:
+            return SizeNormalizer()
         case let .minLength(length):
             return MinLengthNormalizer(length: length)
         }

@@ -16,16 +16,16 @@ final class MinLengthNormalizer: Normalizer {
         self.length = length
     }
     
-    func unsafeNormalize(line: Line) -> Line {
-        let (xs, factor) = normalize(xs: line.points.xs)
+    func unsafeNormalize(line: Line, args: NormalizationArgs) -> Line {
+        let (xs, factor) = normalize(xs: line.points.xs, args: args)
         let ys = line.points.ys.factored(by: factor)
         
         return Line(xs: xs, ys: ys, color: line.color)
     }
     
-    private func normalize(xs: Vector) -> (xs: Vector, factor: CGFloat) {
-        let xs: Vector = normalize(xs: xs)
-        let factor = minDelta(in: xs) / length
+    private func normalize(xs: Vector, args: NormalizationArgs) -> (xs: Vector, factor: CGFloat) {
+        let xs: Vector = normalize(xs: xs, min: args.minPoint.x)
+        let factor = min(1, minDelta(in: xs) / length)
         return (xs.factored(by: factor), factor)
     }
     

@@ -8,25 +8,22 @@
 
 import CoreGraphics
 
+// TODO: rename as scaleToFill
 final class SizeNormalizer: Normalizer {
     
-    private let size: CGSize
-    
-    init(size: CGSize) {
-        self.size = size
-    }
-    
-    func unsafeNormalize(line: Line) -> Line {
-        let xs = normalize(xs: line.points.xs, width: size.width)
-        let ys = normalize(vector: line.points.ys, side: size.height).map { size.height - $0 }
+    func unsafeNormalize(line: Line, args: NormalizationArgs) -> Line {
+        let size = args.targetSize
+        let xs = normalize(xs: line.points.xs, args: args)
+        let ys = normalize(vector: line.points.ys, side: size.height, max: args.maxPoint.y)
+            .map { size.height - $0 }
         
         return Line(xs: xs, ys: ys, color: line.color)
     }
     
     /// Xmin = X0, X ~> X' = { x' in [0, width] }
-    private func normalize(xs: Vector, width: CGFloat) -> Vector {
-        let normalizedXS = normalize(xs: xs)
-        return normalize(vector: normalizedXS, side: width, max: normalizedXS.last)
+    private func normalize(xs: Vector, args: NormalizationArgs) -> Vector {
+        let normalizedXS = normalize(xs: xs, min: args.minPoint.x)
+        return normalize(vector: normalizedXS, side: args.targetSize.width, max: args.maxPoint.x)
     }
     
     /// A ~> A' = { a' in [0, s] }, a' = a / ((Amax - Amin) / side)

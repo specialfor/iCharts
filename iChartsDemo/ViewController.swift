@@ -107,8 +107,12 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             lines: [
                 .init(
                     xs: [1, 10, 50, 200],
-                    ys: [10, 30, 20, 60],
-                    color: .red)
+                    ys: [10, 30, 20, 100],
+                    color: .red),
+                .init(
+                    xs: [10, 30, 70, 150],
+                    ys: [40, 30, 20, 50],
+                    color: .black)
             ]))
     }
     

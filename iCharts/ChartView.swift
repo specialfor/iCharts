@@ -33,6 +33,7 @@ public final class ChartView: UIView {
         layer.addSublayer(lineChartLayer)
     }
     
+    
     // MARK: - UIView
     
     public override func layoutSublayers(of layer: CALayer) {
@@ -41,7 +42,8 @@ public final class ChartView: UIView {
         if let props = props {
             let lineChartProps = LineChartLayer.Props(
                 lines: props.chart.lines,
-                renderMode: .size(layer.bounds.size))
+                renderMode: .scaleToFill,
+                rectSize: layer.frame.size)
             
             lineChartLayer.render(props: lineChartProps)
         }
@@ -58,21 +60,10 @@ public final class ChartView: UIView {
 public extension ChartView {
     
     public struct Props {
-        public let chart: LinearChart
+        public var chart: LinearChart
         
         public init(chart: LinearChart) {
             self.chart = chart
-        }
-    }
-}
-
-public extension ChartView.Props {
-    
-    public struct LinearChart {
-        public var lines: [Line]
-        
-        public init(lines: [Line]) {
-            self.lines = lines
         }
     }
 }

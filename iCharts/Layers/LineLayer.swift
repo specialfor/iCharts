@@ -10,11 +10,8 @@
 final class LineLayer: CAShapeLayer {
 
     func render(props: Props, animated isAnimated: Bool = true) {
-        let normalizer = NormalizerFactory().makeNormalizer(kind: props.renderMode.normalizerKind)
-        let line = normalizer.normalize(line: props.line)
-
-        let path = makePath(using: line).cgPath
-        let strokeColor = line.color.cgColor
+        let path = makePath(using: props.line).cgPath
+        let strokeColor = props.line.color.cgColor
         
         if isAnimated {
             self.path = presentation()?.path
@@ -32,7 +29,6 @@ final class LineLayer: CAShapeLayer {
         let path = UIBezierPath()
         
         var points = line.points
-        
         let first = points.removeFirst()
         
         path.move(to: first)
@@ -64,30 +60,5 @@ extension LineLayer {
     
     struct Props {
         let line: Line
-        let renderMode: RenderMode
-        
-        enum RenderMode {
-            case size(CGSize)
-            case original
-        }
-    }
-}
-
-private extension LineLayer.Props.RenderMode {
-    
-    var normalizerKind: NormalizerFactory.Kind {
-        return .init(renderMode: self)
-    }
-}
-
-private extension NormalizerFactory.Kind {
-    
-    init(renderMode: LineLayer.Props.RenderMode) {
-        switch renderMode {
-        case let .size(size):
-            self = .size(size)
-        case .original:
-            self = .minLength(1)
-        }
     }
 }
