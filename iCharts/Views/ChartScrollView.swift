@@ -16,12 +16,13 @@ public final class ChartScrollView: View {
         let view = ChartView()
         
         addSubview(view)
-        
-        view.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        view.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        view.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-
-        view.translatesAutoresizingMaskIntoConstraints = false
+        view.makeCosntraints {
+            return [
+                view.topAnchor.constraint(equalTo: topAnchor),
+                view.leftAnchor.constraint(equalTo: leftAnchor),
+                view.rightAnchor.constraint(equalTo: rightAnchor)
+            ]
+        }
         
         return view
     }()
@@ -32,14 +33,15 @@ public final class ChartScrollView: View {
         view.backgroundColor = .white
         
         addSubview(view)
-
-        view.topAnchor.constraint(equalTo: chartView.bottomAnchor, constant: 8.0).isActive = true
-        view.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        view.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        view.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        view.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
-
-        view.translatesAutoresizingMaskIntoConstraints = false
+        view.makeCosntraints {
+            return [
+                view.topAnchor.constraint(equalTo: chartView.bottomAnchor, constant: 8.0),
+                view.leftAnchor.constraint(equalTo: leftAnchor),
+                view.rightAnchor.constraint(equalTo: rightAnchor),
+                view.bottomAnchor.constraint(equalTo: bottomAnchor),
+                view.heightAnchor.constraint(equalToConstant: 44.0)
+            ]
+        }
         
         return view
     }()
