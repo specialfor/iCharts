@@ -28,8 +28,8 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         return label
     }()
     
-    lazy var chartView: ChartView = {
-        let view = ChartView()
+    lazy var chartView: ChartScrollView = {
+        let view = ChartScrollView()
         
         view.backgroundColor = UIColor.gray.withAlphaComponent(0.6)
         
@@ -37,7 +37,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         view.snp.makeConstraints { make in
             make.top.equalTo(label).offset(32)
             make.left.right.equalTo(label)
-            make.height.equalTo(320)
+            make.height.equalTo(400)
         }
         
         //        scrollView.addSubview(view)
@@ -80,9 +80,9 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         view.backgroundColor = .white
         label.text = "Cheburek"
         
-        chartView.render(props: makeProps())
+//        chartView.render(props: makeProps())
         
-//        chartView.render(props: makeProps3())
+        chartView.render(props: makeProps3())
         
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(tap))
         chartView.addGestureRecognizer(recognizer)

@@ -37,7 +37,9 @@
 		4BA959912236ABCA005609C6 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA959902236ABCA005609C6 /* Result.swift */; };
 		4BFBEFCA223A775100F2DE99 /* LinearChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFBEFC9223A775100F2DE99 /* LinearChart.swift */; };
 		4BFBEFCD223A7EB900F2DE99 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFBEFCC223A7EB900F2DE99 /* UIColor+Hex.swift */; };
-		6EC00BA330C9951F9CA44013 /* libPods-iChartsDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F448F82F6DFB1D11C50445EF /* libPods-iChartsDemo.a */; };
+		4BFBEFD0223A848000F2DE99 /* ChartScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFBEFCF223A848000F2DE99 /* ChartScrollView.swift */; };
+		4BFBEFD2223A870400F2DE99 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFBEFD1223A870400F2DE99 /* View.swift */; };
+		8ACBB66384393924CD699A28 /* libPods-iChartsDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BDD602C63C8A0E16453A60D7 /* libPods-iChartsDemo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,9 +113,11 @@
 		4BA959902236ABCA005609C6 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		4BFBEFC9223A775100F2DE99 /* LinearChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearChart.swift; sourceTree = "<group>"; };
 		4BFBEFCC223A7EB900F2DE99 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
-		C5DC31BBD480C2705B3E0F46 /* Pods-iChartsDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChartsDemo.debug.xcconfig"; path = "Target Support Files/Pods-iChartsDemo/Pods-iChartsDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		F448F82F6DFB1D11C50445EF /* libPods-iChartsDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iChartsDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FFEA6AC4FEC595A5B2FAC9F2 /* Pods-iChartsDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChartsDemo.release.xcconfig"; path = "Target Support Files/Pods-iChartsDemo/Pods-iChartsDemo.release.xcconfig"; sourceTree = "<group>"; };
+		4BFBEFCF223A848000F2DE99 /* ChartScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartScrollView.swift; sourceTree = "<group>"; };
+		4BFBEFD1223A870400F2DE99 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		A5B5FA0D22ECEF59C3250DC5 /* Pods-iChartsDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChartsDemo.release.xcconfig"; path = "Target Support Files/Pods-iChartsDemo/Pods-iChartsDemo.release.xcconfig"; sourceTree = "<group>"; };
+		BDD602C63C8A0E16453A60D7 /* libPods-iChartsDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iChartsDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD2AE273275F51C53128D818 /* Pods-iChartsDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChartsDemo.debug.xcconfig"; path = "Target Support Files/Pods-iChartsDemo/Pods-iChartsDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,8 +125,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6EC00BA330C9951F9CA44013 /* libPods-iChartsDemo.a in Frameworks */,
 				4B27CBB62238040400AF42BB /* iCharts.framework in Frameworks */,
+				8ACBB66384393924CD699A28 /* libPods-iChartsDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,8 +156,8 @@
 				4B27CBA22238040300AF42BB /* iCharts */,
 				4B27CBAF2238040300AF42BB /* iChartsTests */,
 				4B195833223687C600C32C76 /* Products */,
-				8CB1113801BFCB334A79ED76 /* Frameworks */,
 				5F787D8EC4C6B4A0DAF03DFA /* Pods */,
+				FE05ADE0F5C492605E6B0C31 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -183,11 +187,11 @@
 		4B27CBA22238040300AF42BB /* iCharts */ = {
 			isa = PBXGroup;
 			children = (
+				4BFBEFCE223A846900F2DE99 /* Views */,
 				4B2C06642239361E008B2D69 /* Extensions */,
 				4B2C065B22392A16008B2D69 /* Models */,
 				4B2C065222391C13008B2D69 /* Layers */,
 				4B2C064922390A7C008B2D69 /* Normalizer */,
-				4B27CBC02238040D00AF42BB /* ChartView.swift */,
 				4B27CBA32238040300AF42BB /* iCharts.h */,
 				4B27CBA42238040300AF42BB /* Info.plist */,
 			);
@@ -304,19 +308,29 @@
 			path = UIKit;
 			sourceTree = "<group>";
 		};
+		4BFBEFCE223A846900F2DE99 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4BFBEFD1223A870400F2DE99 /* View.swift */,
+				4B27CBC02238040D00AF42BB /* ChartView.swift */,
+				4BFBEFCF223A848000F2DE99 /* ChartScrollView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		5F787D8EC4C6B4A0DAF03DFA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C5DC31BBD480C2705B3E0F46 /* Pods-iChartsDemo.debug.xcconfig */,
-				FFEA6AC4FEC595A5B2FAC9F2 /* Pods-iChartsDemo.release.xcconfig */,
+				CD2AE273275F51C53128D818 /* Pods-iChartsDemo.debug.xcconfig */,
+				A5B5FA0D22ECEF59C3250DC5 /* Pods-iChartsDemo.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		8CB1113801BFCB334A79ED76 /* Frameworks */ = {
+		FE05ADE0F5C492605E6B0C31 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F448F82F6DFB1D11C50445EF /* libPods-iChartsDemo.a */,
+				BDD602C63C8A0E16453A60D7 /* libPods-iChartsDemo.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -339,7 +353,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4B195844223687C700C32C76 /* Build configuration list for PBXNativeTarget "iChartsDemo" */;
 			buildPhases = (
-				0FE86BFF7DDCE14B94FF366F /* [CP] Check Pods Manifest.lock */,
+				0E6A3BDFE843CF22C6C42F43 /* [CP] Check Pods Manifest.lock */,
 				4B19582E223687C600C32C76 /* Sources */,
 				4B19582F223687C600C32C76 /* Frameworks */,
 				4B195830223687C600C32C76 /* Resources */,
@@ -463,7 +477,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0FE86BFF7DDCE14B94FF366F /* [CP] Check Pods Manifest.lock */ = {
+		0E6A3BDFE843CF22C6C42F43 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -508,6 +522,7 @@
 				4B2C065122391B1A008B2D69 /* Array+CGFloat.swift in Sources */,
 				4B2C064B22390A92008B2D69 /* SizeNormalizer.swift in Sources */,
 				4B2C064D22390B8D008B2D69 /* MinLengthNormalizer.swift in Sources */,
+				4BFBEFD0223A848000F2DE99 /* ChartScrollView.swift in Sources */,
 				4B2C06672239364B008B2D69 /* CATransaction+Animate.swift in Sources */,
 				4BFBEFCA223A775100F2DE99 /* LinearChart.swift in Sources */,
 				4B2C066322392AF1008B2D69 /* LineChartLayer.swift in Sources */,
@@ -517,6 +532,7 @@
 				4B27CBC12238040D00AF42BB /* Normalizer.swift in Sources */,
 				4B2C065422391C20008B2D69 /* LineLayer.swift in Sources */,
 				4B2C066122392A4B008B2D69 /* Typealiases.swift in Sources */,
+				4BFBEFD2223A870400F2DE99 /* View.swift in Sources */,
 				4B27CBC22238040D00AF42BB /* ChartView.swift in Sources */,
 				4B2C065D22392A1E008B2D69 /* Line.swift in Sources */,
 				4B2C065A22392196008B2D69 /* zipInto.swift in Sources */,
@@ -681,7 +697,7 @@
 		};
 		4B195845223687C700C32C76 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C5DC31BBD480C2705B3E0F46 /* Pods-iChartsDemo.debug.xcconfig */;
+			baseConfigurationReference = CD2AE273275F51C53128D818 /* Pods-iChartsDemo.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -702,7 +718,7 @@
 		};
 		4B195846223687C700C32C76 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FFEA6AC4FEC595A5B2FAC9F2 /* Pods-iChartsDemo.release.xcconfig */;
+			baseConfigurationReference = A5B5FA0D22ECEF59C3250DC5 /* Pods-iChartsDemo.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
