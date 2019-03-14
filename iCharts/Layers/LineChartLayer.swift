@@ -73,7 +73,7 @@ extension LineChartLayer {
         
         enum RenderMode {
             case scaleToFill
-            case aspectFit
+            case aspectFill
         }
     }
 }
@@ -92,7 +92,7 @@ private extension NormalizerFactory.Kind {
         switch renderMode {
         case .scaleToFill:
             self = .size
-        case .aspectFit:
+        case .aspectFill:
             self = .minLength(1)
         }
     }

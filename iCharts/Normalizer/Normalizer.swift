@@ -53,7 +53,7 @@ extension Normalizer {
     
     /// Xmin = X0, X ~> X' = { x' in [0, C] }
     func normalize(xs: Vector, min: CGFloat) -> Vector {
-        return xs.map { $0 / min - 1 }
+        return xs.map { $0 - min }
     }
 }
 

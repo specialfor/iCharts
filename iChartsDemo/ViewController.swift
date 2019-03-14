@@ -80,11 +80,10 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         view.backgroundColor = .white
         label.text = "Cheburek"
         
-        //        scrollView.isScrollEnabled = true
-        //        chartView.render(props: makeProps3())
-        
-        
         chartView.render(props: makeProps())
+        
+//        chartView.render(props: makeProps3())
+        
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(tap))
         chartView.addGestureRecognizer(recognizer)
         chartView.isUserInteractionEnabled = true
@@ -94,13 +93,17 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     
     @objc private func tap() {
         counter = (counter + 1) % 2
-        
+
         if counter == 0 {
             chartView.render(props: makeProps())
         } else {
             chartView.render(props: makeProps2())
         }
     }
+    
+//    @objc private func tap() {
+//        chartView.render(props: makeProps3())
+//    }
     
     private func makeProps() -> ChartView.Props {
         return .init(chart: .init(
@@ -133,14 +136,14 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     private func makeProps3() -> ChartView.Props {
         let dataset = parseDatasets()[0]
         
-        return .init(chart: .init(
-            lines: [
-                .init(
-                    xs: dataset.xs.dots,
-                    ys: dataset.charts[0].vector.dots,
-                    color: .orange
-                )
-            ]))
+        let lines = dataset.charts.map { chart in
+            return Line(
+                xs: dataset.xs.dots,
+                ys: chart.vector.dots,
+                color: UIColor(hexString: chart.color))
+        }
+        
+        return .init(chart: .init(lines: lines))
     }
     
     private func parseDatasets() -> [Dataset] {

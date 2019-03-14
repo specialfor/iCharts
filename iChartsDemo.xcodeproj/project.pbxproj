@@ -36,6 +36,7 @@
 		4BA9598F2236941D005609C6 /* DatasetJSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA9598C22369303005609C6 /* DatasetJSONParser.swift */; };
 		4BA959912236ABCA005609C6 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA959902236ABCA005609C6 /* Result.swift */; };
 		4BFBEFCA223A775100F2DE99 /* LinearChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFBEFC9223A775100F2DE99 /* LinearChart.swift */; };
+		4BFBEFCD223A7EB900F2DE99 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFBEFCC223A7EB900F2DE99 /* UIColor+Hex.swift */; };
 		6EC00BA330C9951F9CA44013 /* libPods-iChartsDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F448F82F6DFB1D11C50445EF /* libPods-iChartsDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -109,6 +110,7 @@
 		4BA9598C22369303005609C6 /* DatasetJSONParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatasetJSONParser.swift; sourceTree = "<group>"; };
 		4BA959902236ABCA005609C6 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		4BFBEFC9223A775100F2DE99 /* LinearChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearChart.swift; sourceTree = "<group>"; };
+		4BFBEFCC223A7EB900F2DE99 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		C5DC31BBD480C2705B3E0F46 /* Pods-iChartsDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChartsDemo.debug.xcconfig"; path = "Target Support Files/Pods-iChartsDemo/Pods-iChartsDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		F448F82F6DFB1D11C50445EF /* libPods-iChartsDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iChartsDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFEA6AC4FEC595A5B2FAC9F2 /* Pods-iChartsDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChartsDemo.release.xcconfig"; path = "Target Support Files/Pods-iChartsDemo/Pods-iChartsDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 		4B2C06642239361E008B2D69 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				4BFBEFCB223A7EAE00F2DE99 /* UIKit */,
 				4B2C066522393636008B2D69 /* QuartzCore */,
 			);
 			path = Extensions;
@@ -291,6 +294,14 @@
 				4BA959902236ABCA005609C6 /* Result.swift */,
 			);
 			path = DatasetJSONParser;
+			sourceTree = "<group>";
+		};
+		4BFBEFCB223A7EAE00F2DE99 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				4BFBEFCC223A7EB900F2DE99 /* UIColor+Hex.swift */,
+			);
+			path = UIKit;
 			sourceTree = "<group>";
 		};
 		5F787D8EC4C6B4A0DAF03DFA /* Pods */ = {
@@ -502,6 +513,7 @@
 				4B2C066322392AF1008B2D69 /* LineChartLayer.swift in Sources */,
 				4B2C064F22390BB8008B2D69 /* NormalizerFactory.swift in Sources */,
 				4B2C06562239201D008B2D69 /* Array+CGPoint.swift in Sources */,
+				4BFBEFCD223A7EB900F2DE99 /* UIColor+Hex.swift in Sources */,
 				4B27CBC12238040D00AF42BB /* Normalizer.swift in Sources */,
 				4B2C065422391C20008B2D69 /* LineLayer.swift in Sources */,
 				4B2C066122392A4B008B2D69 /* Typealiases.swift in Sources */,

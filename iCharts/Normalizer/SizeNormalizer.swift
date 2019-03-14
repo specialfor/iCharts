@@ -23,7 +23,8 @@ final class SizeNormalizer: Normalizer {
     /// Xmin = X0, X ~> X' = { x' in [0, width] }
     private func normalize(xs: Vector, args: NormalizationArgs) -> Vector {
         let normalizedXS = normalize(xs: xs, min: args.minPoint.x)
-        return normalize(vector: normalizedXS, side: args.targetSize.width, max: args.maxPoint.x)
+        let max = args.maxPoint.x - args.minPoint.x
+        return normalize(vector: normalizedXS, side: args.targetSize.width, max: max)
     }
     
     /// A ~> A' = { a' in [0, s] }, a' = a / ((Amax - Amin) / side)
