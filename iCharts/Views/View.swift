@@ -6,20 +6,18 @@
 //  Copyright © 2019 Volodymyr Hryhoriev. All rights reserved.
 //
 
-import Foundation
-
 public class View: UIView {
     
     var activateViews: [UIView] {
         return []
     }
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         baseSetup()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         baseSetup()
     }
