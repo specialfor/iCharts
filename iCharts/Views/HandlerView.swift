@@ -112,7 +112,7 @@ public final class HandlerView: View {
         let innerRect = self.innerRect(for: rect)
         
         let path = UIBezierPath(rect: innerRect)
-        let outerPath = UIBezierPath(roundedRect: rect, cornerRadius: 2)
+        let outerPath = UIBezierPath(roundedRect: rect, cornerRadius: 4)
         path.append(outerPath)
         path.usesEvenOddFillRule = true
         
