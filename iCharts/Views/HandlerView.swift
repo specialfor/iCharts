@@ -29,8 +29,8 @@ public final class HandlerView: View {
         }
     }
     
-    public var innerRect: CGRect {
-        return self.innerRect(for: bounds)
+    public var innerFrame: CGRect {
+        return self.innerRect(for: frame)
     }
     
     public override var intrinsicContentSize: CGSize {

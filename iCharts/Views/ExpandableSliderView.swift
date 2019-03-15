@@ -38,6 +38,7 @@ public final class ExpandableSliderView: UIControl {
         let view = UIView()
         
         view.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        view.clipsToBounds = true
         
         // TODO: copy paste
         addSubview(view)
@@ -88,6 +89,24 @@ public final class ExpandableSliderView: UIControl {
         [contentView, overlayView, handlerView].forEach { $0.isUserInteractionEnabled = false }
     }
     
+    
+    // MARK: - UIView
+    
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        overlayView.layer.mask = makeOverlayMask()
+    }
+    
+    private func makeOverlayMask() -> CALayer {
+        let path = UIBezierPath(rect: bounds)
+        path.append(UIBezierPath(rect: handlerView.innerFrame))
+        
+        let layer = CAShapeLayer()
+        layer.path = path.cgPath
+        layer.fillRule = .evenOdd
+        
+        return layer
+    }
     
     // MARK: - Handle tracking
     
