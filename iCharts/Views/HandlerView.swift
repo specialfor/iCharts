@@ -6,12 +6,32 @@
 //  Copyright © 2019 Volodymyr Hryhoriev. All rights reserved.
 //
 
+private let verticalInset: CGFloat = 1
+private let _horizontalInset: CGFloat = 10
+private let withoutArrowsHorizontalinset: CGFloat = 4
+private let arrowHorizontalInset: CGFloat = 3
+
+private let minimumTouchWidth: CGFloat = 22
+
 public final class HandlerView: View {
     
-    private let verticalInset: CGFloat = 2
-    private let horizontalInset: CGFloat = 10
-    private let arrowHorizontalInset: CGFloat = 3
     private let borderColor = UIColor(hexString: "#cad4de")
+    
+    public var shouldDrawArrows: Bool = true {
+        didSet { setNeedsDisplay() }
+    }
+    
+    private var horizontalInset: CGFloat {
+        if shouldDrawArrows {
+            return _horizontalInset
+        } else {
+            return withoutArrowsHorizontalinset
+        }
+    }
+    
+    public var innerRect: CGRect {
+        return self.innerRect(for: bounds)
+    }
     
     public override var intrinsicContentSize: CGSize {
         return CGSize(width: 64.0, height: 44.0)
@@ -29,7 +49,9 @@ public final class HandlerView: View {
         }
         
         drawBorder(in: rect, context: context)
-        drawArrows(in: rect, context: context)
+        if shouldDrawArrows {
+            drawArrows(in: rect, context: context)
+        }
     }
     
     private func drawBorder(in rect: CGRect, context: CGContext) {
@@ -87,35 +109,44 @@ public final class HandlerView: View {
     }
     
     private func border(for rect: CGRect) -> UIBezierPath {
-        let origin = rect.origin
-        let size = rect.size
-        
-        let innerRect = CGRect(x: origin.x + horizontalInset,
-                      y: origin.y + verticalInset,
-                      width: size.width - 2 * horizontalInset,
-                      height: size.height - 2 * verticalInset)
+        let innerRect = self.innerRect(for: rect)
         
         let path = UIBezierPath(rect: innerRect)
-        let outerPath = UIBezierPath(roundedRect: rect, cornerRadius: 4)
+        let outerPath = UIBezierPath(roundedRect: rect, cornerRadius: 2)
         path.append(outerPath)
         path.usesEvenOddFillRule = true
         
         return path
     }
     
+    private func innerRect(for rect: CGRect) -> CGRect {
+        let origin = rect.origin
+        let size = rect.size
+        
+        return CGRect(x: origin.x + horizontalInset,
+                               y: origin.y + verticalInset,
+                               width: size.width - 2 * horizontalInset,
+                               height: size.height - 2 * verticalInset)
+    }
+    
     
     // MARK: - Hit Test
     
     func touchPosition(point: CGPoint) -> TouchPosition {
-        let touchWidth = 2 * horizontalInset
-        let rightLimit = bounds.width - touchWidth
+        let touchWidth = minimumTouchWidth / 2
+        let horizontalInset = self.horizontalInset
+        
+        let leftStartBound = -(touchWidth - horizontalInset)
+        let leftEndBound = touchWidth + horizontalInset
+        let rightStartBound = bounds.width - leftEndBound
+        let rightEndBound = bounds.width - leftStartBound
         
         switch point.x {
-        case 0...touchWidth:
+        case leftStartBound...leftEndBound:
             return .left
-        case touchWidth...rightLimit:
+        case leftEndBound...rightStartBound:
             return .inside
-        case rightLimit...bounds.width:
+        case rightStartBound...rightEndBound:
             return .right
         default:
             return .outside

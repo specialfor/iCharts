@@ -8,7 +8,7 @@
 
 public final class ExpandableSliderView: UIControl {
     
-    private let minWidth: CGFloat = 64
+    private let minWidth: CGFloat = 100
     
     private var widthConstraint: NSLayoutConstraint!
     private var leadingConstraint: NSLayoutConstraint!
@@ -16,6 +16,8 @@ public final class ExpandableSliderView: UIControl {
     lazy var handlerView: HandlerView = {
         let view = HandlerView()
 
+        view.shouldDrawArrows = false
+        
         addSubview(view)
         view.makeCosntraints {
             widthConstraint = view.widthAnchor.constraint(equalToConstant: minWidth)
