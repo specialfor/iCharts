@@ -31,8 +31,6 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     lazy var chartView: ChartScrollView = {
         let view = ChartScrollView()
         
-        view.backgroundColor = UIColor.gray.withAlphaComponent(0.6)
-        
         self.view.addSubview(view)
         view.snp.makeConstraints { make in
             make.top.equalTo(label).offset(32)

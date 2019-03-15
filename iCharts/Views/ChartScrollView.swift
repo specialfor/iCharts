@@ -30,6 +30,8 @@ public final class ChartScrollView: View {
     lazy var sliderView: ExpandableSliderView = {
         let view = ExpandableSliderView()
         
+        view.addTarget(self, action: #selector(valueChanged(in:)), for: .valueChanged)
+        
         addSubview(view)
         view.makeCosntraints {
             return [
@@ -47,7 +49,7 @@ public final class ChartScrollView: View {
     lazy var sliderChartView: ChartView = {
         let view = ChartView()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .clear
         
         let superView = sliderView.contentView
         
@@ -65,10 +67,17 @@ public final class ChartScrollView: View {
     }()
     
     
-    // MARK: - View
+    // MARK: - Render
     
     public func render(props: ChartView.Props) {
         chartView.render(props: props)
         sliderChartView.render(props: props)
+    }
+    
+    
+    // MARK: - Actions
+    
+    @objc private func valueChanged(in sliderView: ExpandableSliderView) {
+        print("Slider State: \(sliderView.sliderState)")
     }
 }

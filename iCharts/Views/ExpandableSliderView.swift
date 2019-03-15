@@ -6,17 +6,70 @@
 //  Copyright © 2019 Volodymyr Hryhoriev. All rights reserved.
 //
 
+private let minWidth: CGFloat = 100
+
 public final class ExpandableSliderView: UIControl {
     
-    private let minWidth: CGFloat = 100
+    public var sliderState: SliderState {
+        return SliderState(position: position, startBound: startBound, endBound: endBound, visiblePart: visiblePart)
+    }
+    
+    public var visiblePart: CGFloat {
+        get { return _visiblePart }
+        set {} // TODO: adjust frame
+    }
+    private lazy var _visiblePart: CGFloat = {
+       return handlerWidth / bounds.width
+    }()
+    
+    public var position: CGFloat {
+        get { return _position }
+        set {} // TODO: adjust frame
+    }
+    private var _position: CGFloat = 0
+    
+    public var startBound: CGFloat {
+        return max(position - visiblePart / 2, 0)
+    }
+    
+    public var endBound: CGFloat {
+        return min(position + visiblePart / 2, 1)
+    }
     
     private var widthConstraint: NSLayoutConstraint!
     private var leadingConstraint: NSLayoutConstraint!
     
+    private var handlerWidth: CGFloat {
+        get { return widthConstraint.constant }
+        set {
+            widthConstraint.constant = newValue
+            set(value: newValue / bounds.width, keyPath: \ExpandableSliderView._visiblePart)
+        }
+    }
+    
+    private var leadingInset: CGFloat {
+        get { return leadingConstraint.constant }
+        set {
+            leadingConstraint.constant = newValue
+            set(value: newValue / (bounds.width - handlerWidth), keyPath: \ExpandableSliderView._position)
+        }
+    }
+    
+    private func set<T>(value: T,
+                        keyPath: ReferenceWritableKeyPath<ExpandableSliderView, T>,
+                        shouldNotify: Bool = true) {
+        
+        self[keyPath: keyPath] = value
+        if shouldNotify {
+            sendActions(for: .valueChanged)
+        }
+    }
+    
+    
+    // MARK: - Sublayers
+    
     lazy var handlerView: HandlerView = {
         let view = HandlerView()
-
-        view.shouldDrawArrows = false
         
         addSubview(view)
         view.makeCosntraints {
@@ -37,7 +90,7 @@ public final class ExpandableSliderView: UIControl {
     lazy var overlayView: UIView = {
         let view = UIView()
         
-        view.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        view.backgroundColor = UIColor(hexString: "#E0FFFF", alpha: 0.2)
         view.clipsToBounds = true
         
         // TODO: copy paste
@@ -138,30 +191,30 @@ public final class ExpandableSliderView: UIControl {
     
     private func moveHandler(to point: CGPoint) {
         let delta = point.x - previousPoint.x
-        leadingConstraint.constant = leadingInset(using: delta)
+        leadingInset = leadingInset(using: delta)
     }
     
     private func leadingInset(using delta: CGFloat) -> CGFloat {
-        let leadingInset = leadingConstraint.constant + delta
+        let leadingInset = self.leadingInset + delta
         let minBound: CGFloat = 0
-        let maxBound = bounds.width - widthConstraint.constant
+        let maxBound = bounds.width - handlerWidth
         return min(max(minBound, leadingInset), maxBound)
     }
     
     private func changeHandlerWidth(using point: CGPoint) {
         let isRightDirection = (point.x - previousPoint.x) > 0
         
-        if touchPosition == .left, isRightDirection, widthConstraint.constant == minWidth {
+        if touchPosition == .left, isRightDirection, handlerWidth == minWidth {
             return
         }
         
         let delta = self.delta(using: point)
         
         if touchPosition == .left {
-            leadingConstraint.constant = leadingInsetForLeftTouchPosition(using: -delta)
+            leadingInset = leadingInsetForLeftTouchPosition(using: -delta)
         }
         
-        widthConstraint.constant = self.width(using: delta)
+        handlerWidth = self.width(using: delta)
     }
     
     private func delta(using point: CGPoint) -> CGFloat {
@@ -184,7 +237,7 @@ public final class ExpandableSliderView: UIControl {
     }
     
     private func width(using delta: CGFloat) -> CGFloat {
-        let width = widthConstraint.constant + delta
+        let width = handlerWidth + delta
         let maxWidth = self.maxWidth(using: delta)
         return min(max(minWidth, width), maxWidth)
     }
@@ -192,11 +245,11 @@ public final class ExpandableSliderView: UIControl {
     private func maxWidth(using delta: CGFloat) -> CGFloat {
         let maxWidth = bounds.width
         
-        if leadingConstraint.constant > 0 {
-            return maxWidth - leadingConstraint.constant
+        if leadingInset > 0 {
+            return maxWidth - leadingInset
         } else if touchPosition == .left {
             if delta < 0 {
-                return widthConstraint.constant
+                return handlerWidth
             } else {
                 return handlerView.frame.maxX
             }
@@ -218,5 +271,23 @@ public final class ExpandableSliderView: UIControl {
     private func endTracking() {
         touchPosition = .outside
         previousPoint = nil
+    }
+}
+
+
+extension ExpandableSliderView {
+    
+    public struct SliderState {
+        public let position: CGFloat
+        public let startBound: CGFloat
+        public let endBound: CGFloat
+        public let visiblePart: CGFloat
+        
+        init(position: CGFloat, startBound: CGFloat, endBound: CGFloat, visiblePart: CGFloat) {
+            self.position = position
+            self.startBound = startBound
+            self.endBound = endBound
+            self.visiblePart = visiblePart
+        }
     }
 }
