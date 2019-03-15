@@ -13,8 +13,13 @@ public final class HandlerView: View {
     private let arrowHorizontalInset: CGFloat = 3
     private let borderColor = UIColor(hexString: "#cad4de")
     
+    public override var intrinsicContentSize: CGSize {
+        return CGSize(width: 64.0, height: 44.0)
+    }
+    
     override func baseSetup() {
         super.baseSetup()
+        contentMode = .redraw
         backgroundColor = .clear
     }
     
@@ -78,8 +83,6 @@ public final class HandlerView: View {
             path.addLine(to: CGPoint(x: rectWidth - maxX, y: maxY))
         }
         
-        print(path)
-    
         return path
     }
     
@@ -98,5 +101,38 @@ public final class HandlerView: View {
         path.usesEvenOddFillRule = true
         
         return path
+    }
+    
+    
+    // MARK: - Hit Test
+    
+    func touchPosition(point: CGPoint) -> TouchPosition {
+        let touchWidth = 2 * horizontalInset
+        let rightLimit = bounds.width - touchWidth
+        
+        switch point.x {
+        case 0...touchWidth:
+            return .left
+        case touchWidth...rightLimit:
+            return .inside
+        case rightLimit...bounds.width:
+            return .right
+        default:
+            return .outside
+        }
+    }
+}
+
+extension HandlerView {
+    
+    enum TouchPosition {
+        case left
+        case right
+        case inside
+        case outside
+        
+        static var expandablePositions: [TouchPosition] {
+            return [.left, .right]
+        }
     }
 }
