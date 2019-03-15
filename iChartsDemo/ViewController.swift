@@ -49,19 +49,6 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         return view
     }()
     
-    lazy var sliderView: ExpandableSliderView = {
-        let view = ExpandableSliderView()
-        
-        self.view.addSubview(view)
-        view.snp.makeConstraints { make in
-            make.top.equalTo(chartView.snp.bottom).offset(16.0)
-            make.left.right.equalTo(chartView)
-            make.height.equalTo(44.0)
-        }
-        
-        return view
-    }()
-    
     
     // MARK: - UIScrollViewDelegate
     
@@ -85,8 +72,6 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(tap))
         chartView.addGestureRecognizer(recognizer)
         chartView.isUserInteractionEnabled = true
-        
-        sliderView.isHidden = false
     }
     
     var counter = 0

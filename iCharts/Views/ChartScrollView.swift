@@ -9,7 +9,7 @@
 public final class ChartScrollView: View {
     
     override var activateViews: [UIView] {
-        return [sliderView]
+        return [sliderChartView]
     }
     
     lazy var chartView: ChartView = {
@@ -27,10 +27,8 @@ public final class ChartScrollView: View {
         return view
     }()
     
-    lazy var sliderView: ChartView = {
-        let view = ChartView()
-        
-        view.backgroundColor = .white
+    lazy var sliderView: ExpandableSliderView = {
+        let view = ExpandableSliderView()
         
         addSubview(view)
         view.makeCosntraints {
@@ -46,11 +44,31 @@ public final class ChartScrollView: View {
         return view
     }()
     
+    lazy var sliderChartView: ChartView = {
+        let view = ChartView()
+        
+        view.backgroundColor = .white
+        
+        let superView = sliderView.contentView
+        
+        superView.addSubview(view)
+        view.makeCosntraints {
+            return [
+                view.topAnchor.constraint(equalTo: superView.topAnchor),
+                view.leftAnchor.constraint(equalTo: superView.leftAnchor),
+                view.rightAnchor.constraint(equalTo: superView.rightAnchor),
+                view.bottomAnchor.constraint(equalTo: superView.bottomAnchor)
+            ]
+        }
+        
+        return view
+    }()
+    
     
     // MARK: - View
     
     public func render(props: ChartView.Props) {
         chartView.render(props: props)
-        sliderView.render(props: props)
+        sliderChartView.render(props: props)
     }
 }

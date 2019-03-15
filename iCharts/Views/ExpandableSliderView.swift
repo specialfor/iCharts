@@ -32,24 +32,6 @@ public final class ExpandableSliderView: UIControl {
         return view
     }()
     
-    lazy var contentView: UIView = {
-        let view = UIView()
-        
-        view.backgroundColor = .clear
-        
-        addSubview(view)
-        view.makeCosntraints {
-            return [
-                view.leadingAnchor.constraint(equalTo: leadingAnchor),
-                view.topAnchor.constraint(equalTo: topAnchor),
-                view.trailingAnchor.constraint(equalTo: trailingAnchor),
-                view.bottomAnchor.constraint(equalTo: bottomAnchor)
-            ]
-        }
-        
-        return view
-    }()
-    
     lazy var overlayView: UIView = {
         let view = UIView()
         
@@ -63,6 +45,24 @@ public final class ExpandableSliderView: UIControl {
                 view.topAnchor.constraint(equalTo: contentView.topAnchor),
                 view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
                 view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            ]
+        }
+        
+        return view
+    }()
+    
+    lazy var contentView: UIView = {
+        let view = UIView()
+        
+        view.backgroundColor = .clear
+        
+        addSubview(view)
+        view.makeCosntraints {
+            return [
+                view.leadingAnchor.constraint(equalTo: leadingAnchor),
+                view.topAnchor.constraint(equalTo: topAnchor),
+                view.trailingAnchor.constraint(equalTo: trailingAnchor),
+                view.bottomAnchor.constraint(equalTo: bottomAnchor)
             ]
         }
         
@@ -83,9 +83,7 @@ public final class ExpandableSliderView: UIControl {
     }
     
     func baseSetup() {
-        isEnabled = true
-        [overlayView, contentView, handlerView].forEach { $0.isUserInteractionEnabled = false }
-        isUserInteractionEnabled = true
+        [contentView, overlayView, handlerView].forEach { $0.isUserInteractionEnabled = false }
     }
     
     

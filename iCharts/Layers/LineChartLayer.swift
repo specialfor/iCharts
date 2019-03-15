@@ -15,6 +15,11 @@ final class LineChartLayer: CAShapeLayer {
         masksToBounds = true
     }
     
+    override init(layer: Any) {
+        super.init(layer: layer)
+        masksToBounds = true
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         masksToBounds = true
