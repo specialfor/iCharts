@@ -6,6 +6,10 @@
 //  Copyright © 2019 Volodymyr Hryhoriev. All rights reserved.
 //
 
+import Utils
+
+private var dispatchQueue = DispatchQueue(label: "normalizer-queue", qos: .userInteractive)
+
 struct NormalizationArgs {
     let minPoint: CGPoint
     let maxPoint: CGPoint
@@ -27,6 +31,26 @@ extension Normalizer {
         
         chart.lines = chart.lines.map { normalize(line: $0, args: args) }
         return chart
+    }
+    
+    func normalize(chart: LinearChart, rectSize: CGSize, completion: @escaping (Result<LinearChart>) -> Void) {
+        
+        dispatchQueue.async {
+            guard let args = self.makeNormalizationArgs(for: chart, rectSize: rectSize) else {
+                DispatchQueue.main.async {
+                    completion(.failure(nil))
+                }
+                return
+            }
+            
+            let newLines = chart.lines.map { self.normalize(line: $0, args: args) }
+            
+            let chart = LinearChart(lines: newLines)
+            
+            DispatchQueue.main.async {
+                completion(.success(chart))
+            }
+        }
     }
     
     private func makeNormalizationArgs(for chart: LinearChart, rectSize: CGSize) -> NormalizationArgs? {

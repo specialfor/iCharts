@@ -58,14 +58,14 @@ public final class ChartView: UIView {
     public func render(props: Props) {
         self.props = props
         
-//        dispatchQueue.async { [weak self] in
-//            guard let self = self else { return }
+        dispatchQueue.async { [weak self] in
+            guard let self = self else { return }
             let chart = self.adjustedChart(from: props)
             
-//            DispatchQueue.main.async {
+            DispatchQueue.main.async {
                 self.adjustedChart = chart
-//            }
-//        }
+            }
+        }
     }
     
     private func adjustedChart(from props: Props) -> LinearChart {

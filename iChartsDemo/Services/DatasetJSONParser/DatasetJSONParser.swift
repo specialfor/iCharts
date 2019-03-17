@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreGraphics
+import Utils
 
 final class DatasetJSONParser {
     typealias Completion = (Result<[Dataset]>) -> Void

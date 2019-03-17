@@ -62,18 +62,29 @@ final class LineChartLayer: CAShapeLayer {
     private func animate(props: Props) {
         let normalizer = NormalizerFactory().makeNormalizer(kind: props.renderMode.normalizerKind)
         
-        var chart = LinearChart(lines: props.lines)
-        chart = normalizer.normalize(chart: chart, rectSize: props.rectSize)
-        
-//        CATransaction.animate(duration: 0.3) { _ in
-            chart.lines.enumerated().forEach { index, line in
-                let lineProps = LineLayer.Props(
-//                    line: line)
-                    line: line,
-                    isAnimated: false)
-                lineLayers[index].render(props: lineProps)
+        let chart = LinearChart(lines: props.lines)
+        normalizer.normalize(chart: chart, rectSize: props.rectSize) { [weak self] result in
+            let newChart: LinearChart
+            if let value = result.value {
+                newChart = value
+            } else {
+                newChart = chart
             }
-//        }
+            
+            self?.renderLines(chart: newChart)
+        }
+    }
+    
+    private func renderLines(chart: LinearChart) {
+        //        CATransaction.animate(duration: 0.3) { _ in
+        chart.lines.enumerated().forEach { index, line in
+            let lineProps = LineLayer.Props(
+                //                    line: line)
+                line: line,
+                isAnimated: false)
+            lineLayers[index].render(props: lineProps)
+        }
+        //        }
     }
 }
 

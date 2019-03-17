@@ -6,11 +6,11 @@
 //  Copyright © 2019 Volodymyr Hryhoriev. All rights reserved.
 //
 
-enum Result<Value> {
+public enum Result<Value> {
     case success(Value)
     case failure(Error?)
     
-    var isSuccess: Bool {
+    public var isSuccess: Bool {
         switch self {
         case .success:
             return true
@@ -19,11 +19,11 @@ enum Result<Value> {
         }
     }
     
-    var isFailure: Bool {
+    public var isFailure: Bool {
         return !isSuccess
     }
     
-    var error: Error? {
+    public var error: Error? {
         switch self {
         case .success:
             return nil
@@ -32,7 +32,7 @@ enum Result<Value> {
         }
     }
     
-    var value: Value? {
+    public var value: Value? {
         switch self {
         case let .success(value):
             return value
