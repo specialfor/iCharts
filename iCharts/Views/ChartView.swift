@@ -43,6 +43,7 @@ public final class ChartView: UIView {
         if let chart = adjustedChart {
             let lineChartProps = LineChartLayer.Props(
                 lines: chart.lines,
+                lineWidth: props?.lineWidth ?? 1, // TODO: ...
                 renderMode: .scaleToFill,
                 rectSize: layer.frame.size)
             
@@ -109,10 +110,12 @@ extension ChartView {
     
     public struct Props {
         public var chart: LinearChart
+        public var lineWidth: CGFloat
         public var range: Range?
         
-        public init(chart: LinearChart, range: Range? = nil) {
+        public init(chart: LinearChart, lineWidth: CGFloat = 1, range: Range? = nil) {
             self.chart = chart
+            self.lineWidth = lineWidth
             self.range = range
         }
     }

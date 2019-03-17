@@ -16,28 +16,11 @@ final class LineChartLayer: CAShapeLayer {
     }
     
     
-    // MARK: - Init
-    
-    override init() {
-        super.init()
-        masksToBounds = true
-    }
-    
-    override init(layer: Any) {
-        super.init(layer: layer)
-        masksToBounds = true
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        masksToBounds = true
-    }
-    
-    
     // MARK: - Render
     
     func render(props: Props) {
         CATransaction.performWithoutAnimation { _ in
+            masksToBounds = true
             frame = CGRect(origin: .zero, size: props.rectSize)
             adjustNumberOfLayers(props: props)
         }
@@ -71,16 +54,17 @@ final class LineChartLayer: CAShapeLayer {
                 newChart = chart
             }
             
-            self?.renderLines(chart: newChart)
+            self?.renderLines(chart: newChart, lineWidth: props.lineWidth)
         }
     }
     
-    private func renderLines(chart: LinearChart) {
+    private func renderLines(chart: LinearChart, lineWidth: CGFloat) {
         //        CATransaction.animate(duration: 0.3) { _ in
         chart.lines.enumerated().forEach { index, line in
             let lineProps = LineLayer.Props(
                 //                    line: line)
                 line: line,
+                lineWidth: lineWidth,
                 isAnimated: false)
             lineLayers[index].render(props: lineProps)
         }
@@ -92,6 +76,7 @@ extension LineChartLayer {
     
     struct Props {
         let lines: [Line]
+        let lineWidth: CGFloat
         let renderMode: RenderMode
         let rectSize: CGSize
         

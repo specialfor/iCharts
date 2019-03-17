@@ -8,20 +8,23 @@
 
 
 final class LineLayer: CAShapeLayer {
-
+    
     func render(props: Props) {
         let path = makePath(using: props.line).cgPath
         let strokeColor = props.line.color.cgColor
+        let lineWidth = props.lineWidth
         
         if props.isAnimated {
             self.path = presentation()?.path
             self.strokeColor = presentation()?.strokeColor
+            self.lineWidth = presentation()?.lineWidth ?? 1
             
-            let animation = makeAnimation(path: path, strokeColor: strokeColor)
+            let animation = makeAnimation(path: path, strokeColor: strokeColor, lineWidth: lineWidth)
             add(animation, forKey: "animation")
         } else {
             self.path = path
             self.strokeColor = strokeColor
+            self.lineWidth = lineWidth
         }
     }
     
@@ -37,7 +40,7 @@ final class LineLayer: CAShapeLayer {
         return path
     }
     
-    private func makeAnimation(path: CGPath, strokeColor: CGColor) -> CAAnimation {
+    private func makeAnimation(path: CGPath, strokeColor: CGColor, lineWidth: CGFloat) -> CAAnimation {
         let group = CAAnimationGroup()
         
         let pathAnimation = CABasicAnimation(keyPath: "path")
@@ -50,7 +53,12 @@ final class LineLayer: CAShapeLayer {
         strokeColorAnimation.toValue = strokeColor
         self.strokeColor = strokeColor
         
-        group.animations = [pathAnimation, strokeColorAnimation]
+        let lineWidthAnimation = CABasicAnimation(keyPath: "lineWidth")
+        lineWidthAnimation.fromValue = self.lineWidth
+        lineWidthAnimation.toValue = lineWidth
+        self.lineWidth = lineWidth
+        
+        group.animations = [pathAnimation, strokeColorAnimation, lineWidthAnimation]
         
         return group
     }
@@ -60,10 +68,12 @@ extension LineLayer {
     
     struct Props {
         let line: Line
+        let lineWidth: CGFloat
         let isAnimated: Bool
         
-        init(line: Line, isAnimated: Bool = true) {
+        init(line: Line, lineWidth: CGFloat, isAnimated: Bool = true) {
             self.line = line
+            self.lineWidth = lineWidth
             self.isAnimated = isAnimated
         }
     }

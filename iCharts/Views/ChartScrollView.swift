@@ -109,6 +109,7 @@ public final class ChartScrollView: View {
         let sliderState = sliderView.sliderState
         return ChartView.Props(
             chart: props.chart,
+            lineWidth: 2, // TODO: need to create Props for `ChartScrollView`.
             range: .percents(from: sliderState.startBound, to: sliderState.endBound))
     }
 }
