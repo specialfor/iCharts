@@ -10,6 +10,14 @@ import Foundation
 
 final class LineChartLayer: CAShapeLayer {
     
+    private var lineLayers: [LineLayer] {
+        get { return (sublayers as? [LineLayer]) ?? [] }
+        set { sublayers = newValue }
+    }
+    
+    
+    // MARK: - Init
+    
     override init() {
         super.init()
         masksToBounds = true
@@ -25,10 +33,8 @@ final class LineChartLayer: CAShapeLayer {
         masksToBounds = true
     }
     
-    private var lineLayers: [LineLayer] {
-        get { return (sublayers as? [LineLayer]) ?? [] }
-        set { sublayers = newValue }
-    }
+    
+    // MARK: - Render
     
     func render(props: Props) {
         CATransaction.performWithoutAnimation { _ in
@@ -59,13 +65,15 @@ final class LineChartLayer: CAShapeLayer {
         var chart = LinearChart(lines: props.lines)
         chart = normalizer.normalize(chart: chart, rectSize: props.rectSize)
         
-        CATransaction.animate(duration: 2) { _ in
+//        CATransaction.animate(duration: 0.3) { _ in
             chart.lines.enumerated().forEach { index, line in
                 let lineProps = LineLayer.Props(
-                    line: line)
+//                    line: line)
+                    line: line,
+                    isAnimated: false)
                 lineLayers[index].render(props: lineProps)
             }
-        }
+//        }
     }
 }
 

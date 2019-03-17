@@ -12,6 +12,12 @@ public final class ChartScrollView: View {
         return [sliderChartView]
     }
     
+    private var props: ChartView.Props? {
+        didSet { setNeedsLayout() }
+    }
+    
+    // MARK: - Subviews
+    
     lazy var chartView: ChartView = {
         let view = ChartView()
         
@@ -67,17 +73,42 @@ public final class ChartScrollView: View {
     }()
     
     
+    // MARK: - UIView
+    
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        render()
+    }
+    
+    
     // MARK: - Render
     
     public func render(props: ChartView.Props) {
-        chartView.render(props: props)
-        sliderChartView.render(props: props)
+        self.props = props
     }
     
     
     // MARK: - Actions
     
     @objc private func valueChanged(in sliderView: ExpandableSliderView) {
-        print("Slider State: \(sliderView.sliderState)")
+        render()
+    }
+    
+    private func render() {
+        guard let props = self.props else {
+            return
+        }
+        
+        let rangedProps = makeRangedProps(props: props)
+        chartView.render(props: rangedProps)
+        
+        sliderChartView.render(props: props)
+    }
+    
+    private func makeRangedProps(props: ChartView.Props) -> ChartView.Props {
+        let sliderState = sliderView.sliderState
+        return ChartView.Props(
+            chart: props.chart,
+            range: .percents(from: sliderState.startBound, to: sliderState.endBound))
     }
 }

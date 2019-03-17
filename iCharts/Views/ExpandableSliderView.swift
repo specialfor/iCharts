@@ -51,7 +51,11 @@ public final class ExpandableSliderView: UIControl {
         get { return leadingConstraint.constant }
         set {
             leadingConstraint.constant = newValue
-            set(value: newValue / (bounds.width - handlerWidth), keyPath: \ExpandableSliderView._position)
+
+            let deltaWidth = bounds.width - handlerWidth
+            let value = deltaWidth == 0 ? 0 : newValue / deltaWidth
+
+            set(value: value, keyPath: \ExpandableSliderView._position)
         }
     }
     

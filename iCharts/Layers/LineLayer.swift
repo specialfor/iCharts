@@ -9,11 +9,11 @@
 
 final class LineLayer: CAShapeLayer {
 
-    func render(props: Props, animated isAnimated: Bool = true) {
+    func render(props: Props) {
         let path = makePath(using: props.line).cgPath
         let strokeColor = props.line.color.cgColor
         
-        if isAnimated {
+        if props.isAnimated {
             self.path = presentation()?.path
             self.strokeColor = presentation()?.strokeColor
             
@@ -60,5 +60,11 @@ extension LineLayer {
     
     struct Props {
         let line: Line
+        let isAnimated: Bool
+        
+        init(line: Line, isAnimated: Bool = true) {
+            self.line = line
+            self.isAnimated = isAnimated
+        }
     }
 }

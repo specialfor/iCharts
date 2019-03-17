@@ -61,6 +61,8 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        
+        chartView.isHidden = false
         label.text = "Cheburek"
         
 //        chartView.render(props: makeProps())
@@ -75,13 +77,13 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     var counter = 0
     
     @objc private func tap() {
-        counter = (counter + 1) % 2
-
-        if counter == 0 {
-            chartView.render(props: makeProps())
-        } else {
-            chartView.render(props: makeProps2())
-        }
+//        counter = (counter + 1) % 2
+//
+//        if counter == 0 {
+//            chartView.render(props: makeProps())
+//        } else {
+//            chartView.render(props: makeProps4())
+//        }
     }
     
 //    @objc private func tap() {
@@ -117,7 +119,8 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     }
     
     private func makeProps3() -> ChartView.Props {
-        let dataset = parseDatasets()[0]
+//        let dataset = parseDatasets()[0]
+        let dataset = parseDatasets()[4]
         
         let lines = dataset.charts.map { chart in
             return Line(
@@ -127,6 +130,20 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         }
         
         return .init(chart: .init(lines: lines))
+    }
+    
+    private func makeProps4() -> ChartView.Props {
+        return .init(chart: .init(
+            lines: [
+                .init(
+                    xs: [1, 10, 50, 200, 210, 240, 250],
+                    ys: [10, 30, 20, 100, 110, 90, 100],
+                    color: .red),
+                .init(
+                    xs: [10, 30, 70, 150],
+                    ys: [40, 30, 20, 50],
+                    color: .black)
+            ]))
     }
     
     private func parseDatasets() -> [Dataset] {
