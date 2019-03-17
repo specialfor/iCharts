@@ -29,11 +29,11 @@ public final class ExpandableSliderView: UIControl {
     private var _position: CGFloat = 0
     
     public var startBound: CGFloat {
-        return max(position - visiblePart / 2, 0)
+        return leadingInset / bounds.width
     }
     
     public var endBound: CGFloat {
-        return min(position + visiblePart / 2, 1)
+        return (leadingInset + handlerWidth) / bounds.width
     }
     
     private var widthConstraint: NSLayoutConstraint!
