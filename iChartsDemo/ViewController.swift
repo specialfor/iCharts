@@ -39,15 +39,20 @@ final class ViewController: UIViewController, UIScrollViewDelegate {
         
         return label
     }()
-    
-    lazy var chartView: ChartScrollView = {
-        let view = ChartScrollView()
+
+    lazy var chartView: DetailedChartView = {
+        let view = DetailedChartView()
         
         self.view.addSubview(view)
         view.snp.makeConstraints { make in
             make.top.equalTo(label).offset(32)
             make.left.right.equalTo(label)
-            make.height.equalTo(400)
+            
+            if #available(iOS 11.0, *) {
+                make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-16.0)
+            } else {
+                make.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-16.0)
+            }
         }
         
         return view

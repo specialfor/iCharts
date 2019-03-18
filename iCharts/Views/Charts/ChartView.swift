@@ -39,8 +39,8 @@ public final class ChartView: UIView {
     
     // MARK: - UIView
     
-    public override func layoutSublayers(of layer: CALayer) {
-        super.layoutSublayers(of: layer)
+    public override func layoutSubviews() {
+        super.layoutSubviews()
         
         guard let props = props else { return }
         

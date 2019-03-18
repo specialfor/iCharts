@@ -92,7 +92,6 @@ public final class ChartScrollView: View {
     // MARK: - Actions
     
     @objc private func valueChanged(in sliderView: ExpandableSliderView) {
-        print("State: \(sliderView.sliderState)")
         render()
     }
     
