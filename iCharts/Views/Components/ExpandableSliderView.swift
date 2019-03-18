@@ -94,18 +94,11 @@ public final class ExpandableSliderView: UIControl {
     lazy var overlayView: UIView = {
         let view = UIView()
         
-        view.backgroundColor = UIColor(hexString: "#E0FFFF", alpha: 0.2)
+        view.backgroundColor = UIColor(hexString: "#f6f8fa", alpha: 0.5)
         view.clipsToBounds = true
         
-        // TODO: copy paste
-        addSubview(view)
-        view.makeCosntraints {
-            return [
-                view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                view.topAnchor.constraint(equalTo: contentView.topAnchor),
-                view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-                view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-            ]
+        addSubview(view) { superview in
+            return view.edgesConstraints(to: superview)
         }
         
         return view
@@ -116,14 +109,8 @@ public final class ExpandableSliderView: UIControl {
         
         view.backgroundColor = .clear
         
-        addSubview(view)
-        view.makeCosntraints {
-            return [
-                view.leadingAnchor.constraint(equalTo: leadingAnchor),
-                view.topAnchor.constraint(equalTo: topAnchor),
-                view.trailingAnchor.constraint(equalTo: trailingAnchor),
-                view.bottomAnchor.constraint(equalTo: bottomAnchor)
-            ]
+        addSubview(view) { superview in
+            return view.edgesConstraints(to: superview)
         }
         
         return view

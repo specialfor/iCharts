@@ -52,13 +52,13 @@ final class ViewController: UIViewController, UIScrollViewDelegate {
     lazy var label: UILabel = {
         let label = UILabel()
         
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.font = UIFont.preferredFont(forTextStyle: .body)
         label.textColor = UIColor(hexString: "#6d6d72")
         label.text = "FOLLOWERS"
         
         contentView.addSubview(label)
         label.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(32)
+            make.top.equalToSuperview().offset(28)
             make.left.right.equalToSuperview().inset(16)
         }
         
@@ -72,12 +72,31 @@ final class ViewController: UIViewController, UIScrollViewDelegate {
         
         contentView.addSubview(view)
         view.snp.makeConstraints { make in
-            make.top.equalTo(label).offset(32)
+            make.top.equalTo(label.snp.bottom).offset(8)
             make.left.right.equalToSuperview()
-            make.bottom.equalToSuperview()
         }
         
         return view
+    }()
+    
+    lazy var themeButton: UIButton = {
+        let button = UIButton(type: .system)
+        
+        button.backgroundColor = .white
+        button.setTitle("Switch to Night Mode", for: .normal)
+        
+        button.addTarget(self, action: #selector(changeTheme), for: .touchUpInside)
+        
+        contentView.addSubview(button)
+        button.snp.makeConstraints { make in
+            make.height.equalTo(44.0)
+            
+            make.top.equalTo(chartView.snp.bottom).offset(36.0)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(-36.0)
+        }
+        
+        return button
     }()
     
     
@@ -87,7 +106,7 @@ final class ViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor(hexString: "##efeff4")
-        chartView.isHidden = false
+        themeButton.isHidden = false
         
         let props = makeProps()
         chartView.render(props: props)
@@ -102,6 +121,13 @@ final class ViewController: UIViewController, UIScrollViewDelegate {
                 color: UIColor(hexString: chart.color))
         }
         return .init(chart: .init(lines: lines))
+    }
+    
+    
+    // MARK - Actions
+    
+    @objc private func changeTheme() {
+        // TODO: need to implement
     }
 }
 
