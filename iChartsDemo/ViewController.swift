@@ -10,7 +10,19 @@ import UIKit
 import SnapKit
 import iCharts
 
-class ViewController: UIViewController, UIScrollViewDelegate {
+final class ViewController: UIViewController, UIScrollViewDelegate {
+    
+    let dataset: Dataset
+    
+    init(dataset: Dataset) {
+        self.dataset = dataset
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     // MARK: - Subviews
     
@@ -38,21 +50,8 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             make.height.equalTo(400)
         }
         
-        //        scrollView.addSubview(view)
-        //        view.snp.makeConstraints { make in
-        //            make.width.height.equalToSuperview()
-        //            make.edges.equalToSuperview()
-        //        }
-        
         return view
     }()
-    
-    
-    // MARK: - UIScrollViewDelegate
-    
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return chartView
-    }
     
     
     // MARK: - UIViewController
@@ -62,102 +61,20 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         
         view.backgroundColor = .white
         
-        chartView.isHidden = false
         label.text = "Cheburek"
         
-//        chartView.render(props: makeProps())
-        
-        chartView.render(props: makeProps3())
-        
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(tap))
-        chartView.addGestureRecognizer(recognizer)
-        chartView.isUserInteractionEnabled = true
+        let props = makeProps()
+        chartView.render(props: props)
     }
-    
-    var counter = 0
-    
-    @objc private func tap() {
-//        counter = (counter + 1) % 2
-//
-//        if counter == 0 {
-//            chartView.render(props: makeProps())
-//        } else {
-//            chartView.render(props: makeProps4())
-//        }
-    }
-    
-//    @objc private func tap() {
-//        chartView.render(props: makeProps3())
-//    }
     
     private func makeProps() -> ChartView.Props {
-        return .init(chart: .init(
-            lines: [
-                .init(
-                    xs: [1, 10, 50, 200],
-                    ys: [10, 30, 20, 100],
-                    color: .red),
-                .init(
-                    xs: [10, 30, 70, 150],
-                    ys: [40, 30, 20, 50],
-                    color: .black)
-            ]))
-    }
-    
-    private func makeProps2() -> ChartView.Props {
-        return .init(chart: .init(
-            lines: [
-                .init(
-                    xs: [1, 10, 50, 70, 80, 110, 120, 200],
-                    ys: [10, 50, 90, 80, 70, 60, 50, 30],
-                    color: .blue),
-                .init(
-                    xs: [1, 10, 50, 70, 80, 110, 120, 200],
-                    ys: [1, 10, 50, 70, 80, 110, 120, 200],
-                    color: .green)
-            ]))
-    }
-    
-    private func makeProps3() -> ChartView.Props {
-//        let dataset = parseDatasets()[0]
-        let dataset = parseDatasets()[4]
-        
         let lines = dataset.charts.map { chart in
             return Line(
                 xs: dataset.xs.dots,
                 ys: chart.vector.dots,
                 color: UIColor(hexString: chart.color))
         }
-        
         return .init(chart: .init(lines: lines))
-    }
-    
-    private func makeProps4() -> ChartView.Props {
-        return .init(chart: .init(
-            lines: [
-                .init(
-                    xs: [1, 10, 50, 200, 210, 240, 250],
-                    ys: [10, 30, 20, 100, 110, 90, 100],
-                    color: .red),
-                .init(
-                    xs: [10, 30, 70, 150],
-                    ys: [40, 30, 20, 50],
-                    color: .black)
-            ]))
-    }
-    
-    private func parseDatasets() -> [Dataset] {
-        guard let filePath = Bundle.main.path(forResource: "chart_data", ofType: "json") else {
-            return []
-        }
-        
-        do {
-            let datasets = try DatasetJSONParser().parse(from: filePath)
-            return datasets
-        } catch {
-            print(error)
-            return []
-        }
     }
 }
 
