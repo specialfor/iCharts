@@ -44,7 +44,8 @@ final class AppCoordinator {
             let viewController = ViewController(dataset: dataset)
             viewController.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: index)
             viewController.tabBarItem = UITabBarItem(title: nil, image: icons[index], tag: index)
-            return viewController
+            viewController.title = "Statistics"
+            return UINavigationController(rootViewController: viewController)
         }
     }
 }

@@ -58,7 +58,7 @@ final class ViewController: UIViewController, UIScrollViewDelegate {
         
         contentView.addSubview(label)
         label.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(60)
+            make.top.equalToSuperview().offset(32)
             make.left.right.equalToSuperview().inset(16)
         }
         

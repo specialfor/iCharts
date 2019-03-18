@@ -31,7 +31,7 @@ public final class DetailedChartView: View {
         let view = ChartScrollView()
 
         addSubview(view) { superview in
-            var constraints = view.horizontalInsets(to: superview)
+            var constraints = view.horizontalInsets(to: superview, inset: 16)
             constraints.append(view.topAnchor.constraint(equalTo: superview.topAnchor))
             constraints.append(view.heightAnchor.constraint(equalToConstant: 400))
             return constraints
