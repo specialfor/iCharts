@@ -6,7 +6,7 @@
 //  Copyright © 2019 Volodymyr Hryhoriev. All rights reserved.
 //
 
-import Foundation
+import Utils
 
 final class LineChartLayer: CAShapeLayer {
     
@@ -59,16 +59,20 @@ final class LineChartLayer: CAShapeLayer {
     }
     
     private func renderLines(chart: LinearChart, lineWidth: CGFloat) {
-        //        CATransaction.animate(duration: 0.3) { _ in
-        chart.lines.enumerated().forEach { index, line in
-            let lineProps = LineLayer.Props(
-                //                    line: line)
-                line: line,
-                lineWidth: lineWidth,
-                isAnimated: false)
-            lineLayers[index].render(props: lineProps)
+        CATransaction.animate(duration: 0) { transaction in
+//            let function = CAMediaTimingFunction(name: .linear)
+//            transaction.setAnimationTimingFunction(function)
+            
+            chart.lines.enumerated().forEach { index, line in
+                let lineProps = LineLayer.Props(
+                    line: line,
+                    lineWidth: lineWidth)
+//                                line: line,
+//                                lineWidth: lineWidth,
+//                                isAnimated: false)
+                lineLayers[index].render(props: lineProps)
+            }
         }
-        //        }
     }
 }
 

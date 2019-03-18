@@ -7,14 +7,15 @@
 //
 
 import UIKit
+import Utils
 
 public final class ChartView: UIView {
     
-    private var props: Props?
-    private var adjustedChart: LinearChart? {
+    private var props: Props? {
         didSet { setNeedsLayout() }
     }
     
+    private let gridLayer = GridLayer()
     private let lineChartLayer = LineChartLayer()
     
 
@@ -31,6 +32,7 @@ public final class ChartView: UIView {
     }
     
     private func baseInit() {
+        layer.addSublayer(gridLayer)
         layer.addSublayer(lineChartLayer)
     }
     
@@ -40,15 +42,31 @@ public final class ChartView: UIView {
     public override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
         
-        if let chart = adjustedChart {
-            let lineChartProps = LineChartLayer.Props(
-                lines: chart.lines,
-                lineWidth: props?.lineWidth ?? 1, // TODO: ...
-                renderMode: .scaleToFill,
-                rectSize: layer.frame.size)
-            
-            lineChartLayer.render(props: lineChartProps)
+        guard let props = props else { return }
+        
+        renderGridLayer(props: props)
+        renderLineChartLayer(props: props)
+    }
+    
+    private func renderGridLayer(props: Props) {
+        let lines = props.estimatedGridSpace.map { space in
+            return GridLayer.Props.Lines(
+                color: UIColor(hexString: "#efeff4").cgColor,
+                count: Int(frame.size.height) / space)
         }
+        
+        let gridProps = GridLayer.Props(lines: lines, rectSize: frame.size)
+        gridLayer.render(props: gridProps)
+    }
+    
+    private func renderLineChartLayer(props: Props) {
+        let lineChartProps = LineChartLayer.Props(
+            lines: props.chart.lines,
+            lineWidth: props.lineWidth,
+            renderMode: .scaleToFill,
+            rectSize: frame.size)
+        
+        lineChartLayer.render(props: lineChartProps)
     }
     
     
@@ -57,14 +75,16 @@ public final class ChartView: UIView {
     private var dispatchQueue = DispatchQueue.init(label: "cheburek", qos: .userInteractive)
     
     public func render(props: Props) {
-        self.props = props
-        
         dispatchQueue.async { [weak self] in
             guard let self = self else { return }
+            
             let chart = self.adjustedChart(from: props)
             
-            DispatchQueue.main.async {
-                self.adjustedChart = chart
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                
+                self.props = props
+                self.props?.chart = chart
             }
         }
     }
@@ -111,11 +131,13 @@ extension ChartView {
     public struct Props {
         public var chart: LinearChart
         public var lineWidth: CGFloat
+        public var estimatedGridSpace: Int?
         public var range: Range?
         
-        public init(chart: LinearChart, lineWidth: CGFloat = 1, range: Range? = nil) {
+        public init(chart: LinearChart, lineWidth: CGFloat = 1, estimatedGridSpace: Int? = nil, range: Range? = nil) {
             self.chart = chart
             self.lineWidth = lineWidth
+            self.estimatedGridSpace = estimatedGridSpace
             self.range = range
         }
     }

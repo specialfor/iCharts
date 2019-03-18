@@ -112,6 +112,12 @@ public final class ChartScrollView: View {
         return ChartView.Props(
             chart: props.chart,
             lineWidth: 2, // TODO: need to create Props for `ChartScrollView`.
+            estimatedGridSpace: 50,
             range: .percents(from: sliderState.startBound, to: sliderState.endBound))
     }
 }
+
+//extension Props {
+//
+//
+//}
