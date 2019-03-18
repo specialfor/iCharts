@@ -96,16 +96,7 @@ public final class ChartView: UIView {
             return chart
         }
         
-        chart.lines = chart.lines.map { line in
-            let points = line.points.reduce(into: Points()) { result, point in
-                if (start...end).contains(point.x) {
-                    result.append(point)
-                }
-            }
-            
-            return Line(points: points, color: line.color)
-        }
-
+        chart.lines = chart.lines.map { transform(line: $0, start: start, end: end) }
         return chart
     }
     
@@ -123,6 +114,38 @@ public final class ChartView: UIView {
         case let .xs(from, to):
             return (from, to)
         }
+    }
+    
+    private func transform(line: Line, start: CGFloat, end: CGFloat) -> Line {
+        let points = line.points
+        
+        guard let from = points.firstIndex(where: { $0.x > start }),
+            let to = points.lastIndex(where: { $0.x < end }) else {
+                return line
+        }
+        
+        var newPoints = Points()
+        if from > 0 {
+            newPoints.append(interpolate(from: points[from - 1], to: points[from], x: start))
+        }
+        
+        newPoints.append(contentsOf: Array(points[from...to]))
+        
+        let lastIndex = points.count - 1
+        if to < lastIndex - 1 {
+            newPoints.append(interpolate(from: points[to], to: points[to + 1], x: end))
+        }
+        
+        return Line(points: newPoints, color: line.color)
+    }
+    
+    private func interpolate(from: CGPoint, to: CGPoint, x: CGFloat) -> CGPoint {
+        let delta = to.x - from.x
+        let factor = (x - from.x) / delta
+        
+        let y = from.y * (1 - factor) + to.y * factor
+        
+        return CGPoint(x: x, y: y)
     }
 }
 
