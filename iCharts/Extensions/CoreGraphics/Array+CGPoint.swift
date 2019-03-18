@@ -6,7 +6,7 @@
 //  Copyright © 2019 Volodymyr Hryhoriev. All rights reserved.
 //
 
-import Foundation
+import CoreGraphics
 
 extension Array where Element == CGPoint {
     

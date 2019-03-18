@@ -281,10 +281,6 @@
 				4B2C064A22390A92008B2D69 /* SizeNormalizer.swift */,
 				4B2C064C22390B8D008B2D69 /* MinLengthNormalizer.swift */,
 				4B2C064E22390BB8008B2D69 /* NormalizerFactory.swift */,
-				4B2C065022391B1A008B2D69 /* Array+CGFloat.swift */,
-				4B2C06552239201D008B2D69 /* Array+CGPoint.swift */,
-				4B2C06572239202C008B2D69 /* Array+Values.swift */,
-				4B2C065922392196008B2D69 /* zipInto.swift */,
 			);
 			path = Normalizer;
 			sourceTree = "<group>";
@@ -312,6 +308,8 @@
 		4B2C06642239361E008B2D69 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				4B96E279223FA717000953C3 /* Swift Standard Library */,
+				4B96E278223FA70A000953C3 /* CoreGraphics */,
 				4BFBEFCB223A7EAE00F2DE99 /* UIKit */,
 				4B2C066522393636008B2D69 /* QuartzCore */,
 			);
@@ -333,6 +331,24 @@
 				4B96E274223F8E90000953C3 /* Segment.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		4B96E278223FA70A000953C3 /* CoreGraphics */ = {
+			isa = PBXGroup;
+			children = (
+				4B2C065022391B1A008B2D69 /* Array+CGFloat.swift */,
+				4B2C06552239201D008B2D69 /* Array+CGPoint.swift */,
+			);
+			path = CoreGraphics;
+			sourceTree = "<group>";
+		};
+		4B96E279223FA717000953C3 /* Swift Standard Library */ = {
+			isa = PBXGroup;
+			children = (
+				4B2C06572239202C008B2D69 /* Array+Values.swift */,
+				4B2C065922392196008B2D69 /* zipInto.swift */,
+			);
+			path = "Swift Standard Library";
 			sourceTree = "<group>";
 		};
 		4BA9598622368F20005609C6 /* Resources */ = {
