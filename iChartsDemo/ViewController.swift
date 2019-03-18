@@ -26,12 +26,37 @@ final class ViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Subviews
     
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        return scrollView
+    }()
+    
+    lazy var contentView: UIView = {
+        let view = UIView()
+        
+        scrollView.addSubview(view)
+        view.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+            make.width.equalTo(self.view)
+        }
+        
+        return view
+    }()
+    
     lazy var label: UILabel = {
         let label = UILabel()
         
-        label.font = UIFont.preferredFont(forTextStyle: .title1)
+        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.textColor = UIColor(hexString: "#6d6d72")
+        label.text = "FOLLOWERS"
         
-        view.addSubview(label)
+        contentView.addSubview(label)
         label.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(60)
             make.left.right.equalToSuperview().inset(16)
@@ -43,16 +68,13 @@ final class ViewController: UIViewController, UIScrollViewDelegate {
     lazy var chartView: DetailedChartView = {
         let view = DetailedChartView()
         
-        self.view.addSubview(view)
+        view.backgroundColor = .white
+        
+        contentView.addSubview(view)
         view.snp.makeConstraints { make in
             make.top.equalTo(label).offset(32)
-            make.left.right.equalTo(label)
-            
-            if #available(iOS 11.0, *) {
-                make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-16.0)
-            } else {
-                make.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-16.0)
-            }
+            make.left.right.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
         
         return view
@@ -64,9 +86,8 @@ final class ViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
-        
-        label.text = "Cheburek"
+        view.backgroundColor = UIColor(hexString: "##efeff4")
+        chartView.isHidden = false
         
         let props = makeProps()
         chartView.render(props: props)
@@ -75,6 +96,7 @@ final class ViewController: UIViewController, UIScrollViewDelegate {
     private func makeProps() -> ChartView.Props {
         let lines = dataset.charts.map { chart in
             return Line(
+                title: chart.name,
                 xs: dataset.xs.dots,
                 ys: chart.vector.dots,
                 color: UIColor(hexString: chart.color))

@@ -20,7 +20,7 @@ final class MinLengthNormalizer: Normalizer {
         let (xs, factor) = normalize(xs: line.points.xs, args: args)
         let ys = line.points.ys.factored(by: factor)
         
-        return Line(xs: xs, ys: ys, color: line.color)
+        return Line(title: line.title, xs: xs, ys: ys, color: line.color)
     }
     
     private func normalize(xs: Vector, args: NormalizationArgs) -> (xs: Vector, factor: CGFloat) {

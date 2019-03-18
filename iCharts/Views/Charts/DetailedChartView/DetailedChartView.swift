@@ -27,33 +27,10 @@ public final class DetailedChartView: View {
     
     // MARK: - Subviews
     
-    private lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-
-        addSubview(scrollView) { superview in
-            return scrollView.edgesConstraints(to: superview)
-        }
-
-        return scrollView
-    }()
-    
-    private lazy var contentView: UIView = {
-        let view = UIView()
-
-        scrollView.addSubview(view) { superview in
-            var constraints = view.edgesConstraints(to: superview)
-            constraints.append(view.centerXAnchor.constraint(equalTo: superview.centerXAnchor, constant: 0))
-            constraints.append(view.widthAnchor.constraint(equalTo: widthAnchor))
-            return constraints
-        }
-
-        return view
-    }()
-    
     private lazy var chartView: ChartScrollView = {
         let view = ChartScrollView()
 
-        contentView.addSubview(view) { superview in
+        addSubview(view) { superview in
             var constraints = view.horizontalInsets(to: superview)
             constraints.append(view.topAnchor.constraint(equalTo: superview.topAnchor))
             constraints.append(view.heightAnchor.constraint(equalToConstant: 400))
@@ -77,7 +54,7 @@ public final class DetailedChartView: View {
         tableView.dataSource = datasource
         tableView.delegate = delegate
         
-        contentView.addSubview(tableView) { superview in
+        addSubview(tableView) { superview in
             var constraints = tableView.horizontalInsets(to: superview)
             constraints.append(tableView.topAnchor.constraint(equalTo: chartView.bottomAnchor, constant: 16))
             constraints.append(tableView.bottomAnchor.constraint(equalTo: superview.bottomAnchor))
@@ -103,7 +80,7 @@ public final class DetailedChartView: View {
     public func render(props: ChartView.Props) {
         self.props = props
         cellProps = props.chart.lines.map { CellProps(
-            title: "kek",
+            title: $0.title,
             color: $0.color,
             isChecked: true) }
         setNeedsLayout()

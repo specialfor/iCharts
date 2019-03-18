@@ -147,7 +147,7 @@ public final class ChartView: UIView {
             newPoints.append(interpolate(from: points[to], to: points[to + 1], x: end))
         }
         
-        return Line(points: newPoints, color: line.color)
+        return Line(title: line.title, points: newPoints, color: line.color)
     }
     
     private func interpolate(from: CGPoint, to: CGPoint, x: CGFloat) -> CGPoint {

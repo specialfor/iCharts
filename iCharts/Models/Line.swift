@@ -9,16 +9,19 @@
 import UIKit.UIColor
 
 public struct Line {
+    let title: String
     let points: Points
     let color: UIColor
     
-    public init(points: Points, color: UIColor) {
+    public init(title: String, points: Points, color: UIColor) {
+        self.title = title
         self.points = points
         self.color = color
     }
     
-    public init(xs: [CGFloat], ys: [CGFloat], color: UIColor) {
+    public init(title: String, xs: [CGFloat], ys: [CGFloat], color: UIColor) {
         self.init(
+            title: title,
             points: zipToPoints(xs, ys),
             color: color)
     }

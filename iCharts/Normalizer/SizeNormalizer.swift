@@ -17,7 +17,7 @@ final class SizeNormalizer: Normalizer {
         let ys = normalize(vector: line.points.ys, side: size.height, max: args.maxPoint.y)
             .map { size.height - $0 }
         
-        return Line(xs: xs, ys: ys, color: line.color)
+        return Line(title: line.title, xs: xs, ys: ys, color: line.color)
     }
     
     /// Xmin = X0, X ~> X' = { x' in [0, width] }
