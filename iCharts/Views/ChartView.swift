@@ -75,6 +75,16 @@ public final class ChartView: UIView {
     private var dispatchQueue = DispatchQueue.init(label: "cheburek", qos: .userInteractive)
     
     public func render(props: Props) {
+        renderSync(props: props)
+    }
+    
+    private func renderSync(props: Props) {
+        var props = props
+        props.chart = adjustedChart(from: props)
+        self.props = props
+    }
+    
+    private func renderAsync(props: Props) {
         dispatchQueue.async { [weak self] in
             guard let self = self else { return }
             
@@ -83,8 +93,9 @@ public final class ChartView: UIView {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 
+                var props = props
+                props.chart = chart
                 self.props = props
-                self.props?.chart = chart
             }
         }
     }

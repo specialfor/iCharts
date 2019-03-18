@@ -44,7 +44,16 @@ final class LineChartLayer: CAShapeLayer {
     
     private func animate(props: Props) {
         let normalizer = NormalizerFactory().makeNormalizer(kind: props.renderMode.normalizerKind)
+        animateSync(using: normalizer, props: props)
+    }
+    
+    private func animateSync(using normalizer: Normalizer, props: Props) {
+        let chart = normalizer.normalize(chart: LinearChart(lines: props.lines), rectSize: props.rectSize)
         
+        renderLines(chart: chart, lineWidth: props.lineWidth)
+    }
+    
+    private func animateAsync(using normalizer: Normalizer, props: Props) {
         let chart = LinearChart(lines: props.lines)
         normalizer.normalize(chart: chart, rectSize: props.rectSize) { [weak self] result in
             let newChart: LinearChart
