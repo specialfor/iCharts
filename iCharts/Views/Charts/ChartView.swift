@@ -17,6 +17,7 @@ public final class ChartView: UIView {
     
     private let gridLayer = GridLayer()
     private let lineChartLayer = LineChartLayer()
+    private let yLabelsLayer = YLabelsLayer()
     
 
     // MARK: - Init
@@ -34,6 +35,7 @@ public final class ChartView: UIView {
     private func baseInit() {
         layer.addSublayer(gridLayer)
         layer.addSublayer(lineChartLayer)
+        layer.addSublayer(yLabelsLayer)
     }
     
     
@@ -44,32 +46,30 @@ public final class ChartView: UIView {
         
         guard let props = props else { return }
         
-        renderGridLayer(props: props) // TODO: move to separate layer drawing of y labels
+        renderGridLayer(props: props)
         renderLineChartLayer(props: props)
+        renderYLabelsLayer(props: props)
     }
     
     private func renderGridLayer(props: Props) {
-        let maxY = props.lines.compactMap { $0.points.ys.max() }.max()
-        let lines = props.estimatedGridSpace.map { space in
-            return GridLayer.Props.Lines(
-                yLabels: makeYValues(maxY: maxY, space: space),
-                lineColor: UIColor(hexString: "#efeff4").cgColor,
-                textColor: UIColor(hexString: "#989ea3").cgColor)
-        }
-        
-        let gridProps = GridLayer.Props(lines: lines, rectSize: frame.size)
+        let points = makePointsForHorizontalLines(props: props)
+        let gridProps = GridLayer.Props(
+            points: points,
+            lineColor: UIColor(hexString: "#efeff4").cgColor,
+            rectSize: frame.size)
         gridLayer.render(props: gridProps)
     }
     
-    private func makeYValues(maxY: CGFloat?, space: Int) -> [String] {
-        guard let maxY = maxY else { return [] }
+    private func makePointsForHorizontalLines(props: Props) -> Points {
+        guard let space = props.estimatedGridSpace else {
+            return Points()
+        }
         
         let count = Int(frame.size.height) / space
-        let step = Int(maxY) / count
         
-        return (0..<count).map { index in
-            return "\(index * step)"
-        }.reversed()
+        return (1...count).map { index in
+            CGPoint(x: 0, y: index * space)
+        }
     }
     
     private func renderLineChartLayer(props: Props) {
@@ -80,6 +80,33 @@ public final class ChartView: UIView {
             rectSize: frame.size)
         
         lineChartLayer.render(props: lineChartProps)
+    }
+    
+    private func renderYLabelsLayer(props: Props) {
+        let labels = makeLabels(props: props)
+        let yLabelsProps = YLabelsLayer.Props(
+            labels: labels,
+            textColor: UIColor(hexString: "#989ea3").cgColor,
+            rectSize: frame.size)
+        yLabelsLayer.render(props: yLabelsProps)
+    }
+    
+    private func makeLabels(props: Props) -> [YLabelsLayer.Props.Label] {
+        guard let maxY = props.lines.compactMap({ $0.points.ys.max() }).max(), let space = props.estimatedGridSpace else {
+            return []
+        }
+        
+        let count = Int(frame.size.height) / space
+        let step = Int(maxY) / count
+        
+        let points = makePointsForHorizontalLines(props: props)
+        let values = (0..<count).map { index in
+            return "\(index * step)"
+        }.reversed()
+        
+        return zip(points, values) { point, value in
+            return YLabelsLayer.Props.Label(point: point, value: value)
+        }
     }
     
     
