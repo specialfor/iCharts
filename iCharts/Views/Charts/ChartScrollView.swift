@@ -107,16 +107,13 @@ public final class ChartScrollView: View {
     }
     
     private func makeRangedProps(props: ChartView.Props) -> ChartView.Props {
+        var props = props
+        props.lineWidth = 2
+        props.estimatedGridSpace = 50
+        
         let sliderState = sliderView.sliderState
-        return ChartView.Props(
-            chart: props.chart,
-            lineWidth: 2, // TODO: need to create Props for `ChartScrollView`.
-            estimatedGridSpace: 50,
-            range: .percents(from: sliderState.startBound, to: sliderState.endBound))
+        props.range = .percents(from: sliderState.startBound, to: sliderState.endBound)
+        
+        return props
     }
 }
-
-//extension Props {
-//
-//
-//}

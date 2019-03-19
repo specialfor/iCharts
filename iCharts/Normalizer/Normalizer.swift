@@ -22,42 +22,37 @@ protocol Normalizer {
 
 extension Normalizer {
     
-    func normalize(chart: LinearChart, rectSize: CGSize) -> LinearChart {
-        var chart = chart
-        
-        guard let args = makeNormalizationArgs(for: chart, rectSize: rectSize) else {
-            return chart
+    func normalize(lines: [Line], rectSize: CGSize) -> [Line] {
+        guard let args = makeNormalizationArgs(using: lines, rectSize: rectSize) else {
+            return lines
         }
         
-        chart.lines = chart.lines.map { normalize(line: $0, args: args) }
-        return chart
+        return lines.map { normalize(line: $0, args: args) }
     }
     
-    func normalize(chart: LinearChart, rectSize: CGSize, completion: @escaping (Result<LinearChart>) -> Void) {
+    func normalize(lines: [Line], rectSize: CGSize, completion: @escaping (Result<[Line]>) -> Void) {
         
         dispatchQueue.async {
-            guard let args = self.makeNormalizationArgs(for: chart, rectSize: rectSize) else {
+            guard let args = self.makeNormalizationArgs(using: lines, rectSize: rectSize) else {
                 DispatchQueue.main.async {
                     completion(.failure(nil))
                 }
                 return
             }
             
-            let newLines = chart.lines.map { self.normalize(line: $0, args: args) }
-            
-            let chart = LinearChart(lines: newLines)
+            let newLines = lines.map { self.normalize(line: $0, args: args) }
             
             DispatchQueue.main.async {
-                completion(.success(chart))
+                completion(.success(newLines))
             }
         }
     }
     
-    private func makeNormalizationArgs(for chart: LinearChart, rectSize: CGSize) -> NormalizationArgs? {
-        guard let minX = chart.lines.compactMap({ $0.points.first?.x }).min(),
-            let maxX = chart.lines.compactMap({ $0.points.last?.x }).max(),
-            let minY = chart.lines.compactMap({ $0.points.ys.min() }).min(),
-            let maxY = chart.lines.compactMap({ $0.points.ys.max() }).max() else {
+    private func makeNormalizationArgs(using lines: [Line], rectSize: CGSize) -> NormalizationArgs? {
+        guard let minX = lines.compactMap({ $0.points.first?.x }).min(),
+            let maxX = lines.compactMap({ $0.points.last?.x }).max(),
+            let minY = lines.compactMap({ $0.points.ys.min() }).min(),
+            let maxY = lines.compactMap({ $0.points.ys.max() }).max() else {
                 return nil
         }
         

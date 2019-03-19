@@ -120,7 +120,7 @@ final class ViewController: UIViewController, UIScrollViewDelegate {
                 ys: chart.vector.dots,
                 color: UIColor(hexString: chart.color))
         }
-        return .init(chart: .init(lines: lines))
+        return .init(lines: lines)
     }
     
     

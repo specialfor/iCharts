@@ -61,7 +61,7 @@ public final class ChartView: UIView {
     
     private func renderLineChartLayer(props: Props) {
         let lineChartProps = LineChartLayer.Props(
-            lines: props.chart.lines,
+            lines: props.lines,
             lineWidth: props.lineWidth,
             renderMode: .scaleToFill,
             rectSize: frame.size)
@@ -80,7 +80,7 @@ public final class ChartView: UIView {
     
     private func renderSync(props: Props) {
         var props = props
-        props.chart = adjustedChart(from: props)
+        props.lines = adjustedLines(from: props)
         self.props = props
     }
     
@@ -88,34 +88,32 @@ public final class ChartView: UIView {
         dispatchQueue.async { [weak self] in
             guard let self = self else { return }
             
-            let chart = self.adjustedChart(from: props)
+            let lines = self.adjustedLines(from: props)
             
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 
                 var props = props
-                props.chart = chart
+                props.lines = lines
                 self.props = props
             }
         }
     }
     
-    private func adjustedChart(from props: Props) -> LinearChart {
-        var chart = props.chart
-        
-        guard let range = props.range, let (start, end) = points(chart: chart, range: range) else {
-            return chart
+    private func adjustedLines(from props: Props) -> [Line] {
+        let lines = props.lines
+        guard let range = props.range, let (start, end) = points(lines: lines, range: range) else {
+            return lines
         }
         
-        chart.lines = chart.lines.map { transform(line: $0, start: start, end: end) }
-        return chart
+        return lines.map { transform(line: $0, start: start, end: end) }
     }
     
-    private func points(chart: LinearChart, range: Props.Range) -> (start: CGFloat, end: CGFloat)? {
+    private func points(lines: [Line], range: Props.Range) -> (start: CGFloat, end: CGFloat)? {
         switch range {
         case let .percents(from, to):
-            guard let minX = chart.lines.compactMap({ $0.points.xs.min() }).min(),
-                let maxX = chart.lines.compactMap({ $0.points.xs.max() }).max() else {
+            guard let minX = lines.compactMap({ $0.points.xs.min() }).min(),
+                let maxX = lines.compactMap({ $0.points.xs.max() }).max() else {
                     return nil
             }
             
@@ -147,7 +145,9 @@ public final class ChartView: UIView {
             newPoints.append(interpolate(from: points[to], to: points[to + 1], x: end))
         }
         
-        return Line(title: line.title, points: newPoints, color: line.color)
+        var line = line
+        line.points = newPoints
+        return line
     }
     
     private func interpolate(from: CGPoint, to: CGPoint, x: CGFloat) -> CGPoint {
@@ -163,13 +163,13 @@ public final class ChartView: UIView {
 extension ChartView {
     
     public struct Props {
-        public var chart: LinearChart
+        public var lines: [Line]
         public var lineWidth: CGFloat
         public var estimatedGridSpace: Int?
         public var range: Range?
         
-        public init(chart: LinearChart, lineWidth: CGFloat = 1, estimatedGridSpace: Int? = nil, range: Range? = nil) {
-            self.chart = chart
+        public init(lines: [Line], lineWidth: CGFloat = 1, estimatedGridSpace: Int? = nil, range: Range? = nil) {
+            self.lines = lines
             self.lineWidth = lineWidth
             self.estimatedGridSpace = estimatedGridSpace
             self.range = range

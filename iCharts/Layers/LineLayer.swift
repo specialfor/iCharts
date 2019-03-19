@@ -11,7 +11,8 @@ final class LineLayer: CAShapeLayer {
     
     func render(props: Props) {
         let path = makePath(using: props.line).cgPath
-        let strokeColor = props.line.color.cgColor
+        
+        let strokeColor = props.line.isHidden ? UIColor.clear.cgColor : props.line.color.cgColor
         let lineWidth = props.lineWidth
         
         if props.isAnimated {

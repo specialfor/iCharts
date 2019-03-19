@@ -22,7 +22,11 @@ public final class DetailedChartView: View {
             delegate.props = cellProps
         }
     }
-    private var props: ChartView.Props?
+    private var props: ChartView.Props? {
+        didSet { setNeedsLayout() }
+    }
+    
+    private var originalProps: ChartView.Props?
     
     
     // MARK: - Subviews
@@ -54,6 +58,8 @@ public final class DetailedChartView: View {
         tableView.dataSource = datasource
         tableView.delegate = delegate
         
+        delegate.didCellSelected = didCellSelected(at:)
+        
         addSubview(tableView) { superview in
             var constraints = tableView.horizontalInsets(to: superview)
             constraints.append(tableView.topAnchor.constraint(equalTo: chartView.bottomAnchor, constant: 16))
@@ -63,6 +69,11 @@ public final class DetailedChartView: View {
         
         return tableView
     }()
+    
+    private func didCellSelected(at indexPath: IndexPath) {
+        let index = indexPath.row
+        props?.lines[index].isHidden = !cellProps[index].isChecked.value
+    }
     
     
     // MARK: - UIView
@@ -78,11 +89,11 @@ public final class DetailedChartView: View {
     // MARK: - Render
     
     public func render(props: ChartView.Props) {
-        self.props = props
-        cellProps = props.chart.lines.map { CellProps(
+        originalProps = props
+        cellProps = props.lines.map { CellProps(
             title: $0.title,
             color: $0.color,
             isChecked: true) }
-        setNeedsLayout()
+        self.props = props
     }
 }

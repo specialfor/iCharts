@@ -48,35 +48,31 @@ final class LineChartLayer: CAShapeLayer {
     }
     
     private func animateSync(using normalizer: Normalizer, props: Props) {
-        let chart = normalizer.normalize(chart: LinearChart(lines: props.lines), rectSize: props.rectSize)
+        let lines = normalizer.normalize(lines: props.lines, rectSize: props.rectSize)
         
-        renderLines(chart: chart, lineWidth: props.lineWidth)
+        renderLines(lines: lines, lineWidth: props.lineWidth)
     }
     
     private func animateAsync(using normalizer: Normalizer, props: Props) {
-        let chart = LinearChart(lines: props.lines)
-        normalizer.normalize(chart: chart, rectSize: props.rectSize) { [weak self] result in
-            let newChart: LinearChart
+        var lines = props.lines
+        normalizer.normalize(lines: lines, rectSize: props.rectSize) { [weak self] result in
             if let value = result.value {
-                newChart = value
-            } else {
-                newChart = chart
+                lines = value
             }
-            
-            self?.renderLines(chart: newChart, lineWidth: props.lineWidth)
+            self?.renderLines(lines: lines, lineWidth: props.lineWidth)
         }
     }
     
-    private func renderLines(chart: LinearChart, lineWidth: CGFloat) {
+    private func renderLines(lines: [Line], lineWidth: CGFloat) {
         CATransaction.animate(duration: 0) { transaction in
 //            let function = CAMediaTimingFunction(name: .linear)
 //            transaction.setAnimationTimingFunction(function)
             
-            chart.lines.enumerated().forEach { index, line in
+            lines.enumerated().forEach { index, line in
                 let lineProps = LineLayer.Props(
                     line: line,
                     lineWidth: lineWidth)
-//                                line: line,
+//                                line: lineProps.line,
 //                                lineWidth: lineWidth,
 //                                isAnimated: false)
                 lineLayers[index].render(props: lineProps)
@@ -99,7 +95,6 @@ extension LineChartLayer {
         }
     }
 }
-
 
 private extension LineChartLayer.Props.RenderMode {
     

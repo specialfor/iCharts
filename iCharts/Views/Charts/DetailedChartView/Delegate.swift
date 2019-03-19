@@ -12,6 +12,8 @@ extension DetailedChartView {
         
         var props: [CellProps] = []
         
+        var didCellSelected: ((IndexPath) -> Void)?
+        
         func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
             cell.imageView?.layer.cornerRadius = 4.0
             cell.imageView?.layer.masksToBounds = true
@@ -20,6 +22,7 @@ extension DetailedChartView {
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             tableView.deselectRow(at: indexPath, animated: true)
             props[indexPath.row].isChecked.value.toggle()
+            didCellSelected?(indexPath)
         }
     }
 }

@@ -49,7 +49,6 @@
 		4B96E290223FE508000953C3 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B96E28F223FE508000953C3 /* TableView.swift */; };
 		4BA9598B223691FB005609C6 /* Dataset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA9598A223691FB005609C6 /* Dataset.swift */; };
 		4BA9598F2236941D005609C6 /* DatasetJSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA9598C22369303005609C6 /* DatasetJSONParser.swift */; };
-		4BFBEFCA223A775100F2DE99 /* LinearChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFBEFC9223A775100F2DE99 /* LinearChart.swift */; };
 		4BFBEFCD223A7EB900F2DE99 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFBEFCC223A7EB900F2DE99 /* UIColor+Hex.swift */; };
 		4BFBEFD0223A848000F2DE99 /* ChartScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFBEFCF223A848000F2DE99 /* ChartScrollView.swift */; };
 		4BFBEFD2223A870400F2DE99 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFBEFD1223A870400F2DE99 /* View.swift */; };
@@ -164,7 +163,6 @@
 		4BA9598A223691FB005609C6 /* Dataset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dataset.swift; sourceTree = "<group>"; };
 		4BA9598C22369303005609C6 /* DatasetJSONParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatasetJSONParser.swift; sourceTree = "<group>"; };
 		4BA959902236ABCA005609C6 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
-		4BFBEFC9223A775100F2DE99 /* LinearChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearChart.swift; sourceTree = "<group>"; };
 		4BFBEFCC223A7EB900F2DE99 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		4BFBEFCF223A848000F2DE99 /* ChartScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartScrollView.swift; sourceTree = "<group>"; };
 		4BFBEFD1223A870400F2DE99 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
@@ -317,7 +315,6 @@
 			isa = PBXGroup;
 			children = (
 				4B2C065C22392A1E008B2D69 /* Line.swift */,
-				4BFBEFC9223A775100F2DE99 /* LinearChart.swift */,
 				4B2C066022392A4B008B2D69 /* Typealiases.swift */,
 			);
 			path = Models;
@@ -682,7 +679,6 @@
 				4B96E282223FC8C6000953C3 /* Datasource.swift in Sources */,
 				4BFBEFD0223A848000F2DE99 /* ChartScrollView.swift in Sources */,
 				4B2C06672239364B008B2D69 /* CATransaction+Animate.swift in Sources */,
-				4BFBEFCA223A775100F2DE99 /* LinearChart.swift in Sources */,
 				4BFBEFD6223A8DE600F2DE99 /* ExpandableSliderView.swift in Sources */,
 				4B2C066322392AF1008B2D69 /* LineChartLayer.swift in Sources */,
 				4B2C064F22390BB8008B2D69 /* NormalizerFactory.swift in Sources */,
@@ -887,7 +883,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = MQ7UXJJ9YY;
 				INFOPLIST_FILE = iChartsDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10;
@@ -897,6 +893,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.specialfor.iChartsDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "iChartsDemo - dev";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -908,7 +905,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = MQ7UXJJ9YY;
 				INFOPLIST_FILE = iChartsDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10;
@@ -918,6 +916,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.specialfor.iChartsDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "iChartsDemo - appstore";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
