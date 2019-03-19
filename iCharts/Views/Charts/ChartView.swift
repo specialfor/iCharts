@@ -44,7 +44,7 @@ public final class ChartView: UIView {
         
         guard let props = props else { return }
         
-        renderGridLayer(props: props)
+        renderGridLayer(props: props) // TODO: move to separate layer drawing of y labels
         renderLineChartLayer(props: props)
     }
     

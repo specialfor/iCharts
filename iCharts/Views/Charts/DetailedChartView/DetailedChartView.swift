@@ -72,7 +72,30 @@ public final class DetailedChartView: View {
     
     private func didCellSelected(at indexPath: IndexPath) {
         let index = indexPath.row
-        props?.lines[index].isHidden = !cellProps[index].isChecked.value
+        
+        let shouldHide = !cellProps[index].isChecked.value
+        originalProps?.lines[index].isHidden = shouldHide
+        
+        let newIndex = self.index(using: index)
+        
+        if shouldHide {
+            props?.lines.remove(at: newIndex)
+        } else if let line = originalProps?.lines[index] {
+            props?.lines.insert(line, at: newIndex)
+        }
+    }
+    
+    private func index(using index: Int) -> Int {
+        guard let lines = originalProps?.lines else { return index }
+        
+        var count: Int = 0
+        for i in 0..<lines.count where i < index {
+            if lines[i].isHidden {
+                count += 1
+            }
+        }
+        
+        return index - count
     }
     
     
