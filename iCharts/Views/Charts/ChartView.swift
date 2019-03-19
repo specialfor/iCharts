@@ -49,14 +49,27 @@ public final class ChartView: UIView {
     }
     
     private func renderGridLayer(props: Props) {
+        let maxY = props.lines.compactMap { $0.points.ys.max() }.max()
         let lines = props.estimatedGridSpace.map { space in
             return GridLayer.Props.Lines(
-                color: UIColor(hexString: "#efeff4").cgColor,
-                count: Int(frame.size.height) / space)
+                yLabels: makeYValues(maxY: maxY, space: space),
+                lineColor: UIColor(hexString: "#efeff4").cgColor,
+                textColor: UIColor(hexString: "#989ea3").cgColor)
         }
         
         let gridProps = GridLayer.Props(lines: lines, rectSize: frame.size)
         gridLayer.render(props: gridProps)
+    }
+    
+    private func makeYValues(maxY: CGFloat?, space: Int) -> [String] {
+        guard let maxY = maxY else { return [] }
+        
+        let count = Int(frame.size.height) / space
+        let step = Int(maxY) / count
+        
+        return (0..<count).map { index in
+            return "\(index * step)"
+        }.reversed()
     }
     
     private func renderLineChartLayer(props: Props) {
