@@ -10,31 +10,60 @@ import UIKit
 import Utils
 
 private let xLabelsHeight: CGFloat = 30.0
+private let labelColor = UIColor(hexString: "#989ea3").cgColor
+
+private let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "MMM dd"
+    return formatter
+}()
 
 public final class ChartView: UIView {
     
     private var props: Props? {
+        return extendedProps?.props
+    }
+    
+    private var extendedProps: ExtendedProps? {
         didSet { setNeedsLayout() }
     }
     
     private let gridLayer = GridLayer()
     private let lineChartLayer = LineChartLayer()
     private let yLabelsLayer = YLabelsLayer()
-    private let xLabelsLayer = XLabelLayer()
+    private let xLabelsLayer = XLabelsLayer()
     
     private var sizeWithoutXLabels: CGSize {
-        let size = frame.size
-        return CGSize(width: size.width, height: size.height - xLabelsHeight)
+        var size = frame.size
+        
+        guard props?.estimatedXLabelWidth != nil else {
+            return size
+        }
+        
+        size.height -= xLabelsHeight
+        return size
     }
     
-
+    private var xLabelsRect: CGRect {
+        guard props?.estimatedXLabelWidth != nil else {
+            return .zero
+        }
+        
+        return CGRect(
+            x: 0,
+            y: sizeWithoutXLabels.height,
+            width: frame.size.width,
+            height: xLabelsHeight)
+    }
+    
+    
     // MARK: - Init
-
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         baseInit()
     }
-
+    
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         baseInit()
@@ -53,11 +82,13 @@ public final class ChartView: UIView {
     public override func layoutSubviews() {
         super.layoutSubviews()
         
-        guard let props = props else { return }
+        guard let extendedProps = extendedProps else { return }
+        let props = extendedProps.props
         
         renderGridLayer(props: props)
         renderLineChartLayer(props: props)
         renderYLabelsLayer(props: props)
+        renderXLabelsLayer(props: extendedProps)
     }
     
     private func renderGridLayer(props: Props) {
@@ -93,15 +124,15 @@ public final class ChartView: UIView {
     }
     
     private func renderYLabelsLayer(props: Props) {
-        let labels = makeLabels(props: props)
+        let labels = makeYLabels(props: props)
         let yLabelsProps = YLabelsLayer.Props(
             labels: labels,
-            textColor: UIColor(hexString: "#989ea3").cgColor,
+            textColor: labelColor,
             rectSize: sizeWithoutXLabels)
         yLabelsLayer.render(props: yLabelsProps)
     }
     
-    private func makeLabels(props: Props) -> [YLabelsLayer.Props.Label] {
+    private func makeYLabels(props: Props) -> [YLabelsLayer.Props.Label] {
         guard let maxY = props.lines.compactMap({ $0.points.ys.max() }).max(), let space = props.estimatedGridSpace else {
             return []
         }
@@ -112,15 +143,61 @@ public final class ChartView: UIView {
         let points = makePointsForHorizontalLines(props: props)
         let values = (0..<count).map { index in
             return "\(index * step)"
-        }.reversed()
+            }.reversed()
         
         return zip(points, values) { point, value in
             return YLabelsLayer.Props.Label(point: point, value: value)
         }
     }
     
+    private func renderXLabelsLayer(props: ExtendedProps) {
+        let (labels, width) = makeXLabels(props: props)
+        let xLabelsProps = XLabelsLayer.Props(
+            labels: labels,
+            labelWidth: width,
+            textColor: labelColor,
+            rect: xLabelsRect)
+        xLabelsLayer.render(props: xLabelsProps)
+    }
     
-    // MARK: - render
+    private func makeXLabels(props: ExtendedProps) -> (labels: [XLabelsLayer.Props.Label], width: CGFloat) {
+        guard let width = props.props.estimatedXLabelWidth,
+            let segment = props.segment else {
+                return (labels: [], width: 0)
+        }
+        
+        let space: CGFloat = 8.0
+        let expandedLayerWidth = xLabelsRect.size.width + space
+        let expandedWidth = width + Int(space)
+        let count = Int(expandedLayerWidth) / (expandedWidth)
+        
+        let adjustedWidth = expandedLayerWidth / CGFloat(count)
+        
+        return (
+            labels: (0..<count).map { index in
+                let x = CGFloat(index) * adjustedWidth
+                let label = xLabel(at: x + adjustedWidth / 2, segment: segment)
+                
+                return XLabelsLayer.Props.Label(
+                    point: CGPoint(x: x, y: 0),
+                    value: label)
+            },
+            width: adjustedWidth - space
+        )
+    }
+    
+    private func xLabel(at x: CGFloat, segment: Segment<CGFloat>) -> String {
+        let factor = x / xLabelsRect.size.width
+        let timestamp = segment.from + (segment.to - segment.from) * factor
+        
+        let seconds = timestamp / 1000.0
+        let date = Date(timeIntervalSince1970: TimeInterval(seconds))
+        
+        return dateFormatter.string(from: date)
+    }
+    
+    
+    // MARK: - Render
     
     private var dispatchQueue = DispatchQueue.init(label: "cheburek", qos: .userInteractive)
     
@@ -130,36 +207,44 @@ public final class ChartView: UIView {
     
     private func renderSync(props: Props) {
         var props = props
-        props.lines = adjustedLines(from: props)
-        self.props = props
+        let (lines, segment) = adjustedLines(from: props)
+        props.lines = lines
+        extendedProps = ExtendedProps(props: props, segment: segment)
     }
     
     private func renderAsync(props: Props) {
         dispatchQueue.async { [weak self] in
             guard let self = self else { return }
             
-            let lines = self.adjustedLines(from: props)
+            let (lines, segment) = self.adjustedLines(from: props)
             
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 
                 var props = props
                 props.lines = lines
-                self.props = props
+                self.extendedProps = ExtendedProps(props: props, segment: segment)
             }
         }
     }
     
-    private func adjustedLines(from props: Props) -> [Line] {
+    private func adjustedLines(from props: Props) -> (lines: [Line], segment: Segment<CGFloat>?) {
         let lines = props.lines
-        guard let range = props.range, let (start, end) = points(lines: lines, range: range) else {
-            return lines
+        guard let range = props.range, let segment = points(lines: lines, range: range) else {
+            
+            return (
+                lines: lines,
+                segment: points(lines: lines, range: .percents(from: 0, to: 1))
+            )
         }
         
-        return lines.map { transform(line: $0, start: start, end: end) }
+        return (
+            lines: lines.map { transform(line: $0, start: segment.from, end: segment.to) },
+            segment: segment
+        )
     }
     
-    private func points(lines: [Line], range: Props.Range) -> (start: CGFloat, end: CGFloat)? {
+    private func points(lines: [Line], range: Props.Range) -> Segment<CGFloat>? {
         switch range {
         case let .percents(from, to):
             guard let minX = lines.compactMap({ $0.points.xs.min() }).min(),
@@ -169,9 +254,11 @@ public final class ChartView: UIView {
             
             let delta = maxX - minX
             
-            return (delta * from + minX, delta * to + minX)
+            return Segment(
+                from: delta * from + minX,
+                to: delta * to + minX)
         case let .xs(from, to):
-            return (from, to)
+            return Segment(from: from, to: to)
         }
     }
     
@@ -216,12 +303,18 @@ extension ChartView {
         public var lines: [Line]
         public var lineWidth: CGFloat
         public var estimatedGridSpace: Int?
+        public var estimatedXLabelWidth: Int?
         public var range: Range?
         
-        public init(lines: [Line], lineWidth: CGFloat = 1, estimatedGridSpace: Int? = nil, range: Range? = nil) {
+        public init(lines: [Line],
+                    lineWidth: CGFloat = 1,
+                    estimatedGridSpace: Int? = nil,
+                    estimatedXLabelWidth: Int? = 40,
+                    range: Range? = nil) {
             self.lines = lines
             self.lineWidth = lineWidth
             self.estimatedGridSpace = estimatedGridSpace
+            self.estimatedXLabelWidth = estimatedXLabelWidth
             self.range = range
         }
     }
@@ -233,5 +326,13 @@ extension ChartView.Props {
     public enum Range {
         case percents(from: CGFloat, to: CGFloat)
         case xs(from: CGFloat, to: CGFloat)
+    }
+}
+
+private extension ChartView {
+    
+    struct ExtendedProps {
+        var props: Props
+        var segment: Segment<CGFloat>?
     }
 }
