@@ -9,6 +9,8 @@
 import UIKit
 import Utils
 
+private let xLabelsHeight: CGFloat = 30.0
+
 public final class ChartView: UIView {
     
     private var props: Props? {
@@ -18,6 +20,12 @@ public final class ChartView: UIView {
     private let gridLayer = GridLayer()
     private let lineChartLayer = LineChartLayer()
     private let yLabelsLayer = YLabelsLayer()
+    private let xLabelsLayer = XLabelLayer()
+    
+    private var sizeWithoutXLabels: CGSize {
+        let size = frame.size
+        return CGSize(width: size.width, height: size.height - xLabelsHeight)
+    }
     
 
     // MARK: - Init
@@ -36,6 +44,7 @@ public final class ChartView: UIView {
         layer.addSublayer(gridLayer)
         layer.addSublayer(lineChartLayer)
         layer.addSublayer(yLabelsLayer)
+        layer.addSublayer(xLabelsLayer)
     }
     
     
@@ -56,7 +65,7 @@ public final class ChartView: UIView {
         let gridProps = GridLayer.Props(
             points: points,
             lineColor: UIColor(hexString: "#efeff4").cgColor,
-            rectSize: frame.size)
+            rectSize: sizeWithoutXLabels)
         gridLayer.render(props: gridProps)
     }
     
@@ -65,10 +74,11 @@ public final class ChartView: UIView {
             return Points()
         }
         
-        let count = Int(frame.size.height) / space
+        let count = Int(sizeWithoutXLabels.height) / space
+        let adjustedSpace = sizeWithoutXLabels.height / CGFloat(count)
         
         return (1...count).map { index in
-            CGPoint(x: 0, y: index * space)
+            CGPoint(x: 0, y: CGFloat(index) * adjustedSpace)
         }
     }
     
@@ -77,7 +87,7 @@ public final class ChartView: UIView {
             lines: props.lines,
             lineWidth: props.lineWidth,
             renderMode: .scaleToFill,
-            rectSize: frame.size)
+            rectSize: sizeWithoutXLabels)
         
         lineChartLayer.render(props: lineChartProps)
     }
@@ -87,7 +97,7 @@ public final class ChartView: UIView {
         let yLabelsProps = YLabelsLayer.Props(
             labels: labels,
             textColor: UIColor(hexString: "#989ea3").cgColor,
-            rectSize: frame.size)
+            rectSize: sizeWithoutXLabels)
         yLabelsLayer.render(props: yLabelsProps)
     }
     
@@ -96,7 +106,7 @@ public final class ChartView: UIView {
             return []
         }
         
-        let count = Int(frame.size.height) / space
+        let count = Int(sizeWithoutXLabels.height) / space
         let step = Int(maxY) / count
         
         let points = makePointsForHorizontalLines(props: props)

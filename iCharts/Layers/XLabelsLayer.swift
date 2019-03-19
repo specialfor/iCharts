@@ -1,12 +1,12 @@
 //
-//  YLabelsLayer.swift
+//  XLabelsLayer.swift
 //  iCharts
 //
 //  Created by Volodymyr Hryhoriev on 3/19/19.
 //  Copyright © 2019 Volodymyr Hryhoriev. All rights reserved.
 //
 
-final class YLabelsLayer: CALayer {
+final class XLabelLayer: CALayer {
     
     func render(props: Props) {
         backgroundColor = UIColor.clear.cgColor
@@ -20,19 +20,13 @@ final class YLabelsLayer: CALayer {
     }
     
     private func makeTextLayer(label: Props.Label, textColor: CGColor) -> CATextLayer {
-        let fontSize: CGFloat = 12.0
-        let layer = CATextLayer(string: label.value, textColor: textColor, fontSize: fontSize)
-        
-        let eps = fontSize * 0.2
-        layer.frame.size.width *= 2
-        layer.frame.size.height += eps
-        layer.frame.origin = CGPoint(x: 0, y: label.point.y - (layer.frame.size.height + eps))
-        
+        let layer = CATextLayer(string: label.value, textColor: textColor)
+        layer.frame.origin.x += label.point.x
         return layer
     }
 }
 
-extension YLabelsLayer {
+extension XLabelLayer {
     
     struct Props {
         let labels: [Label]

@@ -6,10 +6,10 @@
 //  Copyright © 2019 Volodymyr Hryhoriev. All rights reserved.
 //
 
-final class GridLayer: CAShapeLayer {
+final class GridLayer: CALayer {
     
     func render(props: Props) {
-        fillColor = UIColor.clear.cgColor
+        backgroundColor = UIColor.clear.cgColor
         frame = CGRect(origin: .zero, size: props.rectSize)
         
         renderLines(props: props)
