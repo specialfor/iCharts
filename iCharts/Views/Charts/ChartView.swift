@@ -203,30 +203,31 @@ public final class ChartView: UIView {
     private var dispatchQueue = DispatchQueue.init(label: "cheburek", qos: .userInteractive)
     
     public func render(props: Props) {
-        renderSync(props: props)
-    }
-    
-    private func renderSync(props: Props) {
         var props = props
         let (lines, segment) = adjustedLines(from: props)
         props.lines = lines
         extendedProps = ExtendedProps(props: props, segment: segment)
+        makeOutput(props: props).try { props.didHighlightX?($0) }
     }
     
-    private func renderAsync(props: Props) {
-        dispatchQueue.async { [weak self] in
-            guard let self = self else { return }
-            
-            let (lines, segment) = self.adjustedLines(from: props)
-            
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                
-                var props = props
-                props.lines = lines
-                self.extendedProps = ExtendedProps(props: props, segment: segment)
-            }
+    private func makeOutput(props: Props) -> Output? {
+        guard let xValue = props.lines.first?.highlightedPoint?.x else {
+                return nil
         }
+        
+        let yValues = props.lines.map { line -> Output.YValue? in
+            guard let point = line.highlightedPoint else {
+                return nil
+            }
+            
+            return Output.YValue(value: point.y, color: line.color)
+            }.compactMap { $0 }
+        
+        guard !yValues.isEmpty else {
+            return nil
+        }
+        
+        return Output(xValue: xValue, yValues: yValues)
     }
     
     private func adjustedLines(from props: Props) -> (lines: [Line], segment: Segment<CGFloat>?) {
@@ -299,6 +300,8 @@ public final class ChartView: UIView {
     private func highlightedPoint(at x: CGFloat, line: Line) -> CGPoint? {
         let factor = x / frame.width
         
+        
+        // MARK: - replace with segmant
         guard let min = line.points.xs.min(),
             let max = line.points.xs.max() else {
                 return nil
@@ -337,19 +340,42 @@ extension ChartView {
         public var estimatedGridSpace: Int?
         public var estimatedXLabelWidth: Int?
         public var range: Range?
+        public var didHighlightX: ClosureWith<Output>?
         
         public init(lines: [Line],
                     lineWidth: CGFloat = 1,
                     highlithedX: CGFloat? = nil,
                     estimatedGridSpace: Int? = nil,
                     estimatedXLabelWidth: Int? = 40,
-                    range: Range? = nil) {
+                    range: Range? = nil,
+                    didHighlightX: ClosureWith<Output>? = nil) {
             self.lines = lines
             self.lineWidth = lineWidth
             self.highlithedX = highlithedX
             self.estimatedGridSpace = estimatedGridSpace
             self.estimatedXLabelWidth = estimatedXLabelWidth
             self.range = range
+            self.didHighlightX = didHighlightX
+        }
+    }
+    
+    public struct Output {
+        public let xValue: CGFloat
+        public let yValues: [YValue]
+    
+        public init(xValue: CGFloat, yValues: [YValue]) {
+            self.xValue = xValue
+            self.yValues = yValues
+        }
+        
+        public struct YValue {
+            public let value: CGFloat
+            public let color: UIColor
+            
+            public init(value: CGFloat, color: UIColor) {
+                self.value = value
+                self.color = color
+            }
         }
     }
 }

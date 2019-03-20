@@ -35,6 +35,7 @@
 		4B5E11752242208800F53886 /* VerticalLineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5E11742242208800F53886 /* VerticalLineLayer.swift */; };
 		4B5E117822424B9C00F53886 /* PannableChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5E117722424B9C00F53886 /* PannableChartView.swift */; };
 		4B5E117A22424BA700F53886 /* ChartInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5E117922424BA700F53886 /* ChartInfoView.swift */; };
+		4B5E117C22427D0400F53886 /* Optional+Try.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5E117B22427D0400F53886 /* Optional+Try.swift */; };
 		4B7B3F44223E4EB0009C9BA8 /* libUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7B3F3B223E4E85009C9BA8 /* libUtils.a */; };
 		4B7B3F45223E4EC5009C9BA8 /* libUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7B3F3B223E4E85009C9BA8 /* libUtils.a */; };
 		4B7B3F48223E4EDE009C9BA8 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA959902236ABCA005609C6 /* Result.swift */; };
@@ -156,6 +157,7 @@
 		4B5E11742242208800F53886 /* VerticalLineLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalLineLayer.swift; sourceTree = "<group>"; };
 		4B5E117722424B9C00F53886 /* PannableChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PannableChartView.swift; sourceTree = "<group>"; };
 		4B5E117922424BA700F53886 /* ChartInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartInfoView.swift; sourceTree = "<group>"; };
+		4B5E117B22427D0400F53886 /* Optional+Try.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Try.swift"; sourceTree = "<group>"; };
 		4B7B3F3B223E4E85009C9BA8 /* libUtils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUtils.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B96E272223F8A0D000953C3 /* GridLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayer.swift; sourceTree = "<group>"; };
 		4B96E274223F8E90000953C3 /* Segment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segment.swift; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 				4B2C06572239202C008B2D69 /* Array+Values.swift */,
 				4B2C065922392196008B2D69 /* zipInto.swift */,
 				4B96E28D223FD37A000953C3 /* Bool+Toggle.swift */,
+				4B5E117B22427D0400F53886 /* Optional+Try.swift */,
 			);
 			path = "Swift Standard Library";
 			sourceTree = "<group>";
@@ -719,6 +722,7 @@
 				4B2C066122392A4B008B2D69 /* Typealiases.swift in Sources */,
 				4BFBEFD2223A870400F2DE99 /* View.swift in Sources */,
 				4B96E28E223FD37A000953C3 /* Bool+Toggle.swift in Sources */,
+				4B5E117C22427D0400F53886 /* Optional+Try.swift in Sources */,
 				4BFC626422412F5F004C79E5 /* CATextLayer+Label.swift in Sources */,
 				4B27CBC22238040D00AF42BB /* ChartView.swift in Sources */,
 				4BFBEFD4223A8C0800F2DE99 /* UIView+Constraints.swift in Sources */,

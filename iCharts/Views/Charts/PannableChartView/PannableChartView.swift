@@ -8,6 +8,18 @@
 
 import Foundation
 
+private let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "MMM dd"
+    return formatter
+}()
+
+private let yearFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy"
+    return formatter
+}()
+
 final class PannableChartView: UIControl {
     
     private var props: ChartView.Props? {
@@ -69,31 +81,29 @@ final class PannableChartView: UIControl {
 
     private func render() {
         guard let props = props else { return }
-        renderChartInfoView(props: props)
         chartView.render(props: props)
-    }
-    
-    private func renderChartInfoView(props: ChartView.Props) {
-        let infoProps = ChartInfoView.Props(
-            dateMonth: "Dec 7",
-            year: "2019",
-            lineValues: [
-                .init(value: "150", color: .red),
-                .init(value: "30000", color: .green),
-                .init(value: "150", color: .red),
-                .init(value: "30000", color: .green),
-                .init(value: "150", color: .red),
-                .init(value: "30000", color: .green),
-                .init(value: "150", color: .red),
-                .init(value: "30000", color: .green),
-            ])
-        infoView.render(props: infoProps)
     }
     
     // MARK: - Render
     
     func render(props: ChartView.Props) {
+        var props = props
+        props.didHighlightX = { [weak self] output in
+            guard let self = self else { return }
+            self.renderChartInfoView(output: output)
+        }
         self.props = props
+    }
+    
+    private func renderChartInfoView(output: ChartView.Output) {
+        let date = Date(timeIntervalSince1970: TimeInterval(output.xValue / 1000))
+        let lineValues = output.yValues.map { ChartInfoView.Props.LineValue(value: "\(Int($0.value))", color: $0.color) }
+        
+        let infoProps = ChartInfoView.Props(
+            dateMonth: dateFormatter.string(from: date),
+            year: yearFormatter.string(from: date),
+            lineValues: lineValues)
+        infoView.render(props: infoProps)
     }
     
     
@@ -101,8 +111,8 @@ final class PannableChartView: UIControl {
     
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         highlight(using: touch)
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            self?.infoView.alpha = 1.0
+        UIView.animate(withDuration: 0.3) {
+            self.infoView.alpha = 1.0
         }
         return true
     }
@@ -134,11 +144,11 @@ final class PannableChartView: UIControl {
     }
     
     private func endTracking() {
-        UIView.animate(withDuration: 0.3, delay: 2.0, options: [], animations: { [weak self] in
-//            self?.infoView.alpha = 0.0
+        UIView.animate(withDuration: 0.3, delay: 2.0, options: [], animations: {
+            self.infoView.alpha = 0.0
         }) { isFinished in
             if isFinished {
-                // todo:
+                self.props?.highlithedX = nil
             }
         }
     }
