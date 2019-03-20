@@ -13,12 +13,53 @@ final class SizeNormalizer: Normalizer {
     
     func unsafeNormalize(line: Line, args: NormalizationArgs) -> Line {
         let size = args.targetSize
+        
+        var line = line
+        let (extendedLine, index) = extend(line: line)
+        line = extendedLine
+        
         let xs = normalize(xs: line.points.xs, args: args)
         let ys = normalize(vector: line.points.ys, side: size.height, max: args.maxPoint.y)
             .map { size.height - $0 }
         
-        var line = line
         line.points = zipToPoints(xs, ys)
+        line = narrow(line: line, index: index)
+        
+        return line
+    }
+    
+    private func extend(line: Line) -> (line: Line, index: ExtendingIndex?) {
+        guard let point = line.highlightedPoint,
+            let index = line.points.firstIndex(where: { $0.x >= point.x }) else {
+                return (line, nil)
+        }
+        
+        guard line.points[index].x != point.x else {
+            return (line, .existed(index))
+        }
+        
+        var line = line
+        line.points.insert(point, at: index)
+        return (line, .new(index))
+    }
+    
+    private func narrow(line: Line, index: ExtendingIndex?) -> Line {
+        guard let index = index else {
+            return line
+        }
+        
+        var line = line
+        
+        let point: CGPoint
+        switch index {
+        case let .new(index):
+            point = line.points.remove(at: index)
+        case let .existed(index):
+            point = line.points[index]
+        }
+        
+        line.highlightedPoint = point
+        
         return line
     }
     
@@ -36,6 +77,21 @@ final class SizeNormalizer: Normalizer {
         }
         
         return vector.factored(by: max / side)
+    }
+}
+
+extension SizeNormalizer {
+    
+    enum ExtendingIndex {
+        case new(Int)
+        case existed(Int)
+        
+        var index: Int {
+            switch self {
+            case let .new(index), let .existed(index):
+                return index
+            }
+        }
     }
 }
 

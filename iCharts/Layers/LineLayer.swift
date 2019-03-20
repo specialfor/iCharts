@@ -38,8 +38,6 @@ final class LineLayer: CAShapeLayer {
             path.append(makeCircle(at: point, lineWidth: props.lineWidth))
         }
         
-        path.usesEvenOddFillRule = true
-        
         return path
     }
     
@@ -57,7 +55,7 @@ final class LineLayer: CAShapeLayer {
     
     private func makeCircle(at point: CGPoint, lineWidth: CGFloat) -> UIBezierPath {
         let diametr = 3 * lineWidth
-        let radius = 0.5 * lineWidth
+        let radius = 0.5 * diametr
         let rect = CGRect(
             x: point.x - radius,
             y: point.y - radius,

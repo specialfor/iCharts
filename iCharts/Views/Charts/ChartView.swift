@@ -240,7 +240,7 @@ public final class ChartView: UIView {
         }
         
         return (
-            lines: lines.map { slice(line: $0, segment: segment) },
+            lines: lines.map { transform(line: $0, segment: segment, highlightedX: props.highlithedX) },
             segment: segment
         )
     }
@@ -297,7 +297,7 @@ public final class ChartView: UIView {
     }
     
     private func highlightedPoint(at x: CGFloat, line: Line) -> CGPoint? {
-        let factor = frame.width / x
+        let factor = x / frame.width
         
         guard let min = line.points.xs.min(),
             let max = line.points.xs.max() else {
