@@ -32,6 +32,7 @@ final class PannableChartView: UIControl {
     
     private var leadingConstraint: NSLayoutConstraint!
     
+    private var workItem: DispatchWorkItem?
     
     // MARK: - Subviews
     
@@ -86,6 +87,12 @@ final class PannableChartView: UIControl {
     private func render() {
         guard let props = props else { return }
         chartView.render(props: props)
+        
+        if props.lines.isEmpty {
+            hide()
+        } else {
+            endTracking()
+        }
     }
     
     // MARK: - Render
@@ -138,20 +145,18 @@ final class PannableChartView: UIControl {
         return min(max(0, point.x - width / 2), frame.width - width)
     }
     
-    override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
-        super.endTracking(touch, with: event)
-        endTracking()
-    }
-    
-    override func cancelTracking(with event: UIEvent?) {
-        super.cancelTracking(with: event)
-        endTracking()
-    }
-    
     private func endTracking() {
-        UIView.animate(withDuration: 0.3, delay: 2.0, options: [], animations: {
+        workItem?.cancel()
+        workItem = DispatchWorkItem { [weak self] in
+            self?.hide()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0, execute: workItem!)
+    }
+    
+    private func hide() {
+        UIView.animate(withDuration: 0.3, animations: {
             self.infoView.alpha = 0.0
-        }) { isFinished in
+        }) { (isFinished) in
             if isFinished {
                 self.highlightedX = nil
             }

@@ -6,7 +6,7 @@
 //  Copyright © 2019 Volodymyr Hryhoriev. All rights reserved.
 //
 
-import Foundation
+import Utils
 
 private let cellIdentifier = "lol-kek-cheburek"
 

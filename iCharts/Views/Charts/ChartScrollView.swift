@@ -116,8 +116,6 @@ public final class ChartScrollView: View {
         let sliderState = sliderView.sliderState
         props.range = .percents(from: sliderState.startBound, to: sliderState.endBound)
         
-        print("props \(props.highlithedX)")
-        
         return props
     }
 }
