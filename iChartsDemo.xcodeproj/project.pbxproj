@@ -33,6 +33,8 @@
 		4B2C066322392AF1008B2D69 /* LineChartLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C066222392AF1008B2D69 /* LineChartLayer.swift */; };
 		4B2C06672239364B008B2D69 /* CATransaction+Animate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C06662239364B008B2D69 /* CATransaction+Animate.swift */; };
 		4B5E11752242208800F53886 /* VerticalLineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5E11742242208800F53886 /* VerticalLineLayer.swift */; };
+		4B5E117822424B9C00F53886 /* PannableChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5E117722424B9C00F53886 /* PannableChartView.swift */; };
+		4B5E117A22424BA700F53886 /* ChartInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5E117922424BA700F53886 /* ChartInfoView.swift */; };
 		4B7B3F44223E4EB0009C9BA8 /* libUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7B3F3B223E4E85009C9BA8 /* libUtils.a */; };
 		4B7B3F45223E4EC5009C9BA8 /* libUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7B3F3B223E4E85009C9BA8 /* libUtils.a */; };
 		4B7B3F48223E4EDE009C9BA8 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA959902236ABCA005609C6 /* Result.swift */; };
@@ -152,6 +154,8 @@
 		4B2C066222392AF1008B2D69 /* LineChartLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartLayer.swift; sourceTree = "<group>"; };
 		4B2C06662239364B008B2D69 /* CATransaction+Animate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CATransaction+Animate.swift"; sourceTree = "<group>"; };
 		4B5E11742242208800F53886 /* VerticalLineLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalLineLayer.swift; sourceTree = "<group>"; };
+		4B5E117722424B9C00F53886 /* PannableChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PannableChartView.swift; sourceTree = "<group>"; };
+		4B5E117922424BA700F53886 /* ChartInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartInfoView.swift; sourceTree = "<group>"; };
 		4B7B3F3B223E4E85009C9BA8 /* libUtils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUtils.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B96E272223F8A0D000953C3 /* GridLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayer.swift; sourceTree = "<group>"; };
 		4B96E274223F8E90000953C3 /* Segment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segment.swift; sourceTree = "<group>"; };
@@ -351,6 +355,15 @@
 			path = QuartzCore;
 			sourceTree = "<group>";
 		};
+		4B5E117622424B8A00F53886 /* PannableChartView */ = {
+			isa = PBXGroup;
+			children = (
+				4B5E117722424B9C00F53886 /* PannableChartView.swift */,
+				4B5E117922424BA700F53886 /* ChartInfoView.swift */,
+			);
+			path = PannableChartView;
+			sourceTree = "<group>";
+		};
 		4B7B3F3C223E4E85009C9BA8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -384,6 +397,7 @@
 		4B96E27E223FC47A000953C3 /* Charts */ = {
 			isa = PBXGroup;
 			children = (
+				4B5E117622424B8A00F53886 /* PannableChartView */,
 				4B96E280223FC8B5000953C3 /* DetailedChartView */,
 				4B27CBC02238040D00AF42BB /* ChartView.swift */,
 				4BFBEFCF223A848000F2DE99 /* ChartScrollView.swift */,
@@ -698,6 +712,7 @@
 				4BFBEFCD223A7EB900F2DE99 /* UIColor+Hex.swift in Sources */,
 				4B27CBC12238040D00AF42BB /* Normalizer.swift in Sources */,
 				4B96E284223FC8DF000953C3 /* Delegate.swift in Sources */,
+				4B5E117A22424BA700F53886 /* ChartInfoView.swift in Sources */,
 				4B5E11752242208800F53886 /* VerticalLineLayer.swift in Sources */,
 				4BDF4B022241244A00FF6ADD /* XLabelsLayer.swift in Sources */,
 				4B2C065422391C20008B2D69 /* LineLayer.swift in Sources */,
@@ -707,6 +722,7 @@
 				4BFC626422412F5F004C79E5 /* CATextLayer+Label.swift in Sources */,
 				4B27CBC22238040D00AF42BB /* ChartView.swift in Sources */,
 				4BFBEFD4223A8C0800F2DE99 /* UIView+Constraints.swift in Sources */,
+				4B5E117822424B9C00F53886 /* PannableChartView.swift in Sources */,
 				4BFBEFD8223A8E0100F2DE99 /* HandlerView.swift in Sources */,
 				4B96E286223FC9F8000953C3 /* CellProps.swift in Sources */,
 				4B2C065D22392A1E008B2D69 /* Line.swift in Sources */,

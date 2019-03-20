@@ -3,5 +3,6 @@
     <pages>
         <page name='ExpandableSliderView'/>
         <page name='HandlerView'/>
+        <page name='ChartInfoView'/>
     </pages>
 </playground>
