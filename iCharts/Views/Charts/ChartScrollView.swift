@@ -19,8 +19,8 @@ public final class ChartScrollView: View {
     
     // MARK: - Subviews
     
-    lazy var chartView: ChartView = {
-        let view = ChartView()
+    lazy var chartView: PannableChartView = {
+        let view = PannableChartView()
         
         addSubview(view)
         view.makeCosntraints {

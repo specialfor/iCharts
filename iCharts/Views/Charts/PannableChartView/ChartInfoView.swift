@@ -9,8 +9,9 @@
 import Foundation
 
 private let cellIdentifier = "lol-kek-cheburek"
+private let textColor = UIColor(hexString: "#6d6d72")
 
-public final class ChartInfoView: View, UITableViewDataSource {
+public final class ChartInfoView: View {
    
     private var props: Props?
     
@@ -18,6 +19,9 @@ public final class ChartInfoView: View, UITableViewDataSource {
     
     private lazy var dateMonthLabel: UILabel = {
         let label = UILabel()
+        
+        label.font = UIFont.boldSystemFont(ofSize: 12.0)
+        label.textColor = textColor
         
         addSubview(label) { superview in
             label.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -36,11 +40,14 @@ public final class ChartInfoView: View, UITableViewDataSource {
     private lazy var yearLabel: UILabel = {
         let label = UILabel()
         
+        label.font = UIFont.systemFont(ofSize: 12.0)
+        label.textColor = textColor
+        
         addSubview(label) { superview in
             label.setContentCompressionResistancePriority(.required, for: .horizontal)
             label.setContentHuggingPriority(.required, for: .vertical)
             
-            let bottomConstraint = label.bottomAnchor.constraint(greaterThanOrEqualTo: superview.bottomAnchor, constant: -4.0)
+            let bottomConstraint = label.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -4.0)
             bottomConstraint.priority = .defaultLow
             
             return [
@@ -54,28 +61,25 @@ public final class ChartInfoView: View, UITableViewDataSource {
         return label
     }()
     
-    private lazy var tableView: AutoSizableTableView = {
-        let tableView = AutoSizableTableView()
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
         
-        tableView.register(CellView.self, forCellReuseIdentifier: cellIdentifier)
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = .white
+        stackView.axis = .vertical
+        stackView.spacing = 1
+        stackView.distribution = .equalSpacing
         
-        tableView.allowsSelection = false
-        
-        tableView.rowHeight = 20.0
-        tableView.dataSource = self
-        
-        addSubview(tableView) { superview in
+        addSubview(stackView) { superview in
+            let bottomConstraint =  stackView.bottomAnchor.constraint(lessThanOrEqualTo: superview.bottomAnchor, constant: -4.0)
+            
             return [
-                tableView.topAnchor.constraint(equalTo: dateMonthLabel.topAnchor),
-                tableView.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -8.0),
-                tableView.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -4.0),
-                tableView.leadingAnchor.constraint(equalTo: yearLabel.trailingAnchor, constant: 8.0)
+                stackView.topAnchor.constraint(equalTo: dateMonthLabel.topAnchor),
+                stackView.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -8.0),
+                stackView.leadingAnchor.constraint(equalTo: yearLabel.trailingAnchor, constant: 16.0),
+                bottomConstraint
             ]
         }
         
-        return tableView
+        return stackView
     }()
     
     
@@ -89,7 +93,7 @@ public final class ChartInfoView: View, UITableViewDataSource {
     
     public override func baseSetup() {
         super.baseSetup()
-        tableView.isHidden = false
+        stackView.isHidden = false
         backgroundColor = UIColor(hexString: "#f2f2f7")
     }
     
@@ -99,26 +103,26 @@ public final class ChartInfoView: View, UITableViewDataSource {
     public func render(props: Props) {
         dateMonthLabel.text = props.dateMonth
         yearLabel.text = props.year
-        self.props = props
-        tableView.reloadData()
+        renderStackView(props: props)
     }
     
-    
-    // MARK: - UITableViewDataSource
-    
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return props?.lineValues.count ?? 0
+    private func renderStackView(props: Props) {
+        stackView.subviews.forEach { $0.removeFromSuperview() }
+        
+        props.lineValues
+            .map(makeLabel(using: ))
+            .forEach { stackView.addArrangedSubview($0) }
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let lineValue = props?.lineValues[indexPath.row],
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? CellView else {
-                return UITableViewCell()
-        }
+    private func makeLabel(using props: Props.LineValue) -> UILabel {
+        let label = UILabel()
         
-        cell.setup(with: lineValue)
+        label.font = UIFont.systemFont(ofSize: 12.0)
+        label.text = props.value
+        label.textColor = props.color
+        label.textAlignment = .right
         
-        return cell
+        return label
     }
 }
 
@@ -153,6 +157,14 @@ extension ChartInfoView {
     
     final class CellView: UITableViewCell {
         
+        private var size: CGSize = .zero {
+            didSet { invalidateIntrinsicContentSize() }
+        }
+        
+        override var intrinsicContentSize: CGSize {
+            return size
+        }
+        
         lazy var label: UILabel = {
             let label = UILabel()
             
@@ -170,6 +182,9 @@ extension ChartInfoView {
             
             label.text = props.value
             label.textColor = props.color
+            
+            label.sizeToFit()
+            size = label.frame.size
         }
     }
 }

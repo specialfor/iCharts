@@ -13,6 +13,12 @@ view.render(props: .init(
     lineValues: [
         .init(value: "150", color: .red),
         .init(value: "30000", color: .green),
+        .init(value: "150", color: .red),
+        .init(value: "30000", color: .green),
+        .init(value: "150", color: .red),
+        .init(value: "30000", color: .green),
+        .init(value: "150", color: .red),
+        .init(value: "30000", color: .green),
         ]))
 
 PlaygroundPage.current.liveView = view
