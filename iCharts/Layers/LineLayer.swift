@@ -10,6 +10,11 @@
 final class LineLayer: CAShapeLayer {
     
     func render(props: Props) {
+        renderLinePath(props: props)
+        renderCircleLayer(props: props)
+    }
+    
+    private func renderLinePath(props: Props) {
         let path = makePath(using: props).cgPath
         
         let strokeColor = props.line.isHidden ? UIColor.clear.cgColor : props.line.color.cgColor
@@ -34,9 +39,6 @@ final class LineLayer: CAShapeLayer {
         
         let linePath = makePath(using: props.line)
         path.append(linePath)
-        if let point = props.line.highlightedPoint {
-            path.append(makeCircle(at: point, lineWidth: props.lineWidth))
-        }
         
         return path
     }
@@ -51,17 +53,6 @@ final class LineLayer: CAShapeLayer {
         points.forEach { path.addLine(to: $0) }
         
         return path
-    }
-    
-    private func makeCircle(at point: CGPoint, lineWidth: CGFloat) -> UIBezierPath {
-        let diametr = 3 * lineWidth
-        let radius = 0.5 * diametr
-        let rect = CGRect(
-            x: point.x - radius,
-            y: point.y - radius,
-            width: diametr,
-            height: diametr)
-        return UIBezierPath(ovalIn: rect)
     }
     
     private func makeAnimation(path: CGPath, strokeColor: CGColor, lineWidth: CGFloat) -> CAAnimation {
@@ -85,6 +76,38 @@ final class LineLayer: CAShapeLayer {
         group.animations = [pathAnimation, strokeColorAnimation, lineWidthAnimation]
         
         return group
+    }
+    
+    private func renderCircleLayer(props: Props) {
+        sublayers = []
+        guard let point = props.line.highlightedPoint else {
+            return
+        }
+        
+        let layer = makeCircleLayer(props: props, at: point)
+        addSublayer(layer)
+    }
+    
+    private func makeCircleLayer(props: Props, at point: CGPoint) -> CAShapeLayer {
+        let layer = CAShapeLayer()
+        
+        layer.fillColor = UIColor.white.cgColor
+        layer.strokeColor = props.line.color.cgColor
+        
+        layer.lineWidth = props.lineWidth
+        layer.path = makeCircle(at: point, lineWidth: props.lineWidth).cgPath
+        return layer
+    }
+    
+    private func makeCircle(at point: CGPoint, lineWidth: CGFloat) -> UIBezierPath {
+        let diametr = 3 * lineWidth
+        let radius = 0.5 * diametr
+        let rect = CGRect(
+            x: point.x - radius,
+            y: point.y - radius,
+            width: diametr,
+            height: diametr)
+        return UIBezierPath(ovalIn: rect)
     }
 }
 
