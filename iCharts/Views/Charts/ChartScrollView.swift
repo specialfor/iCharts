@@ -111,6 +111,7 @@ public final class ChartScrollView: View {
     private func makeRangedProps(props: ChartView.Props) -> ChartView.Props {
         var props = props
         props.lineWidth = 2
+        props.highlithedX = 40
         props.estimatedGridSpace = 50
         
         let sliderState = sliderView.sliderState

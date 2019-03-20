@@ -11,14 +11,51 @@ import Utils
 final class LineChartLayer: CAShapeLayer {
     
     private var lineLayers: [LineLayer] {
-        get { return (sublayers as? [LineLayer]) ?? [] }
-        set { sublayers = newValue }
+        get { return (linesLayer.sublayers as? [LineLayer]) ?? [] }
+        set { linesLayer.sublayers = newValue }
+    }
+    
+    private let verticalLineLayer = VerticalLineLayer()
+    private let linesLayer = CALayer()
+    
+    override init() {
+        super.init()
+        baseSetup()
+    }
+    
+    override init(layer: Any) {
+        super.init(layer: layer)
+        baseSetup()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        baseSetup()
+    }
+    
+    private func baseSetup() {
+        addSublayer(verticalLineLayer)
+        addSublayer(linesLayer)
     }
     
     
     // MARK: - Render
     
     func render(props: Props) {
+        renderVerticalLineLayer(props: props)
+        renderLinesLayer(props: props)
+    }
+    
+    private func renderVerticalLineLayer(props: Props) {
+        let verticalLineLayerProps = VerticalLineLayer.Props(
+            x: props.highlightedX,
+            width: 1,
+            color: UIColor(hexString: "#cfd1d2").cgColor,
+            rectSize: props.rectSize)
+        verticalLineLayer.render(props: verticalLineLayerProps)
+    }
+    
+    private func renderLinesLayer(props: Props) {
         CATransaction.performWithoutAnimation { _ in
             masksToBounds = true
             frame = CGRect(origin: .zero, size: props.rectSize)
@@ -48,33 +85,33 @@ final class LineChartLayer: CAShapeLayer {
     }
     
     private func animateSync(using normalizer: Normalizer, props: Props) {
-        let lines = normalizer.normalize(lines: props.lines, rectSize: props.rectSize)
-        
-        renderLines(lines: lines, lineWidth: props.lineWidth)
+        var props = props
+        props.lines = normalizer.normalize(lines: props.lines, rectSize: props.rectSize)
+        renderNormalized(props: props)
     }
     
     private func animateAsync(using normalizer: Normalizer, props: Props) {
+        var props = props
         var lines = props.lines
         normalizer.normalize(lines: lines, rectSize: props.rectSize) { [weak self] result in
             if let value = result.value {
                 lines = value
             }
-            self?.renderLines(lines: lines, lineWidth: props.lineWidth)
+            
+            props.lines = lines
+            self?.renderNormalized(props: props)
         }
     }
     
-    private func renderLines(lines: [Line], lineWidth: CGFloat) {
+    private func renderNormalized(props: Props) {
         CATransaction.animate(duration: 0) { transaction in
 //            let function = CAMediaTimingFunction(name: .linear)
 //            transaction.setAnimationTimingFunction(function)
             
-            lines.enumerated().forEach { index, line in
+            props.lines.enumerated().forEach { index, line in
                 let lineProps = LineLayer.Props(
                     line: line,
-                    lineWidth: lineWidth)
-//                                line: lineProps.line,
-//                                lineWidth: lineWidth,
-//                                isAnimated: false)
+                    lineWidth: props.lineWidth)
                 lineLayers[index].render(props: lineProps)
             }
         }
@@ -84,9 +121,10 @@ final class LineChartLayer: CAShapeLayer {
 extension LineChartLayer {
     
     struct Props {
-        let lines: [Line]
+        var lines: [Line]
         let lineWidth: CGFloat
         let renderMode: RenderMode
+        let highlightedX: CGFloat?
         let rectSize: CGSize
         
         enum RenderMode {

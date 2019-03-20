@@ -10,7 +10,7 @@
 final class LineLayer: CAShapeLayer {
     
     func render(props: Props) {
-        let path = makePath(using: props.line).cgPath
+        let path = makePath(using: props).cgPath
         
         let strokeColor = props.line.isHidden ? UIColor.clear.cgColor : props.line.color.cgColor
         let lineWidth = props.lineWidth
@@ -29,6 +29,20 @@ final class LineLayer: CAShapeLayer {
         }
     }
     
+    private func makePath(using props: Props) -> UIBezierPath {
+        let path = UIBezierPath()
+        
+        let linePath = makePath(using: props.line)
+        path.append(linePath)
+        if let point = props.line.highlightedPoint {
+            path.append(makeCircle(at: point, lineWidth: props.lineWidth))
+        }
+        
+        path.usesEvenOddFillRule = true
+        
+        return path
+    }
+    
     private func makePath(using line: Line) -> UIBezierPath {
         let path = UIBezierPath()
         
@@ -39,6 +53,17 @@ final class LineLayer: CAShapeLayer {
         points.forEach { path.addLine(to: $0) }
         
         return path
+    }
+    
+    private func makeCircle(at point: CGPoint, lineWidth: CGFloat) -> UIBezierPath {
+        let diametr = 3 * lineWidth
+        let radius = 0.5 * lineWidth
+        let rect = CGRect(
+            x: point.x - radius,
+            y: point.y - radius,
+            width: diametr,
+            height: diametr)
+        return UIBezierPath(ovalIn: rect)
     }
     
     private func makeAnimation(path: CGPath, strokeColor: CGColor, lineWidth: CGFloat) -> CAAnimation {

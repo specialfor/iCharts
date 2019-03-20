@@ -32,6 +32,7 @@
 		4B2C066122392A4B008B2D69 /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C066022392A4B008B2D69 /* Typealiases.swift */; };
 		4B2C066322392AF1008B2D69 /* LineChartLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C066222392AF1008B2D69 /* LineChartLayer.swift */; };
 		4B2C06672239364B008B2D69 /* CATransaction+Animate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C06662239364B008B2D69 /* CATransaction+Animate.swift */; };
+		4B5E11752242208800F53886 /* VerticalLineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5E11742242208800F53886 /* VerticalLineLayer.swift */; };
 		4B7B3F44223E4EB0009C9BA8 /* libUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7B3F3B223E4E85009C9BA8 /* libUtils.a */; };
 		4B7B3F45223E4EC5009C9BA8 /* libUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7B3F3B223E4E85009C9BA8 /* libUtils.a */; };
 		4B7B3F48223E4EDE009C9BA8 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA959902236ABCA005609C6 /* Result.swift */; };
@@ -150,6 +151,7 @@
 		4B2C066022392A4B008B2D69 /* Typealiases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
 		4B2C066222392AF1008B2D69 /* LineChartLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartLayer.swift; sourceTree = "<group>"; };
 		4B2C06662239364B008B2D69 /* CATransaction+Animate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CATransaction+Animate.swift"; sourceTree = "<group>"; };
+		4B5E11742242208800F53886 /* VerticalLineLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalLineLayer.swift; sourceTree = "<group>"; };
 		4B7B3F3B223E4E85009C9BA8 /* libUtils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUtils.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B96E272223F8A0D000953C3 /* GridLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayer.swift; sourceTree = "<group>"; };
 		4B96E274223F8E90000953C3 /* Segment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segment.swift; sourceTree = "<group>"; };
@@ -310,12 +312,13 @@
 		4B2C065222391C13008B2D69 /* Layers */ = {
 			isa = PBXGroup;
 			children = (
-				4B2C065322391C20008B2D69 /* LineLayer.swift */,
-				4B2C066222392AF1008B2D69 /* LineChartLayer.swift */,
-				4B96E272223F8A0D000953C3 /* GridLayer.swift */,
-				4BDF4AFF2241193200FF6ADD /* YLabelsLayer.swift */,
-				4BDF4B012241244A00FF6ADD /* XLabelsLayer.swift */,
 				4BFC626322412F5F004C79E5 /* CATextLayer+Label.swift */,
+				4B96E272223F8A0D000953C3 /* GridLayer.swift */,
+				4B2C066222392AF1008B2D69 /* LineChartLayer.swift */,
+				4B2C065322391C20008B2D69 /* LineLayer.swift */,
+				4B5E11742242208800F53886 /* VerticalLineLayer.swift */,
+				4BDF4B012241244A00FF6ADD /* XLabelsLayer.swift */,
+				4BDF4AFF2241193200FF6ADD /* YLabelsLayer.swift */,
 			);
 			path = Layers;
 			sourceTree = "<group>";
@@ -695,6 +698,7 @@
 				4BFBEFCD223A7EB900F2DE99 /* UIColor+Hex.swift in Sources */,
 				4B27CBC12238040D00AF42BB /* Normalizer.swift in Sources */,
 				4B96E284223FC8DF000953C3 /* Delegate.swift in Sources */,
+				4B5E11752242208800F53886 /* VerticalLineLayer.swift in Sources */,
 				4BDF4B022241244A00FF6ADD /* XLabelsLayer.swift in Sources */,
 				4B2C065422391C20008B2D69 /* LineLayer.swift in Sources */,
 				4B2C066122392A4B008B2D69 /* Typealiases.swift in Sources */,

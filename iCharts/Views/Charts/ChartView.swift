@@ -118,6 +118,7 @@ public final class ChartView: UIView {
             lines: props.lines,
             lineWidth: props.lineWidth,
             renderMode: .scaleToFill,
+            highlightedX: props.highlithedX,
             rectSize: sizeWithoutXLabels)
         
         lineChartLayer.render(props: lineChartProps)
@@ -239,7 +240,7 @@ public final class ChartView: UIView {
         }
         
         return (
-            lines: lines.map { transform(line: $0, start: segment.from, end: segment.to) },
+            lines: lines.map { slice(line: $0, segment: segment) },
             segment: segment
         )
     }
@@ -262,8 +263,16 @@ public final class ChartView: UIView {
         }
     }
     
-    private func transform(line: Line, start: CGFloat, end: CGFloat) -> Line {
+    private func transform(line: Line, segment: Segment<CGFloat>, highlightedX: CGFloat?) -> Line {
+        var line = slice(line: line, segment: segment)
+        line.highlightedPoint = highlightedX.flatMap { highlightedPoint(at: $0, line: line) }
+        return line
+    }
+    
+    private func slice(line: Line, segment: Segment<CGFloat>) -> Line {
         let points = line.points
+        let start = segment.from
+        let end = segment.to
         
         guard let from = points.firstIndex(where: { $0.x > start }),
             let to = points.lastIndex(where: { $0.x < end }) else {
@@ -287,6 +296,28 @@ public final class ChartView: UIView {
         return line
     }
     
+    private func highlightedPoint(at x: CGFloat, line: Line) -> CGPoint? {
+        let factor = frame.width / x
+        
+        guard let min = line.points.xs.min(),
+            let max = line.points.xs.max() else {
+                return nil
+        }
+        
+        let lineX = min + (max - min) * factor
+        
+        // FIXME: it would not work if charts have different xs
+        guard let from = line.points.last(where: { $0.x < lineX }) else {
+            return line.points.first
+        }
+        
+        guard let to = line.points.first(where: { $0.x > lineX }) else {
+            return line.points.last
+        }
+        
+        return interpolate(from: from, to: to, x: lineX)
+    }
+    
     private func interpolate(from: CGPoint, to: CGPoint, x: CGFloat) -> CGPoint {
         let delta = to.x - from.x
         let factor = (x - from.x) / delta
@@ -302,17 +333,20 @@ extension ChartView {
     public struct Props {
         public var lines: [Line]
         public var lineWidth: CGFloat
+        public var highlithedX: CGFloat?
         public var estimatedGridSpace: Int?
         public var estimatedXLabelWidth: Int?
         public var range: Range?
         
         public init(lines: [Line],
                     lineWidth: CGFloat = 1,
+                    highlithedX: CGFloat? = nil,
                     estimatedGridSpace: Int? = nil,
                     estimatedXLabelWidth: Int? = 40,
                     range: Range? = nil) {
             self.lines = lines
             self.lineWidth = lineWidth
+            self.highlithedX = highlithedX
             self.estimatedGridSpace = estimatedGridSpace
             self.estimatedXLabelWidth = estimatedXLabelWidth
             self.range = range
