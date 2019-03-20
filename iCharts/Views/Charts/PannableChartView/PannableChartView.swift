@@ -22,6 +22,10 @@ private let yearFormatter: DateFormatter = {
 
 final class PannableChartView: UIControl {
     
+    private var highlightedX: CGFloat? {
+        didSet { props?.highlithedX = highlightedX }
+    }
+    
     private var props: ChartView.Props? {
         didSet { setNeedsLayout() }
     }
@@ -88,6 +92,7 @@ final class PannableChartView: UIControl {
     
     func render(props: ChartView.Props) {
         var props = props
+        props.highlithedX = highlightedX
         props.didHighlightX = { [weak self] output in
             guard let self = self else { return }
             self.renderChartInfoView(output: output)
@@ -124,7 +129,7 @@ final class PannableChartView: UIControl {
     
     private func highlight(using touch: UITouch) {
         let point = touch.location(in: self)
-        props?.highlithedX = point.x
+        highlightedX = point.x
         leadingConstraint.constant = leadingInset(point: point)
     }
     
@@ -148,7 +153,7 @@ final class PannableChartView: UIControl {
             self.infoView.alpha = 0.0
         }) { isFinished in
             if isFinished {
-                self.props?.highlithedX = nil
+                self.highlightedX = nil
             }
         }
     }
