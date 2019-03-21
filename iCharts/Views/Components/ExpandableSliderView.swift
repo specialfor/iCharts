@@ -14,7 +14,7 @@ public final class ExpandableSliderView: UIControl {
         return SliderState(position: position, startBound: startBound, endBound: endBound, visiblePart: visiblePart)
     }
     
-    public var visiblePart: CGFloat {
+    public private(set) var visiblePart: CGFloat {
         get { return _visiblePart }
         set {} // TODO: adjust frame
     }
@@ -22,7 +22,7 @@ public final class ExpandableSliderView: UIControl {
        return handlerWidth / bounds.width
     }()
     
-    public var position: CGFloat {
+    public private(set) var position: CGFloat {
         get { return _position }
         set {} // TODO: adjust frame
     }
@@ -69,6 +69,14 @@ public final class ExpandableSliderView: UIControl {
         }
     }
     
+    public var colors: Colors {
+        didSet { setupColors() }
+    }
+    
+    private func setupColors() {
+        overlayView.backgroundColor = colors.overlay
+    }
+    
     
     // MARK: - Sublayers
     
@@ -94,7 +102,6 @@ public final class ExpandableSliderView: UIControl {
     lazy var overlayView: UIView = {
         let view = UIView()
         
-        view.backgroundColor = UIColor(hexString: "#f6f8fa", alpha: 0.5)
         view.clipsToBounds = true
         
         addSubview(view) { superview in
@@ -131,6 +138,7 @@ public final class ExpandableSliderView: UIControl {
     
     func baseSetup() {
         [contentView, overlayView, handlerView].forEach { $0.isUserInteractionEnabled = false }
+        setupColors()
     }
     
     
@@ -267,6 +275,16 @@ public final class ExpandableSliderView: UIControl {
 
 
 extension ExpandableSliderView {
+    
+    public struct Colors {
+        public let overlay: UIColor
+
+        public init(overlay: UIColor) {
+            self.overlay = overlay
+        }
+        
+        public static let initial = Colors(overlay: UIColor.white.withAlphaComponent(0.5))
+    }
     
     public struct SliderState {
         public let position: CGFloat
