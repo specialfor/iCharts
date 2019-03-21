@@ -71,8 +71,8 @@ public final class LineChartLayer: CAShapeLayer {
         CATransaction.performWithoutAnimation { _ in
             masksToBounds = true
             frame = CGRect(origin: .zero, size: props.rectSize)
-            adjustNumberOfLayers(props: props)
         }
+        adjustNumberOfLayers(props: props)
         animate(props: props)
     }
     
