@@ -11,10 +11,10 @@ import UIKit.UIColor
 struct ThemeColors {
     let main: UIColor
     let view: UIColor
-    let cellTitleText: UIColor
-    let titleText: UIColor
-    let chartInfoText: UIColor
-    let captionText: UIColor
+    let cellTitle: UIColor
+    let title: UIColor
+    let chartInfoTitle: UIColor
+    let caption: UIColor
     let separator: UIColor
     let boldSeparator: UIColor
 }
