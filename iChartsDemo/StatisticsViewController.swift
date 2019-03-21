@@ -16,9 +16,15 @@ private let cellIdentifier = "lol-kek-cheburek"
 final class StatisticsViewController: UIViewController {
     
     let datasets: [Dataset]
+    let themeManager: ThemeManager
     
-    init(datasets: [Dataset]) {
+    var colors: ThemeColors {
+        return themeManager.currentTheme.colors
+    }
+    
+    init(datasets: [Dataset], themeManager: ThemeManager = ThemeManager()) {
         self.datasets = datasets
+        self.themeManager = themeManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -56,7 +62,6 @@ final class StatisticsViewController: UIViewController {
         let label = UILabel()
         
         label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.textColor = UIColor(hexString: "#6d6d72")
         label.text = "FOLLOWERS"
         
         contentView.addSubview(label)
@@ -86,7 +91,6 @@ final class StatisticsViewController: UIViewController {
     lazy var themeButton: UIButton = {
         let button = UIButton(type: .system)
         
-        button.backgroundColor = .white
         button.setTitle("Switch to Night Mode", for: .normal)
         
         button.addTarget(self, action: #selector(changeTheme), for: .touchUpInside)
@@ -109,18 +113,18 @@ final class StatisticsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(hexString: "#efeff4")
-        themeButton.isHidden = false
+        themeManager.themeChanged = { [weak self] _ in
+            self?.setupColors()
+        }
         
         renderCharts()
+        setupColors()
     }
     
     private func renderCharts() {
         let chartsProps = datasets.map(makeProps(using:))
         chartsProps.forEach { props in
             let chartView = DetailedChartView()
-            chartView.backgroundColor = .white
-            
             stackView.addArrangedSubview(chartView)
             chartView.render(props: props)
         }
@@ -137,10 +141,22 @@ final class StatisticsViewController: UIViewController {
         return .init(lines: lines)
     }
     
+    private func setupColors() {
+        view.backgroundColor = colors.main
+        
+        navigationController?.navigationBar.barTintColor = colors.main
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: colors.title]
+        
+        label.textColor = colors.headline
+        themeButton.backgroundColor = colors.view
+        stackView.subviews.forEach { $0.backgroundColor = colors.view }
+    }
+    
     
     // MARK - Actions
     
     @objc private func changeTheme() {
-        // TODO: need to implement
+        let newTheme: Theme = themeManager.currentTheme == .day ? .night : .day
+        themeManager.currentTheme = newTheme
     }
 }
