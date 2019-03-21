@@ -349,9 +349,9 @@ public final class ChartView: UIView {
 extension ChartView {
     
     public struct Colors {
-        public var labels: UIColor
-        public var horizontalLines: UIColor
-        public var verticalLine: UIColor
+        public let labels: UIColor
+        public let horizontalLines: UIColor
+        public let verticalLine: UIColor
         
         public init(labels: UIColor, horizontalLines: UIColor, verticalLine: UIColor) {
             self.labels = labels

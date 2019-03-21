@@ -9,11 +9,20 @@
 import Foundation
 
 private let cellIdentifier = "lol-kek-cheburek"
-private let textColor = UIColor(hexString: "#6d6d72")
 
 public final class ChartInfoView: View {
    
     private var props: Props?
+    
+    public var colors: Colors = .initial {
+        didSet { setupColors() }
+    }
+    
+    private func setupColors() {
+        backgroundColor = colors.background
+        dateMonthLabel.textColor = colors.title
+        yearLabel.textColor = colors.title
+    }
     
     // MARK: - Subviews
     
@@ -21,7 +30,6 @@ public final class ChartInfoView: View {
         let label = UILabel()
         
         label.font = UIFont.boldSystemFont(ofSize: 12.0)
-        label.textColor = textColor
         
         addSubview(label) { superview in
             label.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -41,7 +49,6 @@ public final class ChartInfoView: View {
         let label = UILabel()
         
         label.font = UIFont.systemFont(ofSize: 12.0)
-        label.textColor = textColor
         
         addSubview(label) { superview in
             label.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -94,7 +101,7 @@ public final class ChartInfoView: View {
     public override func baseSetup() {
         super.baseSetup()
         stackView.isHidden = false
-        backgroundColor = UIColor(hexString: "#f2f2f7")
+        setupColors()
     }
     
     
@@ -128,6 +135,18 @@ public final class ChartInfoView: View {
 
 
 extension ChartInfoView {
+    
+    public struct Colors {
+        public let background: UIColor
+        public let title: UIColor
+
+        public init(background: UIColor, title: UIColor) {
+            self.background = background
+            self.title = title
+        }
+        
+        public static let initial = Colors(background: .white, title: .black)
+    }
     
     public struct Props {
         public let dateMonth: String
