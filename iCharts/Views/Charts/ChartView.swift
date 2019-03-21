@@ -19,7 +19,7 @@ private let dateFormatter: DateFormatter = {
 }()
 
 public final class ChartView: UIView {
-    
+
     private var props: Props? {
         return extendedProps?.props
     }
@@ -56,6 +56,16 @@ public final class ChartView: UIView {
             height: xLabelsHeight)
     }
     
+    public var colors: Colors = .initial {
+        didSet { setupColors() }
+    }
+    
+    private func setupColors() {
+        gridLayer.lineColor = colors.horizontalLines
+        lineChartLayer.verticalLineColor = colors.verticalLine
+        yLabelsLayer.textColor = colors.labels
+        xLabelsLayer.textColor = colors.labels
+    }
     
     // MARK: - Init
     
@@ -82,6 +92,11 @@ public final class ChartView: UIView {
     public override func layoutSubviews() {
         super.layoutSubviews()
         
+        renderLayers()
+        setupColors()
+    }
+    
+    private func renderLayers() {
         guard let extendedProps = extendedProps else { return }
         let props = extendedProps.props
         
@@ -332,6 +347,23 @@ public final class ChartView: UIView {
 }
 
 extension ChartView {
+    
+    public struct Colors {
+        public var labels: UIColor
+        public var horizontalLines: UIColor
+        public var verticalLine: UIColor
+        
+        public init(labels: UIColor, horizontalLines: UIColor, verticalLine: UIColor) {
+            self.labels = labels
+            self.horizontalLines = horizontalLines
+            self.verticalLine = verticalLine
+        }
+        
+        public static let initial = Colors(
+            labels: .gray,
+            horizontalLines: .gray,
+            verticalLine: .darkGray)
+    }
     
     public struct Props {
         public var lines: [Line]

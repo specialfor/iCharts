@@ -8,6 +8,12 @@
 
 final class GridLayer: CALayer {
     
+    var lineColor: UIColor = .gray {
+        didSet {
+            (sublayers as? [CAShapeLayer])?.forEach { $0.strokeColor = lineColor.cgColor }
+        }
+    }
+    
     func render(props: Props) {
         backgroundColor = UIColor.clear.cgColor
         frame = CGRect(origin: .zero, size: props.rectSize)

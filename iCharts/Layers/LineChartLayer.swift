@@ -10,6 +10,12 @@ import Utils
 
 final class LineChartLayer: CAShapeLayer {
     
+    var verticalLineColor: UIColor = .darkGray {
+        didSet {
+            verticalLineLayer.strokeColor = verticalLineColor.cgColor
+        }
+    }
+    
     private var lineLayers: [LineLayer] {
         get { return (linesLayer.sublayers as? [LineLayer]) ?? [] }
         set { linesLayer.sublayers = newValue }

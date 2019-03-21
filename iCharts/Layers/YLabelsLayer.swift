@@ -8,6 +8,12 @@
 
 final class YLabelsLayer: CALayer {
     
+    var textColor: UIColor = .gray {
+        didSet {
+            (sublayers as? [CATextLayer])?.forEach { $0.foregroundColor = textColor.cgColor }
+        }
+    }
+    
     func render(props: Props) {
         backgroundColor = UIColor.clear.cgColor
         frame = CGRect(origin: .zero, size: props.rectSize)
