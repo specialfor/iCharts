@@ -20,7 +20,7 @@ private let yearFormatter: DateFormatter = {
     return formatter
 }()
 
-final class PannableChartView: UIControl {
+public final class PannableChartView: UIControl {
     
     private var highlightedX: CGFloat? {
         didSet { props?.highlithedX = highlightedX }
@@ -73,12 +73,12 @@ final class PannableChartView: UIControl {
     
     // MARK: - UIControl
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         baseSetup()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         baseSetup()
     }
@@ -88,7 +88,7 @@ final class PannableChartView: UIControl {
         infoView.alpha = 0
     }
     
-    override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         render()
         setupColors()
@@ -131,7 +131,7 @@ final class PannableChartView: UIControl {
     
     // MARK: - Handle tracking
     
-    override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+    public override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         highlight(using: touch)
         UIView.animate(withDuration: 0.3) {
             self.infoView.alpha = 1.0
@@ -139,7 +139,7 @@ final class PannableChartView: UIControl {
         return true
     }
     
-    override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+    public override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         highlight(using: touch)
         return true
     }
