@@ -154,6 +154,7 @@ final class StatisticsViewController: UIViewController {
         
         navigationController?.navigationBar.barTintColor = colors.main
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: colors.title]
+        navigationController?.navigationBar.barStyle = colors.isDarkNavigationBar ? .black : .default
         
         label.textColor = colors.headline
         themeButton.backgroundColor = colors.view
