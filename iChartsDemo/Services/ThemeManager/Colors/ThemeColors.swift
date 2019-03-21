@@ -1,5 +1,5 @@
 //
-//  Colors.swift
+//  ThemeColors.swift
 //  iChartsDemo
 //
 //  Created by Volodymyr Hryhoriev on 3/21/19.
@@ -8,7 +8,7 @@
 
 import UIKit.UIColor
 
-struct Colors {
+struct ThemeColors {
     let main: UIColor
     let view: UIColor
     let cellTitleText: UIColor

@@ -1,16 +1,14 @@
 //
-//  PredefinedColors.swift
+//  PredefinedThemeColors.swift
 //  iChartsDemo
 //
 //  Created by Volodymyr Hryhoriev on 3/21/19.
 //  Copyright © 2019 Volodymyr Hryhoriev. All rights reserved.
 //
 
-import Foundation
-
-extension Colors {
+extension ThemeColors {
     
-    static let day = Colors(
+    static let day = ThemeColors(
         main: .init(hexString: "#efeff4"),
         view: .init(hexString: "#fefefe"),
         cellTitleText: .init(hexString: "#000000"),
@@ -20,7 +18,7 @@ extension Colors {
         separator: .init(hexString: "#f3f3f3"),
         boldSeparator: .init(hexString: "#cfd1d2"))
     
-    static let night = Colors(
+    static let night = ThemeColors(
         main: .init(hexString: "#18222d"),
         view: .init(hexString: "#212f3f"),
         cellTitleText: .init(hexString: "#fefefe"),

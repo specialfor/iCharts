@@ -31,8 +31,8 @@
 		4B2C066122392A4B008B2D69 /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C066022392A4B008B2D69 /* Typealiases.swift */; };
 		4B2C066322392AF1008B2D69 /* LineChartLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C066222392AF1008B2D69 /* LineChartLayer.swift */; };
 		4B2C06672239364B008B2D69 /* CATransaction+Animate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C06662239364B008B2D69 /* CATransaction+Animate.swift */; };
-		4B2CF8D4224385BD003AC627 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2CF8D3224385BD003AC627 /* Colors.swift */; };
-		4B2CF8D622438674003AC627 /* PredefinedColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2CF8D522438674003AC627 /* PredefinedColors.swift */; };
+		4B2CF8D4224385BD003AC627 /* ThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2CF8D3224385BD003AC627 /* ThemeColors.swift */; };
+		4B2CF8D622438674003AC627 /* PredefinedThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2CF8D522438674003AC627 /* PredefinedThemeColors.swift */; };
 		4B2CF8DA22438884003AC627 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2CF8D922438884003AC627 /* ThemeManager.swift */; };
 		4B2CF8DC22438AD3003AC627 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2CF8DB22438AD3003AC627 /* Theme.swift */; };
 		4B5E11752242208800F53886 /* VerticalLineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5E11742242208800F53886 /* VerticalLineLayer.swift */; };
@@ -157,8 +157,8 @@
 		4B2C066022392A4B008B2D69 /* Typealiases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
 		4B2C066222392AF1008B2D69 /* LineChartLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartLayer.swift; sourceTree = "<group>"; };
 		4B2C06662239364B008B2D69 /* CATransaction+Animate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CATransaction+Animate.swift"; sourceTree = "<group>"; };
-		4B2CF8D3224385BD003AC627 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		4B2CF8D522438674003AC627 /* PredefinedColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredefinedColors.swift; sourceTree = "<group>"; };
+		4B2CF8D3224385BD003AC627 /* ThemeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeColors.swift; sourceTree = "<group>"; };
+		4B2CF8D522438674003AC627 /* PredefinedThemeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredefinedThemeColors.swift; sourceTree = "<group>"; };
 		4B2CF8D922438884003AC627 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		4B2CF8DB22438AD3003AC627 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		4B5E11742242208800F53886 /* VerticalLineLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalLineLayer.swift; sourceTree = "<group>"; };
@@ -378,8 +378,8 @@
 		4B2CF8DD22438AD7003AC627 /* Colors */ = {
 			isa = PBXGroup;
 			children = (
-				4B2CF8D3224385BD003AC627 /* Colors.swift */,
-				4B2CF8D522438674003AC627 /* PredefinedColors.swift */,
+				4B2CF8D3224385BD003AC627 /* ThemeColors.swift */,
+				4B2CF8D522438674003AC627 /* PredefinedThemeColors.swift */,
 			);
 			path = Colors;
 			sourceTree = "<group>";
@@ -723,12 +723,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B2CF8DC22438AD3003AC627 /* Theme.swift in Sources */,
-				4B2CF8D622438674003AC627 /* PredefinedColors.swift in Sources */,
+				4B2CF8D622438674003AC627 /* PredefinedThemeColors.swift in Sources */,
 				4B5E117E2242D87F00F53886 /* StatisticsViewController.swift in Sources */,
 				4B195836223687C600C32C76 /* AppDelegate.swift in Sources */,
 				4B2CF8DA22438884003AC627 /* ThemeManager.swift in Sources */,
 				4B96E277223F9D45000953C3 /* AppCoordinator.swift in Sources */,
-				4B2CF8D4224385BD003AC627 /* Colors.swift in Sources */,
+				4B2CF8D4224385BD003AC627 /* ThemeColors.swift in Sources */,
 				4BA9598B223691FB005609C6 /* Dataset.swift in Sources */,
 				4BA9598F2236941D005609C6 /* DatasetJSONParser.swift in Sources */,
 			);

@@ -10,7 +10,7 @@ enum Theme: String {
     case day
     case night
     
-    var colors: Colors {
+    var colors: ThemeColors {
         switch self {
         case .day:
             return .day
