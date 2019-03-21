@@ -17,7 +17,8 @@ extension ThemeColors {
         caption: .init(hexString: "#989ea3"),
         separator: .init(hexString: "#f3f3f3"),
         boldSeparator: .init(hexString: "#cfd1d2"),
-        handler: .init(hexString: "#cad4de"))
+        handler: .init(hexString: "#cad4de"),
+        selection: .init(hexString: "#f3f3f3"))
     
     static let night = ThemeColors(
         main: .init(hexString: "#18222d"),
@@ -28,5 +29,6 @@ extension ThemeColors {
         caption: .init(hexString: "#5b6b7f"),
         separator: .init(hexString: "#1b2734"),
         boldSeparator: .init(hexString: "#131b23"),
-        handler: .init(hexString: "#354659"))
+        handler: .init(hexString: "#354659"),
+        selection: .init(hexString: "#1b2734"))
 }

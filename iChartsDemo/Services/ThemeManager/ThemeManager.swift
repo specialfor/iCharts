@@ -13,7 +13,9 @@ private let themeKey = "iChartsDemo-theme-key"
 
 final class ThemeManager {
     
-    var themeChanged: ((Theme) -> Void)?
+    var themeChanged: ((Theme) -> Void)? {
+        didSet { themeChanged?(currentTheme) }
+    }
     
     var currentTheme: Theme {
         get {

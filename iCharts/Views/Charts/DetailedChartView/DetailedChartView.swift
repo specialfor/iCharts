@@ -36,6 +36,7 @@ public final class DetailedChartView: View {
         chartView.colors = colors.chart
         tableView.separatorColor = colors.separator
         datasource.titleColor = colors.title
+        datasource.selectionColor = colors.selection
         tableView.reloadData()
     }
     
@@ -145,13 +146,15 @@ extension DetailedChartView {
         public let chart: ChartScrollView.Colors
         public let title: UIColor
         public let separator: UIColor
+        public let selection: UIColor
 
-        public init(chart: ChartScrollView.Colors, title: UIColor, separator: UIColor) {
+        public init(chart: ChartScrollView.Colors, title: UIColor, separator: UIColor, selection: UIColor) {
             self.chart = chart
             self.title = title
             self.separator = separator
+            self.selection = selection
         }
         
-        public static let initial = Colors(chart: .initial, title: .black, separator: .gray)
+        public static let initial = Colors(chart: .initial, title: .black, separator: .gray, selection: .gray)
     }
 }

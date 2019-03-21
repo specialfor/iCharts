@@ -18,4 +18,5 @@ struct ThemeColors {
     let separator: UIColor
     let boldSeparator: UIColor
     let handler: UIColor
+    let selection: UIColor
 }

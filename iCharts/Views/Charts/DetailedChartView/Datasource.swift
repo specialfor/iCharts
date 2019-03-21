@@ -11,6 +11,7 @@ extension DetailedChartView {
     final class Datasource: NSObject, UITableViewDataSource {
         
         var titleColor: UIColor = .black
+        var selectionColor: UIColor = .gray
         
         var props: [CellProps]
         let identifier: String
@@ -34,6 +35,9 @@ extension DetailedChartView {
             cell.backgroundColor = .clear
             cell.textLabel?.textColor = titleColor
             
+            cell.selectedBackgroundView = UIView(frame: cell.frame)
+            cell.selectedBackgroundView?.backgroundColor = selectionColor
+            
             let cellProps = props[indexPath.row]
             cellProps.title.bind { cell.textLabel?.text = $0 }
             cellProps.color.bind { [weak self] in
@@ -44,7 +48,7 @@ extension DetailedChartView {
         }
         
         func imageSize(for cell: UITableViewCell) -> CGSize {
-            let side = 6
+            let side = 5
             return CGSize(width: side, height: side)
         }
     }

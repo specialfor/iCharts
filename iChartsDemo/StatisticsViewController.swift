@@ -113,12 +113,13 @@ final class StatisticsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        themeManager.themeChanged = { [weak self] _ in
-            self?.setupColors()
-        }
-        
         renderCharts()
-        setupColors()
+        themeManager.themeChanged = { [weak self] theme in
+            self?.setupColors()
+            
+            let title = "Switch to \(theme.rawValue.capitalized) Mode"
+            self?.themeButton.setTitle(title, for: .normal)
+        }
     }
     
     private func renderCharts() {
@@ -172,7 +173,8 @@ final class StatisticsViewController: UIViewController {
                     overlay: colors.main.withAlphaComponent(0.5),
                     handler: colors.handler.withAlphaComponent(0.9))),
             title: colors.title,
-            separator: colors.separator)
+            separator: colors.separator,
+            selection: colors.selection)
     }
     
     

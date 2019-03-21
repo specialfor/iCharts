@@ -6,7 +6,7 @@
 //  Copyright © 2019 Volodymyr Hryhoriev. All rights reserved.
 //
 
-private let minWidth: CGFloat = 100
+private let minWidth: CGFloat = 84
 
 public final class ExpandableSliderView: UIControl {
     
