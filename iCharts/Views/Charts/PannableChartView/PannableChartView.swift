@@ -150,7 +150,7 @@ final class PannableChartView: UIControl {
         workItem = DispatchWorkItem { [weak self] in
             self?.hide()
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0, execute: workItem!)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: workItem!)
     }
     
     private func hide() {

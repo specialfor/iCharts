@@ -6,6 +6,8 @@
 //  Copyright © 2019 Volodymyr Hryhoriev. All rights reserved.
 //
 
+import UIKit
+
 public final class AutoSizableTableView: UITableView {
     
     public override var contentSize: CGSize {

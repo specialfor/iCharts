@@ -51,6 +51,7 @@ public final class DetailedChartView: View {
         let tableView = AutoSizableTableView()
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.backgroundColor = .clear
         
         tableView.isScrollEnabled = false
         tableView.rowHeight = 44.0

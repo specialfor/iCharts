@@ -14,7 +14,7 @@ final class AppCoordinator {
     
     func start(window: UIWindow) {
         let datasets = parseDatasets()
-        window.rootViewController = makeTabBarController(datasets: datasets)
+        window.rootViewController = makeNavigationController(datasets: datasets)
         window.makeKeyAndVisible()
     }
     
@@ -32,20 +32,9 @@ final class AppCoordinator {
         }
     }
     
-    private func makeTabBarController(datasets: [Dataset]) -> UITabBarController {
-        let tabBarController = UITabBarController()
-        tabBarController.viewControllers = makeControllers(using: datasets)
-        tabBarController.selectedIndex = 0
-        return tabBarController
-    }
-    
-    private func makeControllers(using datasets: [Dataset]) -> [UIViewController] {
-        return datasets.enumerated().map { index, dataset in
-            let viewController = ViewController(dataset: dataset)
-            viewController.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: index)
-            viewController.tabBarItem = UITabBarItem(title: nil, image: icons[index], tag: index)
-            viewController.title = "Statistics"
-            return UINavigationController(rootViewController: viewController)
-        }
+    private func makeNavigationController(datasets: [Dataset]) -> UINavigationController {
+        let vc = StatisticsViewController(datasets: datasets)
+        vc.title = "Statistics"
+        return UINavigationController(rootViewController: vc)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  AllViewController.swift
+//  StatisticsViewController.swift
 //  iChartsDemo
 //
 //  Created by Volodymyr Hryhoriev on 3/20/19.
@@ -9,10 +9,11 @@
 import UIKit
 import SnapKit
 import iCharts
+import Utils
 
 private let cellIdentifier = "lol-kek-cheburek"
 
-final class AllViewController: UIViewController, UITableViewDataSource {
+final class StatisticsViewController: UIViewController {
     
     let datasets: [Dataset]
     
@@ -39,15 +40,16 @@ final class AllViewController: UIViewController, UITableViewDataSource {
         return scrollView
     }()
     
-    lazy var tableView: UITableView = {
-        let tablewView = AutoSizableTableView()
+    lazy var contentView: UIView = {
+        let view = UIView()
         
-        tablewView.register(CellView.self, forCellReuseIdentifier: cellIdentifier)
-        tablewView.backgroundColor = .clear
-        tablewView.allowsSelection = false
-        tablewView.dataSource = self
+        scrollView.addSubview(view)
+        view.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+            make.width.equalTo(self.view)
+        }
         
-        return tablewView
+        return view
     }()
     
     lazy var label: UILabel = {
@@ -66,18 +68,19 @@ final class AllViewController: UIViewController, UITableViewDataSource {
         return label
     }()
     
-    lazy var chartView: DetailedChartView = {
-        let view = DetailedChartView()
+    lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
         
-        view.backgroundColor = .white
+        stackView.axis = .vertical
+        stackView.spacing = 16.0
         
-        contentView.addSubview(view)
-        view.snp.makeConstraints { make in
+        contentView.addSubview(stackView)
+        stackView.snp.makeConstraints { make in
             make.top.equalTo(label.snp.bottom).offset(8)
             make.left.right.equalToSuperview()
         }
         
-        return view
+        return stackView
     }()
     
     lazy var themeButton: UIButton = {
@@ -92,7 +95,7 @@ final class AllViewController: UIViewController, UITableViewDataSource {
         button.snp.makeConstraints { make in
             make.height.equalTo(44.0)
             
-            make.top.equalTo(chartView.snp.bottom).offset(36.0)
+            make.top.equalTo(stackView.snp.bottom).offset(36.0)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(-36.0)
         }
@@ -106,39 +109,38 @@ final class AllViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(hexString: "##efeff4")
+        view.backgroundColor = UIColor(hexString: "#efeff4")
         themeButton.isHidden = false
         
-//        let props = makeProps()
-//        chartView.render(props: props)
+        renderCharts()
     }
     
-//    private func makeProps() -> ChartView.Props {
-//        let lines = dataset.charts.map { chart in
-//            return Line(
-//                title: chart.name,
-//                xs: dataset.xs.dots,
-//                ys: chart.vector.dots,
-//                color: UIColor(hexString: chart.color))
-//        }
-//        return .init(lines: lines)
-//    }
+    private func renderCharts() {
+        let chartsProps = datasets.map(makeProps(using:))
+        chartsProps.forEach { props in
+            let chartView = DetailedChartView()
+            chartView.backgroundColor = .white
+            
+            stackView.addArrangedSubview(chartView)
+            chartView.render(props: props)
+        }
+    }
+    
+    private func makeProps(using dataset: Dataset) -> ChartView.Props {
+        let lines = dataset.charts.map { chart in
+            return Line(
+                title: chart.name,
+                xs: dataset.xs.dots,
+                ys: chart.vector.dots,
+                color: UIColor(hexString: chart.color))
+        }
+        return .init(lines: lines)
+    }
     
     
     // MARK - Actions
     
     @objc private func changeTheme() {
         // TODO: need to implement
-    }
-    
-    
-    // MARK: - UITableViewDatasource
-}
-
-
-private extension AllViewController {
-    
-    class CellView: UITableViewCell {
-        
     }
 }

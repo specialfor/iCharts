@@ -29,6 +29,8 @@ extension DetailedChartView {
         }
         
         private func configure(cell: UITableViewCell, at indexPath: IndexPath) {
+            cell.backgroundColor = .clear
+            
             let cellProps = props[indexPath.row]
             cellProps.title.bind { cell.textLabel?.text = $0 }
             cellProps.color.bind { [weak self] in
