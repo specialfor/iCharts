@@ -199,7 +199,18 @@ public final class ChartView: UIView {
         return (
             labels: (0..<count).map { index in
                 let x = CGFloat(index) * adjustedWidth
-                let label = xLabel(at: x + adjustedWidth / 2, limits: limits)
+                
+                let labelX: CGFloat
+                switch index {
+                case 0:
+                    labelX = 0
+                case 1..<(count - 1):
+                    labelX = x + adjustedWidth / 2
+                default:
+                    labelX = frame.size.width
+                }
+                
+                let label = xLabel(at: labelX, limits: limits)
                 
                 return XLabelsLayer.Props.Label(
                     point: CGPoint(x: x, y: 0),
