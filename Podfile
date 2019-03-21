@@ -3,4 +3,5 @@
 
 target 'iChartsDemo' do 
 	pod 'SnapKit'
+  pod 'GDPerformanceView-Swift', '~> 2.0.2', :configuration => 'Debug'
 end

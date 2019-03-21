@@ -66,7 +66,7 @@
 		4BFBEFD6223A8DE600F2DE99 /* ExpandableSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFBEFD5223A8DE600F2DE99 /* ExpandableSliderView.swift */; };
 		4BFBEFD8223A8E0100F2DE99 /* HandlerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFBEFD7223A8E0100F2DE99 /* HandlerView.swift */; };
 		4BFC626422412F5F004C79E5 /* CATextLayer+Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFC626322412F5F004C79E5 /* CATextLayer+Label.swift */; };
-		8ACBB66384393924CD699A28 /* libPods-iChartsDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BDD602C63C8A0E16453A60D7 /* libPods-iChartsDemo.a */; };
+		F0A47AF72E29F21B72DC6731 /* libPods-iChartsDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4DABBC55A9819878899FE69 /* libPods-iChartsDemo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -192,9 +192,9 @@
 		4BFBEFD7223A8E0100F2DE99 /* HandlerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandlerView.swift; sourceTree = "<group>"; };
 		4BFBEFD9223A92D300F2DE99 /* Views.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Views.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4BFC626322412F5F004C79E5 /* CATextLayer+Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CATextLayer+Label.swift"; sourceTree = "<group>"; };
-		A5B5FA0D22ECEF59C3250DC5 /* Pods-iChartsDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChartsDemo.release.xcconfig"; path = "Target Support Files/Pods-iChartsDemo/Pods-iChartsDemo.release.xcconfig"; sourceTree = "<group>"; };
-		BDD602C63C8A0E16453A60D7 /* libPods-iChartsDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iChartsDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD2AE273275F51C53128D818 /* Pods-iChartsDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChartsDemo.debug.xcconfig"; path = "Target Support Files/Pods-iChartsDemo/Pods-iChartsDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		4C4BE008E1C011FDEAC735A7 /* Pods-iChartsDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChartsDemo.release.xcconfig"; path = "Target Support Files/Pods-iChartsDemo/Pods-iChartsDemo.release.xcconfig"; sourceTree = "<group>"; };
+		E4DABBC55A9819878899FE69 /* libPods-iChartsDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iChartsDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA2CBB7C24F5AB88FDDBE3FE /* Pods-iChartsDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChartsDemo.debug.xcconfig"; path = "Target Support Files/Pods-iChartsDemo/Pods-iChartsDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,7 +204,7 @@
 			files = (
 				4B7B3F44223E4EB0009C9BA8 /* libUtils.a in Frameworks */,
 				4B27CBB62238040400AF42BB /* iCharts.framework in Frameworks */,
-				8ACBB66384393924CD699A28 /* libPods-iChartsDemo.a in Frameworks */,
+				F0A47AF72E29F21B72DC6731 /* libPods-iChartsDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,7 +244,7 @@
 				4B7B3F3C223E4E85009C9BA8 /* Utils */,
 				4B195833223687C600C32C76 /* Products */,
 				5F787D8EC4C6B4A0DAF03DFA /* Pods */,
-				FE05ADE0F5C492605E6B0C31 /* Frameworks */,
+				CB3207A0EEF01CC337920F78 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -514,16 +514,16 @@
 		5F787D8EC4C6B4A0DAF03DFA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				CD2AE273275F51C53128D818 /* Pods-iChartsDemo.debug.xcconfig */,
-				A5B5FA0D22ECEF59C3250DC5 /* Pods-iChartsDemo.release.xcconfig */,
+				FA2CBB7C24F5AB88FDDBE3FE /* Pods-iChartsDemo.debug.xcconfig */,
+				4C4BE008E1C011FDEAC735A7 /* Pods-iChartsDemo.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		FE05ADE0F5C492605E6B0C31 /* Frameworks */ = {
+		CB3207A0EEF01CC337920F78 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BDD602C63C8A0E16453A60D7 /* libPods-iChartsDemo.a */,
+				E4DABBC55A9819878899FE69 /* libPods-iChartsDemo.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -546,7 +546,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4B195844223687C700C32C76 /* Build configuration list for PBXNativeTarget "iChartsDemo" */;
 			buildPhases = (
-				0E6A3BDFE843CF22C6C42F43 /* [CP] Check Pods Manifest.lock */,
+				89967BE72F79B30650836E48 /* [CP] Check Pods Manifest.lock */,
 				4B19582E223687C600C32C76 /* Sources */,
 				4B19582F223687C600C32C76 /* Frameworks */,
 				4B195830223687C600C32C76 /* Resources */,
@@ -693,7 +693,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0E6A3BDFE843CF22C6C42F43 /* [CP] Check Pods Manifest.lock */ = {
+		89967BE72F79B30650836E48 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -955,7 +955,7 @@
 		};
 		4B195845223687C700C32C76 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CD2AE273275F51C53128D818 /* Pods-iChartsDemo.debug.xcconfig */;
+			baseConfigurationReference = FA2CBB7C24F5AB88FDDBE3FE /* Pods-iChartsDemo.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -977,7 +977,7 @@
 		};
 		4B195846223687C700C32C76 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A5B5FA0D22ECEF59C3250DC5 /* Pods-iChartsDemo.release.xcconfig */;
+			baseConfigurationReference = 4C4BE008E1C011FDEAC735A7 /* Pods-iChartsDemo.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

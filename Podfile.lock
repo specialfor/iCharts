@@ -1,16 +1,20 @@
 PODS:
+  - GDPerformanceView-Swift (2.0.2)
   - SnapKit (4.2.0)
 
 DEPENDENCIES:
+  - GDPerformanceView-Swift (~> 2.0.2)
   - SnapKit
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - GDPerformanceView-Swift
     - SnapKit
 
 SPEC CHECKSUMS:
+  GDPerformanceView-Swift: a40b2f675589449f5b5082f3178f01bfdb7882ce
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
 
-PODFILE CHECKSUM: 70483405614a6e94c2209fb6cd32cfcedebd1b13
+PODFILE CHECKSUM: b32e3da42f974ffdceb60dc2e543fece54c7fb65
 
 COCOAPODS: 1.6.1

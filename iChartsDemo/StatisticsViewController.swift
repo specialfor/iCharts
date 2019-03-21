@@ -11,6 +11,10 @@ import SnapKit
 import iCharts
 import Utils
 
+#if DEBUG
+import GDPerformanceView_Swift
+#endif
+
 private let cellIdentifier = "lol-kek-cheburek"
 
 final class StatisticsViewController: UIViewController {
@@ -91,8 +95,6 @@ final class StatisticsViewController: UIViewController {
     lazy var themeButton: UIButton = {
         let button = UIButton(type: .system)
         
-        button.setTitle("Switch to Night Mode", for: .normal)
-        
         button.addTarget(self, action: #selector(changeTheme), for: .touchUpInside)
         
         contentView.addSubview(button)
@@ -113,11 +115,16 @@ final class StatisticsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        #if DEBUG
+        PerformanceMonitor.shared().start()
+        #endif
+        
         renderCharts()
         themeManager.themeChanged = { [weak self] theme in
             self?.setupColors()
             
-            let title = "Switch to \(theme.rawValue.capitalized) Mode"
+            let opossiteTheme: Theme = theme == .day ? .night : .day
+            let title = "Switch to \(opossiteTheme.rawValue.capitalized) Mode"
             self?.themeButton.setTitle(title, for: .normal)
         }
     }
