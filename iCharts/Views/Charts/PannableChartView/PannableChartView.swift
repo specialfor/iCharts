@@ -34,6 +34,15 @@ final class PannableChartView: UIControl {
     
     private var workItem: DispatchWorkItem?
     
+    public var colors: Colors = .initial {
+        didSet { setupColors() }
+    }
+    
+    private func setupColors() {
+        chartView.colors = colors.chart
+        infoView.colors = colors.chartInfo
+    }
+    
     // MARK: - Subviews
     
     lazy var chartView: ChartView = {
@@ -82,6 +91,7 @@ final class PannableChartView: UIControl {
     override func layoutSubviews() {
         super.layoutSubviews()
         render()
+        setupColors()
     }
 
     private func render() {
@@ -161,5 +171,21 @@ final class PannableChartView: UIControl {
                 self.highlightedX = nil
             }
         }
+    }
+}
+
+
+extension PannableChartView {
+    
+    public struct Colors {
+        public let chart: ChartView.Colors
+        public let chartInfo: ChartInfoView.Colors
+
+        public init(chart: ChartView.Colors, chartInfo: ChartInfoView.Colors) {
+            self.chart = chart
+            self.chartInfo = chartInfo
+        }
+        
+        public static let initial = Colors(chart: .initial, chartInfo: .initial)
     }
 }
