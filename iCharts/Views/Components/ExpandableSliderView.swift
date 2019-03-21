@@ -69,7 +69,7 @@ public final class ExpandableSliderView: UIControl {
         }
     }
     
-    public var colors: Colors {
+    public var colors: Colors = .initial {
         didSet { setupColors() }
     }
     
