@@ -9,6 +9,10 @@
 
 final class LineLayer: CAShapeLayer {
     
+    var circleColor: UIColor = .white {
+        didSet { (sublayers?.first as? CAShapeLayer)?.fillColor = circleColor.cgColor }
+    }
+    
     func render(props: Props) {
         renderLinePath(props: props)
         renderCircleLayer(props: props)

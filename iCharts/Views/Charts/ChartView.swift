@@ -62,7 +62,7 @@ public final class ChartView: UIView {
     private func setupColors() {
         CATransaction.performWithoutAnimation { _ in
             gridLayer.lineColor = colors.horizontalLines
-            lineChartLayer.verticalLineColor = colors.verticalLine
+            lineChartLayer.colors = colors.lineChart
             yLabelsLayer.textColor = colors.labels
             xLabelsLayer.textColor = colors.labels
         }
@@ -349,18 +349,18 @@ extension ChartView {
     public struct Colors {
         public let labels: UIColor
         public let horizontalLines: UIColor
-        public let verticalLine: UIColor
+        public let lineChart: LineChartLayer.Colors
         
-        public init(labels: UIColor, horizontalLines: UIColor, verticalLine: UIColor) {
+        public init(labels: UIColor, horizontalLines: UIColor, lineChart: LineChartLayer.Colors) {
             self.labels = labels
             self.horizontalLines = horizontalLines
-            self.verticalLine = verticalLine
+            self.lineChart = lineChart
         }
         
         public static let initial = Colors(
             labels: .gray,
             horizontalLines: .gray,
-            verticalLine: .darkGray)
+            lineChart: .initial)
     }
     
     public struct Props {

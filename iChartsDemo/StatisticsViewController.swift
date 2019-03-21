@@ -162,7 +162,9 @@ final class StatisticsViewController: UIViewController {
                     chart: .init(
                         labels: colors.caption,
                         horizontalLines: colors.separator,
-                        verticalLine: colors.boldSeparator),
+                        lineChart: .init(
+                            verticalLine: colors.boldSeparator,
+                            circle: colors.view)),
                     chartInfo: .init(
                         background: colors.main,
                         title: colors.chartInfoTitle)),

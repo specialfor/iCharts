@@ -8,13 +8,7 @@
 
 import Utils
 
-final class LineChartLayer: CAShapeLayer {
-    
-    var verticalLineColor: UIColor = .darkGray {
-        didSet {
-            verticalLineLayer.lineColor = verticalLineColor
-        }
-    }
+public final class LineChartLayer: CAShapeLayer {
     
     private var lineLayers: [LineLayer] {
         get { return (linesLayer.sublayers as? [LineLayer]) ?? [] }
@@ -24,17 +18,29 @@ final class LineChartLayer: CAShapeLayer {
     private let verticalLineLayer = VerticalLineLayer()
     private let linesLayer = CALayer()
     
-    override init() {
+    public var colors: Colors = .initial {
+        didSet { setupColors() }
+    }
+    
+    private func setupColors() {
+        verticalLineLayer.lineColor = colors.verticalLine
+        lineLayers.forEach { $0.circleColor = colors.circle }
+    }
+    
+    
+    // MARK: - Init
+    
+    public override init() {
         super.init()
         baseSetup()
     }
     
-    override init(layer: Any) {
+    public override init(layer: Any) {
         super.init(layer: layer)
         baseSetup()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         baseSetup()
     }
@@ -42,12 +48,13 @@ final class LineChartLayer: CAShapeLayer {
     private func baseSetup() {
         addSublayer(verticalLineLayer)
         addSublayer(linesLayer)
+        setupColors()
     }
     
     
     // MARK: - Render
     
-    func render(props: Props) {
+    public func render(props: Props) {
         renderVerticalLineLayer(props: props)
         renderLinesLayer(props: props)
     }
@@ -108,7 +115,19 @@ final class LineChartLayer: CAShapeLayer {
 
 extension LineChartLayer {
     
-    struct Props {
+    public struct Colors {
+        public let verticalLine: UIColor
+        public let circle: UIColor
+
+        public init(verticalLine: UIColor, circle: UIColor) {
+            self.verticalLine = verticalLine
+            self.circle = circle
+        }
+        
+        public static let initial = Colors(verticalLine: .darkGray, circle: .white)
+    }
+    
+    public struct Props {
         var lines: [Line]
         let lineWidth: CGFloat
         let renderMode: RenderMode
