@@ -16,6 +16,15 @@ public final class ChartScrollView: View {
         didSet { setNeedsLayout() }
     }
     
+    public var colors: Colors = .initial {
+        didSet { setupColors() }
+    }
+    
+    private func setupColors() {
+        chartView.colors = colors.chart
+        sliderView.colors = colors.slider
+    }
+    
     
     // MARK: - Subviews
     
@@ -81,6 +90,10 @@ public final class ChartScrollView: View {
         render()
     }
     
+    override func baseSetup() {
+        super.baseSetup()
+        setupColors()
+    }
     
     // MARK: - Render
     
@@ -117,5 +130,21 @@ public final class ChartScrollView: View {
         props.range = .percents(from: sliderState.startBound, to: sliderState.endBound)
         
         return props
+    }
+}
+
+
+extension ChartScrollView {
+    
+    public struct Colors {
+        public let chart: PannableChartView.Colors
+        public let slider: ExpandableSliderView.Colors
+
+        public init(chart: PannableChartView.Colors, slider: ExpandableSliderView.Colors) {
+            self.chart = chart
+            self.slider = slider
+        }
+        
+        public static let initial = Colors(chart: .initial, slider: .initial)
     }
 }
