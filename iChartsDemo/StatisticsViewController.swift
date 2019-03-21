@@ -167,7 +167,8 @@ final class StatisticsViewController: UIViewController {
                         background: colors.main,
                         title: colors.chartInfoTitle)),
                 slider: .init(
-                    overlay: colors.main.withAlphaComponent(0.5))),
+                    overlay: colors.main.withAlphaComponent(0.5),
+                    handler: colors.handler.withAlphaComponent(0.9))),
             title: colors.title,
             separator: colors.separator)
     }

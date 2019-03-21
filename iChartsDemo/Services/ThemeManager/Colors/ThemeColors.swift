@@ -17,4 +17,5 @@ struct ThemeColors {
     let caption: UIColor
     let separator: UIColor
     let boldSeparator: UIColor
+    let handler: UIColor
 }

@@ -15,7 +15,9 @@ private let minimumTouchWidth: CGFloat = 22
 
 public final class HandlerView: View {
     
-    private let borderColor = UIColor(hexString: "#cad4de")
+    public var borderColor: UIColor = .gray {
+        didSet { setNeedsDisplay() }
+    }
     
     public var shouldDrawArrows: Bool = true {
         didSet { setNeedsDisplay() }

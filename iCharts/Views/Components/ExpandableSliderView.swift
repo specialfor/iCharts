@@ -75,6 +75,7 @@ public final class ExpandableSliderView: UIControl {
     
     private func setupColors() {
         overlayView.backgroundColor = colors.overlay
+        handlerView.borderColor = colors.handler
     }
     
     
@@ -278,12 +279,14 @@ extension ExpandableSliderView {
     
     public struct Colors {
         public let overlay: UIColor
+        public let handler: UIColor
 
-        public init(overlay: UIColor) {
+        public init(overlay: UIColor, handler: UIColor) {
             self.overlay = overlay
+            self.handler = handler
         }
         
-        public static let initial = Colors(overlay: UIColor.white.withAlphaComponent(0.5))
+        public static let initial = Colors(overlay: UIColor.white.withAlphaComponent(0.5), handler: UIColor.gray.withAlphaComponent(0.7))
     }
     
     public struct SliderState {
