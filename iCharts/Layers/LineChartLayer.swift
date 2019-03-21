@@ -12,7 +12,7 @@ final class LineChartLayer: CAShapeLayer {
     
     var verticalLineColor: UIColor = .darkGray {
         didSet {
-            verticalLineLayer.strokeColor = verticalLineColor.cgColor
+            verticalLineLayer.lineColor = verticalLineColor
         }
     }
     
@@ -56,7 +56,6 @@ final class LineChartLayer: CAShapeLayer {
         let verticalLineLayerProps = VerticalLineLayer.Props(
             x: props.highlightedX,
             width: 1,
-            color: UIColor(hexString: "#cfd1d2").cgColor,
             rectSize: props.rectSize)
         verticalLineLayer.render(props: verticalLineLayerProps)
     }

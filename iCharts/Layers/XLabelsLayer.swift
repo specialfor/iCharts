@@ -25,15 +25,14 @@ final class XLabelsLayer: CALayer {
         sublayers = props.labels.map {
             makeTextLayer(
                 label: $0,
-                labelWidth: props.labelWidth,
-                textColor: props.textColor)
+                labelWidth: props.labelWidth)
         }
     }
     
-    private func makeTextLayer(label: Props.Label, labelWidth: CGFloat, textColor: CGColor) -> CATextLayer {
+    private func makeTextLayer(label: Props.Label, labelWidth: CGFloat) -> CATextLayer {
         let fontSize: CGFloat = 12.0
         
-        let layer = CATextLayer(string: label.value, textColor: textColor, fontSize: fontSize)
+        let layer = CATextLayer(string: label.value, textColor: textColor.cgColor, fontSize: fontSize)
         
         layer.frame.size.width = labelWidth
         
@@ -49,7 +48,6 @@ extension XLabelsLayer {
     struct Props {
         let labels: [Label]
         let labelWidth: CGFloat
-        let textColor: CGColor
         let rect: CGRect
         
         struct Label {

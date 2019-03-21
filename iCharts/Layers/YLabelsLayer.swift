@@ -22,12 +22,12 @@ final class YLabelsLayer: CALayer {
     }
     
     private func renderLabels(props: Props) {
-        sublayers = props.labels.map { makeTextLayer(label: $0, textColor: props.textColor) }
+        sublayers = props.labels.map { makeTextLayer(label: $0) }
     }
     
-    private func makeTextLayer(label: Props.Label, textColor: CGColor) -> CATextLayer {
+    private func makeTextLayer(label: Props.Label) -> CATextLayer {
         let fontSize: CGFloat = 12.0
-        let layer = CATextLayer(string: label.value, textColor: textColor, fontSize: fontSize)
+        let layer = CATextLayer(string: label.value, textColor: textColor.cgColor, fontSize: fontSize)
         
         let eps = fontSize * 0.2
         layer.frame.size.width *= 2
@@ -42,7 +42,6 @@ extension YLabelsLayer {
     
     struct Props {
         let labels: [Label]
-        let textColor: CGColor
         let rectSize: CGSize
         
         struct Label {

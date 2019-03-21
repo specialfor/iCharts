@@ -22,16 +22,16 @@ final class GridLayer: CALayer {
     }
     
     private func renderLines(props: Props) {
-        sublayers = props.points.map { makePathLayer(point: $0, color: props.lineColor, rectSize: props.rectSize) }
+        sublayers = props.points.map { makePathLayer(point: $0, rectSize: props.rectSize) }
     }
     
-    private func makePathLayer(point: CGPoint, color: CGColor, rectSize: CGSize) -> CAShapeLayer {
+    private func makePathLayer(point: CGPoint, rectSize: CGSize) -> CAShapeLayer {
         let layer = CAShapeLayer()
         
         layer.backgroundColor = UIColor.clear.cgColor
         
         layer.path = makePath(point: point, rectSize: rectSize)
-        layer.strokeColor = color
+        layer.strokeColor = lineColor.cgColor
         
         return layer
     }
@@ -48,7 +48,6 @@ extension GridLayer {
     
     struct Props {
         let points: Points
-        let lineColor: CGColor
         let rectSize: CGSize
     }
 }

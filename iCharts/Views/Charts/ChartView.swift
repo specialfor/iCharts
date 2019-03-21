@@ -10,7 +10,6 @@ import UIKit
 import Utils
 
 private let xLabelsHeight: CGFloat = 30.0
-private let labelColor = UIColor(hexString: "#989ea3").cgColor
 
 private let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
@@ -110,7 +109,6 @@ public final class ChartView: UIView {
         let points = makePointsForHorizontalLines(props: props)
         let gridProps = GridLayer.Props(
             points: points,
-            lineColor: UIColor(hexString: "#efeff4").cgColor,
             rectSize: sizeWithoutXLabels)
         gridLayer.render(props: gridProps)
     }
@@ -143,7 +141,6 @@ public final class ChartView: UIView {
         let labels = makeYLabels(props: props)
         let yLabelsProps = YLabelsLayer.Props(
             labels: labels,
-            textColor: labelColor,
             rectSize: sizeWithoutXLabels)
         yLabelsLayer.render(props: yLabelsProps)
     }
@@ -171,7 +168,6 @@ public final class ChartView: UIView {
         let xLabelsProps = XLabelsLayer.Props(
             labels: labels,
             labelWidth: width,
-            textColor: labelColor,
             rect: xLabelsRect)
         xLabelsLayer.render(props: xLabelsProps)
     }

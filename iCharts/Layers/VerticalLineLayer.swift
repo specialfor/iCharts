@@ -10,10 +10,14 @@ import Foundation
 
 final class VerticalLineLayer: CAShapeLayer {
     
+    var lineColor: UIColor = .darkGray {
+        didSet { strokeColor = lineColor.cgColor }
+    }
+    
     func render(props: Props) {
         frame.size = props.rectSize
         backgroundColor = nil
-        strokeColor = props.color
+        strokeColor = lineColor.cgColor
         lineWidth = props.width
         path = makePath(x: props.x, rectSize: props.rectSize)
     }
@@ -37,7 +41,6 @@ extension VerticalLineLayer {
     struct Props {
         let x: CGFloat?
         let width: CGFloat
-        let color: CGColor
         let rectSize: CGSize
     }
 }
