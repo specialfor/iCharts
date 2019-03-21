@@ -125,6 +125,7 @@ public final class ChartScrollView: View {
         var props = props
         props.lineWidth = 2
         props.estimatedGridSpace = 50
+        props.isInFullSize = false
         
         let sliderState = sliderView.sliderState
         props.range = .percents(from: sliderState.startBound, to: sliderState.endBound)

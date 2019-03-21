@@ -11,6 +11,12 @@ import CoreGraphics
 // TODO: rename as scaleToFill
 final class SizeNormalizer: Normalizer {
     
+    let isInFullSize: Bool
+    
+    init(isInFullSize: Bool) {
+        self.isInFullSize = isInFullSize
+    }
+    
     func unsafeNormalize(line: Line, args: NormalizationArgs) -> Line {
         let size = args.targetSize
         
@@ -19,9 +25,17 @@ final class SizeNormalizer: Normalizer {
         line = extendedLine
         
         let xs = normalize(xs: line.points.xs, args: args)
-        let ys = normalize(vector: line.points.ys, side: size.height, max: args.maxPoint.y)
-            .map { size.height - $0 }
         
+        let ys: [CGFloat]
+        if !isInFullSize {
+            let adjustedYS = line.points.ys.map { $0 - args.minPoint.y }
+            ys = normalize(vector: adjustedYS, side: size.height, max: args.maxPoint.y - args.minPoint.y)
+                .map { size.height - $0 }
+
+        } else {
+            ys = normalize(vector: line.points.ys, side: size.height, max: args.maxPoint.y).map { size.height - $0 }
+        }
+
         line.points = zipToPoints(xs, ys)
         line = narrow(line: line, index: index)
         

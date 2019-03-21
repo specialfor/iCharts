@@ -20,8 +20,6 @@
 		4B27CBC82238045E00AF42BB /* chart_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B27CBC72238045D00AF42BB /* chart_data.json */; };
 		4B27CBC92238045E00AF42BB /* chart_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B27CBC72238045D00AF42BB /* chart_data.json */; };
 		4B2C064B22390A92008B2D69 /* SizeNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C064A22390A92008B2D69 /* SizeNormalizer.swift */; };
-		4B2C064D22390B8D008B2D69 /* MinLengthNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C064C22390B8D008B2D69 /* MinLengthNormalizer.swift */; };
-		4B2C064F22390BB8008B2D69 /* NormalizerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C064E22390BB8008B2D69 /* NormalizerFactory.swift */; };
 		4B2C065122391B1A008B2D69 /* Array+CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C065022391B1A008B2D69 /* Array+CGFloat.swift */; };
 		4B2C065422391C20008B2D69 /* LineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C065322391C20008B2D69 /* LineLayer.swift */; };
 		4B2C06562239201D008B2D69 /* Array+CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2C06552239201D008B2D69 /* Array+CGPoint.swift */; };
@@ -146,8 +144,6 @@
 		4B27CBC02238040D00AF42BB /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		4B27CBC72238045D00AF42BB /* chart_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = chart_data.json; sourceTree = "<group>"; };
 		4B2C064A22390A92008B2D69 /* SizeNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeNormalizer.swift; sourceTree = "<group>"; };
-		4B2C064C22390B8D008B2D69 /* MinLengthNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinLengthNormalizer.swift; sourceTree = "<group>"; };
-		4B2C064E22390BB8008B2D69 /* NormalizerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalizerFactory.swift; sourceTree = "<group>"; };
 		4B2C065022391B1A008B2D69 /* Array+CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+CGFloat.swift"; sourceTree = "<group>"; };
 		4B2C065322391C20008B2D69 /* LineLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineLayer.swift; sourceTree = "<group>"; };
 		4B2C06552239201D008B2D69 /* Array+CGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+CGPoint.swift"; sourceTree = "<group>"; };
@@ -317,8 +313,6 @@
 			children = (
 				4B27CBBF2238040C00AF42BB /* Normalizer.swift */,
 				4B2C064A22390A92008B2D69 /* SizeNormalizer.swift */,
-				4B2C064C22390B8D008B2D69 /* MinLengthNormalizer.swift */,
-				4B2C064E22390BB8008B2D69 /* NormalizerFactory.swift */,
 			);
 			path = Normalizer;
 			sourceTree = "<group>";
@@ -743,14 +737,12 @@
 				4B96E288223FCAE9000953C3 /* UIImage+Color.swift in Sources */,
 				4B2C065122391B1A008B2D69 /* Array+CGFloat.swift in Sources */,
 				4B2C064B22390A92008B2D69 /* SizeNormalizer.swift in Sources */,
-				4B2C064D22390B8D008B2D69 /* MinLengthNormalizer.swift in Sources */,
 				4B96E27D223FC328000953C3 /* DetailedChartView.swift in Sources */,
 				4B96E282223FC8C6000953C3 /* Datasource.swift in Sources */,
 				4BFBEFD0223A848000F2DE99 /* ChartScrollView.swift in Sources */,
 				4B2C06672239364B008B2D69 /* CATransaction+Animate.swift in Sources */,
 				4BFBEFD6223A8DE600F2DE99 /* ExpandableSliderView.swift in Sources */,
 				4B2C066322392AF1008B2D69 /* LineChartLayer.swift in Sources */,
-				4B2C064F22390BB8008B2D69 /* NormalizerFactory.swift in Sources */,
 				4B2C06562239201D008B2D69 /* Array+CGPoint.swift in Sources */,
 				4BFBEFCD223A7EB900F2DE99 /* UIColor+Hex.swift in Sources */,
 				4B27CBC12238040D00AF42BB /* Normalizer.swift in Sources */,

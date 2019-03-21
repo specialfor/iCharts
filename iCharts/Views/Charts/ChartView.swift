@@ -103,7 +103,7 @@ public final class ChartView: UIView {
         
         renderGridLayer(props: props)
         renderLineChartLayer(props: props)
-        renderYLabelsLayer(props: props)
+        renderYLabelsLayer(props: extendedProps)
         renderXLabelsLayer(props: extendedProps)
     }
     
@@ -132,14 +132,14 @@ public final class ChartView: UIView {
         let lineChartProps = LineChartLayer.Props(
             lines: props.lines,
             lineWidth: props.lineWidth,
-            renderMode: .scaleToFill,
             highlightedX: props.highlithedX,
+            isInFullSize: props.isInFullSize,
             rectSize: sizeWithoutXLabels)
         
         lineChartLayer.render(props: lineChartProps)
     }
     
-    private func renderYLabelsLayer(props: Props) {
+    private func renderYLabelsLayer(props: ExtendedProps) {
         let labels = makeYLabels(props: props)
         let yLabelsProps = YLabelsLayer.Props(
             labels: labels,
@@ -147,17 +147,26 @@ public final class ChartView: UIView {
         yLabelsLayer.render(props: yLabelsProps)
     }
     
-    private func makeYLabels(props: Props) -> [YLabelsLayer.Props.Label] {
-        guard let maxY = props.lines.compactMap({ $0.points.ys.max() }).max(), let space = props.estimatedGridSpace else {
-            return []
+    private func makeYLabels(props extendedProps: ExtendedProps) -> [YLabelsLayer.Props.Label] {
+        let props = extendedProps.props
+        
+        guard let limits = extendedProps.limits,
+            let space = props.estimatedGridSpace else {
+                return []
         }
         
+        let maxY = limits.to.y
+        let minY = limits.from.y
+        
         let count = Int(sizeWithoutXLabels.height) / space
-        let step = Int(maxY) / count
+        let step = (maxY - minY) / CGFloat(count)
         
         let points = makePointsForHorizontalLines(props: props)
-        let values = (0..<count).map { index in
-            return "\(index * step)"
+        
+        let values: [String] = (0..<count)
+            .map { index in
+                let value = CGFloat(index) * step + minY
+                return "\(Int(value))"
             }.reversed()
         
         return zip(points, values) { point, value in
@@ -176,7 +185,7 @@ public final class ChartView: UIView {
     
     private func makeXLabels(props: ExtendedProps) -> (labels: [XLabelsLayer.Props.Label], width: CGFloat) {
         guard let width = props.props.estimatedXLabelWidth,
-            let segment = props.segment else {
+            let limits = props.limits else {
                 return (labels: [], width: 0)
         }
         
@@ -190,7 +199,7 @@ public final class ChartView: UIView {
         return (
             labels: (0..<count).map { index in
                 let x = CGFloat(index) * adjustedWidth
-                let label = xLabel(at: x + adjustedWidth / 2, segment: segment)
+                let label = xLabel(at: x + adjustedWidth / 2, limits: limits)
                 
                 return XLabelsLayer.Props.Label(
                     point: CGPoint(x: x, y: 0),
@@ -200,9 +209,9 @@ public final class ChartView: UIView {
         )
     }
     
-    private func xLabel(at x: CGFloat, segment: Segment<CGFloat>) -> String {
+    private func xLabel(at x: CGFloat, limits: Limits) -> String {
         let factor = x / xLabelsRect.size.width
-        let timestamp = segment.from + (segment.to - segment.from) * factor
+        let timestamp = limits.from.x + (limits.to.x - limits.from.x) * factor
         
         let seconds = timestamp / 1000.0
         let date = Date(timeIntervalSince1970: TimeInterval(seconds))
@@ -217,9 +226,9 @@ public final class ChartView: UIView {
     
     public func render(props: Props) {
         var props = props
-        let (lines, segment) = adjustedLines(from: props)
+        let (lines, limits) = adjustedLines(from: props)
         props.lines = lines
-        extendedProps = ExtendedProps(props: props, segment: segment)
+        extendedProps = ExtendedProps(props: props, limits: limits)
         makeOutput(props: props).try { props.didHighlightX?($0) }
     }
     
@@ -243,23 +252,32 @@ public final class ChartView: UIView {
         return Output(xValue: xValue, yValues: yValues)
     }
     
-    private func adjustedLines(from props: Props) -> (lines: [Line], segment: Segment<CGFloat>?) {
-        let lines = props.lines
-        guard let range = props.range, let segment = points(lines: lines, range: range) else {
-            
-            return (
-                lines: lines,
-                segment: points(lines: lines, range: .percents(from: 0, to: 1))
-            )
+    private func adjustedLines(from props: Props) -> (lines: [Line], limits: Limits?) {
+        var lines = props.lines
+        var segment = props.range.flatMap { self.segment(lines: lines, range: $0) }
+        
+        if let segment = segment {
+            lines = lines.map { transform(line: $0, segment: segment, highlightedX: props.highlithedX) }
+        } else {
+            segment = self.segment(lines: lines, range: .percents(from: 0, to: 1))
         }
         
-        return (
-            lines: lines.map { transform(line: $0, segment: segment, highlightedX: props.highlithedX) },
-            segment: segment
-        )
+        return (lines, makeLimits(lines: lines, segment: segment))
     }
     
-    private func points(lines: [Line], range: Props.Range) -> Segment<CGFloat>? {
+    private func makeLimits(lines: [Line], segment: Segment<CGFloat>?) -> Limits? {
+        guard let segment = segment,
+            let minY = lines.compactMap({ $0.points.ys.min() }).min(),
+            let maxY = lines.compactMap({ $0.points.ys.max() }).max() else {
+                return nil
+        }
+        
+        return Limits(
+            from: CGPoint(x: segment.from, y: minY),
+            to: CGPoint(x: segment.to, y: maxY))
+    }
+    
+    private func segment(lines: [Line], range: Props.Range) -> Segment<CGFloat>? {
         switch range {
         case let .percents(from, to):
             guard let minX = lines.compactMap({ $0.points.xs.min() }).min(),
@@ -268,10 +286,7 @@ public final class ChartView: UIView {
             }
             
             let delta = maxX - minX
-            
-            return Segment(
-                from: delta * from + minX,
-                to: delta * to + minX)
+            return Segment(from: delta * from + minX, to: delta * to + minX)
         case let .xs(from, to):
             return Segment(from: from, to: to)
         }
@@ -369,6 +384,7 @@ extension ChartView {
         public var highlithedX: CGFloat?
         public var estimatedGridSpace: Int?
         public var estimatedXLabelWidth: Int?
+        public var isInFullSize: Bool
         public var range: Range?
         public var didHighlightX: ClosureWith<Output>?
         
@@ -377,6 +393,7 @@ extension ChartView {
                     highlithedX: CGFloat? = nil,
                     estimatedGridSpace: Int? = nil,
                     estimatedXLabelWidth: Int? = 40,
+                    isInFullSize: Bool = true,
                     range: Range? = nil,
                     didHighlightX: ClosureWith<Output>? = nil) {
             self.lines = lines
@@ -384,6 +401,7 @@ extension ChartView {
             self.highlithedX = highlithedX
             self.estimatedGridSpace = estimatedGridSpace
             self.estimatedXLabelWidth = estimatedXLabelWidth
+            self.isInFullSize = isInFullSize
             self.range = range
             self.didHighlightX = didHighlightX
         }
@@ -420,9 +438,11 @@ extension ChartView.Props {
 }
 
 private extension ChartView {
+    typealias Limits = Segment<CGPoint>
     
     struct ExtendedProps {
+        
         var props: Props
-        var segment: Segment<CGFloat>?
+        var limits: Limits?
     }
 }

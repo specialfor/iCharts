@@ -92,7 +92,7 @@ public final class LineChartLayer: CAShapeLayer {
     }
     
     private func animate(props: Props) {
-        let normalizer = NormalizerFactory().makeNormalizer(kind: props.renderMode.normalizerKind)
+        let normalizer = SizeNormalizer(isInFullSize: props.isInFullSize)
         var props = props
         props.lines = normalizer.normalize(lines: props.lines, rectSize: props.rectSize)
         renderNormalized(props: props)
@@ -130,32 +130,8 @@ extension LineChartLayer {
     public struct Props {
         var lines: [Line]
         let lineWidth: CGFloat
-        let renderMode: RenderMode
         let highlightedX: CGFloat?
+        let isInFullSize: Bool
         let rectSize: CGSize
-        
-        enum RenderMode {
-            case scaleToFill
-            case aspectFill
-        }
-    }
-}
-
-private extension LineChartLayer.Props.RenderMode {
-    
-    var normalizerKind: NormalizerFactory.Kind {
-        return .init(renderMode: self)
-    }
-}
-
-private extension NormalizerFactory.Kind {
-    
-    init(renderMode: LineChartLayer.Props.RenderMode) {
-        switch renderMode {
-        case .scaleToFill:
-            self = .size
-        case .aspectFill:
-            self = .minLength(1)
-        }
     }
 }
