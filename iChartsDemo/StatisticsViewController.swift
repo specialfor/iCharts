@@ -149,7 +149,27 @@ final class StatisticsViewController: UIViewController {
         
         label.textColor = colors.headline
         themeButton.backgroundColor = colors.view
-        stackView.subviews.forEach { $0.backgroundColor = colors.view }
+        stackView.subviews.forEach {
+            $0.backgroundColor = colors.view
+            ($0 as? DetailedChartView)?.colors = makeColorsForChart()
+        }
+    }
+    
+    private func makeColorsForChart() -> DetailedChartView.Colors {
+        return DetailedChartView.Colors(
+            chart: .init(
+                chart: .init(
+                    chart: .init(
+                        labels: colors.caption,
+                        horizontalLines: colors.separator,
+                        verticalLine: colors.boldSeparator),
+                    chartInfo: .init(
+                        background: colors.main,
+                        title: colors.chartInfoTitle)),
+                slider: .init(
+                    overlay: colors.main.withAlphaComponent(0.5))),
+            title: colors.title,
+            separator: colors.separator)
     }
     
     

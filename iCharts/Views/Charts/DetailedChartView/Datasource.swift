@@ -10,6 +10,8 @@ extension DetailedChartView {
     
     final class Datasource: NSObject, UITableViewDataSource {
         
+        var titleColor: UIColor = .black
+        
         var props: [CellProps]
         let identifier: String
         
@@ -30,6 +32,7 @@ extension DetailedChartView {
         
         private func configure(cell: UITableViewCell, at indexPath: IndexPath) {
             cell.backgroundColor = .clear
+            cell.textLabel?.textColor = titleColor
             
             let cellProps = props[indexPath.row]
             cellProps.title.bind { cell.textLabel?.text = $0 }

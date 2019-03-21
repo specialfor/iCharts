@@ -28,6 +28,17 @@ public final class DetailedChartView: View {
     
     private var originalProps: ChartView.Props?
     
+    public var colors: Colors = .initial {
+        didSet { setupColors() }
+    }
+    
+    private func setupColors() {
+        chartView.colors = colors.chart
+        tableView.separatorColor = colors.separator
+        datasource.titleColor = colors.title
+        tableView.reloadData()
+    }
+    
     
     // MARK: - Subviews
     
@@ -109,6 +120,11 @@ public final class DetailedChartView: View {
         chartView.render(props: props)
     }
     
+    override func baseSetup() {
+        super.baseSetup()
+        setupColors()
+    }
+    
     
     // MARK: - Render
     
@@ -119,5 +135,23 @@ public final class DetailedChartView: View {
             color: $0.color,
             isChecked: true) }
         self.props = props
+    }
+}
+
+
+extension DetailedChartView {
+    
+    public struct Colors {
+        public let chart: ChartScrollView.Colors
+        public let title: UIColor
+        public let separator: UIColor
+
+        public init(chart: ChartScrollView.Colors, title: UIColor, separator: UIColor) {
+            self.chart = chart
+            self.title = title
+            self.separator = separator
+        }
+        
+        public static let initial = Colors(chart: .initial, title: .black, separator: .gray)
     }
 }

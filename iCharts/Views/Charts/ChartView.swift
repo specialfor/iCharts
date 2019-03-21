@@ -60,10 +60,12 @@ public final class ChartView: UIView {
     }
     
     private func setupColors() {
-        gridLayer.lineColor = colors.horizontalLines
-        lineChartLayer.verticalLineColor = colors.verticalLine
-        yLabelsLayer.textColor = colors.labels
-        xLabelsLayer.textColor = colors.labels
+        CATransaction.performWithoutAnimation { _ in
+            gridLayer.lineColor = colors.horizontalLines
+            lineChartLayer.verticalLineColor = colors.verticalLine
+            yLabelsLayer.textColor = colors.labels
+            xLabelsLayer.textColor = colors.labels
+        }
     }
     
     // MARK: - Init
