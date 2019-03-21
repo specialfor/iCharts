@@ -969,7 +969,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.specialfor.iChartsDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "iChartsDemo - dev";
+				PROVISIONING_PROFILE_SPECIFIER = "charts - dev";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -992,7 +992,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.specialfor.iChartsDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "iChartsDemo - appstore";
+				PROVISIONING_PROFILE_SPECIFIER = "charts - appstore";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
