@@ -11,15 +11,29 @@ import Foundation
 final class VerticalLineLayer: CAShapeLayer {
     
     var lineColor: UIColor = .darkGray {
-        didSet { strokeColor = lineColor.cgColor }
+        didSet {
+            if strokeColor != UIColor.clear.cgColor {
+                strokeColor = lineColor.cgColor
+            }
+        }
     }
     
     func render(props: Props) {
         frame.size = props.rectSize
         backgroundColor = nil
-        strokeColor = lineColor.cgColor
         lineWidth = props.width
-        path = makePath(x: props.x, rectSize: props.rectSize)
+        
+        renderLine(props: props)
+    }
+    
+    private func renderLine(props: Props) {
+        let strokeColor = props.x != nil ? lineColor.cgColor : UIColor.clear.cgColor
+        let path = makePath(x: props.x, rectSize: props.rectSize)
+        
+        animate(group: [
+            .strokeColor(strokeColor),
+            .path(path)
+            ])
     }
     
     private func makePath(x: CGFloat?, rectSize: CGSize) -> CGPath? {

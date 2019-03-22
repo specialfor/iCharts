@@ -67,7 +67,10 @@ public final class LineChartLayer: CAShapeLayer {
             x: props.highlightedX,
             width: 1,
             rectSize: props.rectSize)
-        verticalLineLayer.render(props: verticalLineLayerProps)
+        
+        animate(props: props) { props in
+            verticalLineLayer.render(props: verticalLineLayerProps)
+        }
     }
     
     private func renderLinesLayer(props: Props) {
@@ -76,7 +79,16 @@ public final class LineChartLayer: CAShapeLayer {
             frame = CGRect(origin: .zero, size: props.rectSize)
         }
         adjustNumberOfLayers(props: props)
-        animate(props: props)
+        
+        let props = normalized(props: props)
+        animate(props: props) { props in
+            props.lines.enumerated().forEach { index, line in
+                let lineProps = LineLayer.Props(
+                    line: line,
+                    lineWidth: props.lineWidth)
+                lineLayers[index].render(props: lineProps)
+            }
+        }
     }
     
     private func adjustNumberOfLayers(props: Props) {
@@ -95,15 +107,24 @@ public final class LineChartLayer: CAShapeLayer {
         setupColors()
     }
     
-    private func animate(props: Props) {
+    private func normalized(props: Props) -> Props {
         let normalizer = SizeNormalizer(isInFullSize: props.isInFullSize)
         var props = props
         props.lines = normalizer.normalize(lines: props.lines, rectSize: props.rectSize)
-        renderNormalized(props: props)
+        return props
     }
     
-    private func renderNormalized(props: Props) {
+    private func animate(props: Props, closure: (Props) -> Void) {
+        let duration = animatationDuration(props: props)
+        
+        CATransaction.animate(duration: duration) { _ in
+            closure(props)
+        }
+    }
+    
+    private func animatationDuration(props: Props) -> CFTimeInterval {
         let duration: TimeInterval
+        
         if let oldProps = self.props {
             if props.lines.count != oldProps.lines.count {
                 duration = 0.3
@@ -116,17 +137,7 @@ public final class LineChartLayer: CAShapeLayer {
             duration = 0
         }
         
-        CATransaction.animate(duration: duration) { transaction in
-//            let function = CAMediaTimingFunction(name: .linear)
-//            transaction.setAnimationTimingFunction(function)
-            
-            props.lines.enumerated().forEach { index, line in
-                let lineProps = LineLayer.Props(
-                    line: line,
-                    lineWidth: props.lineWidth)
-                lineLayers[index].render(props: lineProps)
-            }
-        }
+        return duration
     }
 }
 
