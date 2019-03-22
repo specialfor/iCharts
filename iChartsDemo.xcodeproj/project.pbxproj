@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B16BF29224503B500834D3C /* CALayer+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B16BF28224503B500834D3C /* CALayer+Animation.swift */; };
 		4B195836223687C600C32C76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B195835223687C600C32C76 /* AppDelegate.swift */; };
 		4B19583D223687C700C32C76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B19583C223687C700C32C76 /* Assets.xcassets */; };
 		4B195840223687C700C32C76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B19583E223687C700C32C76 /* LaunchScreen.storyboard */; };
@@ -129,6 +130,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4B16BF28224503B500834D3C /* CALayer+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Animation.swift"; sourceTree = "<group>"; };
 		4B195832223687C600C32C76 /* iChartsDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iChartsDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B195835223687C600C32C76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4B19583C223687C700C32C76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -355,6 +357,7 @@
 			isa = PBXGroup;
 			children = (
 				4B2C06662239364B008B2D69 /* CATransaction+Animate.swift */,
+				4B16BF28224503B500834D3C /* CALayer+Animation.swift */,
 			);
 			path = QuartzCore;
 			sourceTree = "<group>";
@@ -738,6 +741,7 @@
 				4B2C06562239201D008B2D69 /* Array+CGPoint.swift in Sources */,
 				4BFBEFCD223A7EB900F2DE99 /* UIColor+Hex.swift in Sources */,
 				4B27CBC12238040D00AF42BB /* Normalizer.swift in Sources */,
+				4B16BF29224503B500834D3C /* CALayer+Animation.swift in Sources */,
 				4B96E284223FC8DF000953C3 /* Delegate.swift in Sources */,
 				4B5E117A22424BA700F53886 /* ChartInfoView.swift in Sources */,
 				4B5E11752242208800F53886 /* VerticalLineLayer.swift in Sources */,

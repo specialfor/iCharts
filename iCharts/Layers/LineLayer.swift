@@ -10,7 +10,11 @@
 final class LineLayer: CAShapeLayer {
     
     var circleColor: UIColor = .white {
-        didSet { circleLayer.fillColor = circleColor.cgColor }
+        didSet {
+            if circleLayer.fillColor != UIColor.clear.cgColor {
+                circleLayer.fillColor = circleColor.cgColor
+            }
+        }
     }
     
     private let circleLayer: CAShapeLayer = {
@@ -61,24 +65,19 @@ final class LineLayer: CAShapeLayer {
         let strokeColor = strokeColor
         let lineWidth = lineWidth
         
-        if isAnimated {
-            layer.path = layer.presentation()?.path
-            layer.strokeColor = layer.presentation()?.strokeColor
-            layer.lineWidth = layer.presentation()?.lineWidth ?? 1
-            layer.fillColor = layer.presentation()?.fillColor
-            
-            let animation = makeAnimation(layer: layer,
-                                          path: path,
-                                          strokeColor: strokeColor,
-                                          lineWidth: lineWidth,
-                                          fillColor: fillColor)
-            layer.add(animation, forKey: "\(layer.hash)")
-        } else {
-            layer.path = path
-            layer.strokeColor = strokeColor
-            layer.lineWidth = lineWidth
-            layer.fillColor = fillColor
+        var duration: CFTimeInterval?
+        if !isAnimated {
+            duration = 0
         }
+        
+        layer.animate(
+            duration: duration,
+            group: [
+                .path(path),
+                .fillColor(fillColor),
+                .strokeColor(strokeColor),
+                .lineWidth(lineWidth)
+            ])
     }
     
     private func makePath(using props: Props) -> UIBezierPath {
