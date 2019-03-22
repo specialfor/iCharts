@@ -92,6 +92,7 @@ public final class LineChartLayer: CAShapeLayer {
         } else if layersCount > linesCount {
             lineLayers = Array(lineLayers.dropLast(layersCount - linesCount))
         }
+        setupColors()
     }
     
     private func animate(props: Props) {
