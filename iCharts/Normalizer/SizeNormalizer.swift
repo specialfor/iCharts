@@ -8,38 +8,60 @@
 
 import CoreGraphics
 
-// TODO: rename as scaleToFill
 final class SizeNormalizer: Normalizer {
     
     let isInFullSize: Bool
+    let verticalInset: CGFloat
     
-    init(isInFullSize: Bool) {
+    init(isInFullSize: Bool, verticalInset: CGFloat) {
         self.isInFullSize = isInFullSize
+        self.verticalInset = verticalInset
     }
     
     func unsafeNormalize(line: Line, args: NormalizationArgs) -> Line {
-        let size = args.targetSize
-        
         var line = line
         let (extendedLine, index) = extend(line: line)
         line = extendedLine
         
         let xs = normalize(xs: line.points.xs, args: args)
-        
-        let ys: [CGFloat]
-        if !isInFullSize {
-            let adjustedYS = line.points.ys.map { $0 - args.minPoint.y }
-            ys = normalize(vector: adjustedYS, side: size.height, max: args.maxPoint.y - args.minPoint.y)
-                .map { size.height - $0 }
-
-        } else {
-            ys = normalize(vector: line.points.ys, side: size.height, max: args.maxPoint.y).map { size.height - $0 }
-        }
+        let ys = normalize(ys: line.points.ys, args: args)
 
         line.points = zipToPoints(xs, ys)
         line = narrow(line: line, index: index)
         
         return line
+    }
+    
+    private func normalize(ys: Vector, args: NormalizationArgs) -> Vector {
+        let inset: CGFloat = verticalInset
+        let maxY: CGFloat
+        
+        var side: CGFloat
+        var bottomInset: CGFloat = 0.0
+        var ys = ys
+        
+        let targetHeight = args.targetSize.height
+        if isInFullSize {
+            side = targetHeight
+            maxY = args.maxPoint.y
+        } else {
+            ys = ys.map { $0 - args.minPoint.y }
+            
+            side = targetHeight - 2 * inset
+            let minY = args.minPoint.y
+            
+            let delta = inset - minY
+            if delta > 0 {
+                side += delta
+                bottomInset = minY
+            } else {
+                bottomInset = inset
+            }
+            maxY = args.maxPoint.y - args.minPoint.y
+        }
+        
+        return normalize(vector: ys, side: side, max: maxY)
+            .map { args.targetSize.height - ($0 + bottomInset) }
     }
     
     private func extend(line: Line) -> (line: Line, index: ExtendingIndex?) {

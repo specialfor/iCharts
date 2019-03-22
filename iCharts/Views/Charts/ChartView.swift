@@ -126,6 +126,7 @@ public final class ChartView: View {
             lines: props.lines,
             lineWidth: props.lineWidth,
             highlightedX: props.highlithedX,
+            inset: props.inset,
             isInFullSize: props.isInFullSize,
             rectSize: sizeWithoutXLabels)
         
@@ -150,21 +151,44 @@ public final class ChartView: View {
         
         let maxY = limits.to.y
         let minY = limits.from.y
-        
-        let count = Int(sizeWithoutXLabels.height) / space
-        let step = (maxY - minY) / CGFloat(count)
+        let inset = extendedProps.props.inset ?? 0
         
         let points = makePointsForHorizontalLines(props: props)
+        let ySegment = self.ySegment(minY: minY, maxY: maxY, inset: inset)
+        
+        let count = Int(sizeWithoutXLabels.height) / space
+        let step = (ySegment.to - ySegment.from) / CGFloat(count)
         
         let values: [String] = (0..<count)
             .map { index in
-                let value = CGFloat(index) * step + minY
+                let value = CGFloat(index) * step + ySegment.from
                 return "\(Int(value))"
             }.reversed()
         
         return zip(points, values) { point, value in
             return YLabelsLayer.Props.Label(point: point, value: value)
         }
+    }
+    
+    private func ySegment(minY: CGFloat, maxY: CGFloat, inset: CGFloat) -> Segment<CGFloat> {
+        var side = sizeWithoutXLabels.height - 2 * inset
+        
+        let delta = maxY - minY
+        let insetDelta = inset * delta / side
+        
+        let yDelta = minY
+        
+        let startY: CGFloat
+        if yDelta <= insetDelta {
+            startY = 0
+            side += inset * (1 - yDelta / insetDelta)
+        } else {
+            startY = minY - insetDelta
+        }
+        
+        let endY = maxY + insetDelta
+        
+        return Segment(from: startY, to: endY)
     }
     
     private func renderXLabelsLayer(props: ExtendedProps) {
@@ -388,6 +412,7 @@ extension ChartView {
         public var highlithedX: CGFloat?
         public var estimatedGridSpace: Int?
         public var estimatedXLabelWidth: Int?
+        public var inset: CGFloat?
         public var isInFullSize: Bool
         public var range: Range?
         public var didHighlightX: ClosureWith<Output>?
@@ -396,7 +421,8 @@ extension ChartView {
                     lineWidth: CGFloat = 1,
                     highlithedX: CGFloat? = nil,
                     estimatedGridSpace: Int? = nil,
-                    estimatedXLabelWidth: Int? = 40,
+                    estimatedXLabelWidth: Int? = nil,
+                    inset: CGFloat? = nil,
                     isInFullSize: Bool = true,
                     range: Range? = nil,
                     didHighlightX: ClosureWith<Output>? = nil) {
@@ -405,6 +431,7 @@ extension ChartView {
             self.highlithedX = highlithedX
             self.estimatedGridSpace = estimatedGridSpace
             self.estimatedXLabelWidth = estimatedXLabelWidth
+            self.inset = inset
             self.isInFullSize = isInFullSize
             self.range = range
             self.didHighlightX = didHighlightX

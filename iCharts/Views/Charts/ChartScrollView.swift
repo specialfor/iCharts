@@ -116,15 +116,15 @@ public final class ChartScrollView: View {
         let rangedProps = makeRangedProps(props: props)
         chartView.render(props: rangedProps)
         
-        var sliderChartProps = props
-        sliderChartProps.estimatedXLabelWidth = nil
-        sliderChartView.render(props: sliderChartProps)
+        sliderChartView.render(props: props)
     }
     
     private func makeRangedProps(props: ChartView.Props) -> ChartView.Props {
         var props = props
         props.lineWidth = 2
         props.estimatedGridSpace = 50
+        props.estimatedXLabelWidth = 40
+        props.inset = 20
         props.isInFullSize = false
         
         let sliderState = sliderView.sliderState

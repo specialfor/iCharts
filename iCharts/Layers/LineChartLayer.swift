@@ -108,7 +108,7 @@ public final class LineChartLayer: CAShapeLayer {
     }
     
     private func normalized(props: Props) -> Props {
-        let normalizer = SizeNormalizer(isInFullSize: props.isInFullSize)
+        let normalizer = SizeNormalizer(isInFullSize: props.isInFullSize, verticalInset: props.inset ?? 0)
         var props = props
         props.lines = normalizer.normalize(lines: props.lines, rectSize: props.rectSize)
         return props
@@ -159,6 +159,7 @@ extension LineChartLayer {
         var lines: [Line]
         let lineWidth: CGFloat
         let highlightedX: CGFloat?
+        let inset: CGFloat?
         let isInFullSize: Bool
         let rectSize: CGSize
     }
