@@ -100,7 +100,7 @@ public final class PannableChartView: UIControl {
         
         if props.lines.isEmpty {
             hide()
-        } else {
+        } else if props.highlithedX != nil {
             endTracking()
         }
     }
