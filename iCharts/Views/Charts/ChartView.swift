@@ -17,7 +17,7 @@ private let dateFormatter: DateFormatter = {
     return formatter
 }()
 
-public final class ChartView: UIView {
+public final class ChartView: View {
 
     private var props: Props? {
         return extendedProps?.props
@@ -68,23 +68,17 @@ public final class ChartView: UIView {
         }
     }
     
+    
     // MARK: - Init
     
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        baseInit()
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        baseInit()
-    }
-    
-    private func baseInit() {
+    override func baseSetup() {
+        super.baseSetup()
+        
         layer.addSublayer(gridLayer)
         layer.addSublayer(lineChartLayer)
         layer.addSublayer(yLabelsLayer)
         layer.addSublayer(xLabelsLayer)
+        setupColors()
     }
     
     
@@ -94,7 +88,6 @@ public final class ChartView: UIView {
         super.layoutSubviews()
         
         renderLayers()
-        setupColors()
     }
     
     private func renderLayers() {

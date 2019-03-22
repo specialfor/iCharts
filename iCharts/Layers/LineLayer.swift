@@ -42,18 +42,26 @@ final class LineLayer: CAShapeLayer {
     
     private func renderLinePath(props: Props) {
         let path = makePath(using: props).cgPath
-        animate(layer: self, path: path, props: props)
+        renderPath(
+            layer: self,
+            path: path,
+            lineWidth: props.lineWidth,
+            strokeColor: props.line.color.cgColor,
+            fillColor: UIColor.clear.cgColor,
+            animated: props.isAnimated)
     }
     
-    private func animate(layer: CAShapeLayer,
+    private func renderPath(layer: CAShapeLayer,
                          path: CGPath?,
-                         props: Props,
-                         fillColor: CGColor = UIColor.clear.cgColor) {
+                         lineWidth: CGFloat,
+                         strokeColor: CGColor,
+                         fillColor: CGColor,
+                         animated isAnimated: Bool) {
         
-        let strokeColor = props.line.color.cgColor
-        let lineWidth = props.lineWidth
+        let strokeColor = strokeColor
+        let lineWidth = lineWidth
         
-        if props.isAnimated {
+        if isAnimated {
             layer.path = layer.presentation()?.path
             layer.strokeColor = layer.presentation()?.strokeColor
             layer.lineWidth = layer.presentation()?.lineWidth ?? 1
@@ -71,7 +79,6 @@ final class LineLayer: CAShapeLayer {
             layer.lineWidth = lineWidth
             layer.fillColor = fillColor
         }
-        
     }
     
     private func makePath(using props: Props) -> UIBezierPath {
@@ -103,10 +110,13 @@ final class LineLayer: CAShapeLayer {
         
         let group = CAAnimationGroup()
         
-        let pathAnimation = CABasicAnimation(keyPath: "path")
-        pathAnimation.fromValue = layer.path
-        pathAnimation.toValue = path
-        layer.path = path
+        var pathAnimation: CABasicAnimation?
+        if let path = path {
+            pathAnimation = CABasicAnimation(keyPath: "path")
+            pathAnimation?.fromValue = layer.path
+            pathAnimation?.toValue = path
+            layer.path = path
+        }
         
         let strokeColorAnimation = CABasicAnimation(keyPath: "strokeColor")
         strokeColorAnimation.fromValue = layer.strokeColor
@@ -123,23 +133,33 @@ final class LineLayer: CAShapeLayer {
         fillColorAnimation.toValue = fillColor
         layer.fillColor = fillColor
         
-        group.animations = [pathAnimation, strokeColorAnimation, lineWidthAnimation, fillColorAnimation]
+        group.animations = [pathAnimation, strokeColorAnimation, lineWidthAnimation, fillColorAnimation].compactMap { $0 }
         
         return group
     }
     
     private func renderCircleLayer(props: Props) {
-        var props = props
-        
         let path: UIBezierPath?
+        let strokeColor: CGColor
+        let fillColor: CGColor
+        
         if let point = props.line.highlightedPoint {
             path = makeCircle(at: point, lineWidth: props.lineWidth)
+            strokeColor = props.line.color.cgColor
+            fillColor = circleColor.cgColor
         } else {
-            props.isAnimated = true
             path = nil
+            strokeColor = UIColor.clear.cgColor
+            fillColor = UIColor.clear.cgColor
         }
         
-        animate(layer: circleLayer, path: path?.cgPath, props: props, fillColor: circleColor.cgColor)
+        renderPath(
+            layer: circleLayer,
+            path: path?.cgPath,
+            lineWidth: props.lineWidth,
+            strokeColor: strokeColor,
+            fillColor: fillColor,
+            animated: props.isAnimated)
     }
     
     private func makeCircle(at point: CGPoint, lineWidth: CGFloat) -> UIBezierPath {

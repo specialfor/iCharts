@@ -86,12 +86,12 @@ public final class PannableChartView: UIControl {
     func baseSetup() {
         [chartView, infoView].forEach { $0.isUserInteractionEnabled = false }
         infoView.alpha = 0
+        setupColors()
     }
     
     public override func layoutSubviews() {
         super.layoutSubviews()
         render()
-        setupColors()
     }
 
     private func render() {
@@ -164,13 +164,10 @@ public final class PannableChartView: UIControl {
     }
     
     private func hide() {
+        self.highlightedX = nil
         UIView.animate(withDuration: 0.3, animations: {
             self.infoView.alpha = 0.0
-        }) { (isFinished) in
-            if isFinished {
-                self.highlightedX = nil
-            }
-        }
+        })
     }
 }
 

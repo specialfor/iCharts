@@ -103,8 +103,14 @@ public final class LineChartLayer: CAShapeLayer {
     
     private func renderNormalized(props: Props) {
         let duration: TimeInterval
-        if let oldProps = self.props, props.lines.count != oldProps.lines.count {
-            duration = 0.3
+        if let oldProps = self.props {
+            if props.lines.count != oldProps.lines.count {
+                duration = 0.3
+            } else if oldProps.highlightedX != nil, props.highlightedX == nil {
+                duration = 0.3
+            } else {
+                duration = 0
+            }
         } else {
             duration = 0
         }
