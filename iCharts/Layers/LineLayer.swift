@@ -101,42 +101,6 @@ final class LineLayer: CAShapeLayer {
         return path
     }
     
-    private func makeAnimation(layer: CAShapeLayer,
-                               path: CGPath?,
-                               strokeColor: CGColor,
-                               lineWidth: CGFloat,
-                               fillColor: CGColor) -> CAAnimation {
-        
-        let group = CAAnimationGroup()
-        
-        var pathAnimation: CABasicAnimation?
-        if let path = path {
-            pathAnimation = CABasicAnimation(keyPath: "path")
-            pathAnimation?.fromValue = layer.path
-            pathAnimation?.toValue = path
-            layer.path = path
-        }
-        
-        let strokeColorAnimation = CABasicAnimation(keyPath: "strokeColor")
-        strokeColorAnimation.fromValue = layer.strokeColor
-        strokeColorAnimation.toValue = strokeColor
-        layer.strokeColor = strokeColor
-        
-        let lineWidthAnimation = CABasicAnimation(keyPath: "lineWidth")
-        lineWidthAnimation.fromValue = layer.lineWidth
-        lineWidthAnimation.toValue = lineWidth
-        layer.lineWidth = lineWidth
-        
-        let fillColorAnimation = CABasicAnimation(keyPath: "fillColor")
-        fillColorAnimation.fromValue = layer.fillColor
-        fillColorAnimation.toValue = fillColor
-        layer.fillColor = fillColor
-        
-        group.animations = [pathAnimation, strokeColorAnimation, lineWidthAnimation, fillColorAnimation].compactMap { $0 }
-        
-        return group
-    }
-    
     private func renderCircleLayer(props: Props) {
         let path: UIBezierPath?
         let strokeColor: CGColor
