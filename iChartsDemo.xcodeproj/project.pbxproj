@@ -38,7 +38,6 @@
 		4B5E117A22424BA700F53886 /* ChartInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5E117922424BA700F53886 /* ChartInfoView.swift */; };
 		4B5E117C22427D0400F53886 /* Optional+Try.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5E117B22427D0400F53886 /* Optional+Try.swift */; };
 		4B5E117E2242D87F00F53886 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5E117D2242D87F00F53886 /* StatisticsViewController.swift */; };
-		4B5E11802242D91300F53886 /* AutoSizableTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B96E28F223FE508000953C3 /* AutoSizableTableView.swift */; };
 		4B7B3F44223E4EB0009C9BA8 /* libUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7B3F3B223E4E85009C9BA8 /* libUtils.a */; };
 		4B7B3F45223E4EC5009C9BA8 /* libUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7B3F3B223E4E85009C9BA8 /* libUtils.a */; };
 		4B7B3F48223E4EDE009C9BA8 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA959902236ABCA005609C6 /* Result.swift */; };
@@ -55,6 +54,7 @@
 		4B96E28E223FD37A000953C3 /* Bool+Toggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B96E28D223FD37A000953C3 /* Bool+Toggle.swift */; };
 		4BA9598B223691FB005609C6 /* Dataset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA9598A223691FB005609C6 /* Dataset.swift */; };
 		4BA9598F2236941D005609C6 /* DatasetJSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA9598C22369303005609C6 /* DatasetJSONParser.swift */; };
+		4BCAD6262243E6D6002DB4CA /* AutoSizableTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B96E28F223FE508000953C3 /* AutoSizableTableView.swift */; };
 		4BDF4B002241193200FF6ADD /* YLabelsLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDF4AFF2241193200FF6ADD /* YLabelsLayer.swift */; };
 		4BDF4B022241244A00FF6ADD /* XLabelsLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDF4B012241244A00FF6ADD /* XLabelsLayer.swift */; };
 		4BFBEFCD223A7EB900F2DE99 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFBEFCC223A7EB900F2DE99 /* UIColor+Hex.swift */; };
@@ -387,18 +387,9 @@
 			path = PannableChartView;
 			sourceTree = "<group>";
 		};
-		4B5E117F2242D8EA00F53886 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				4B96E28F223FE508000953C3 /* AutoSizableTableView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		4B7B3F3C223E4E85009C9BA8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				4B5E117F2242D8EA00F53886 /* Views */,
 				4BA959902236ABCA005609C6 /* Result.swift */,
 				4B96E274223F8E90000953C3 /* Segment.swift */,
 				4B96E289223FCDAD000953C3 /* Variable.swift */,
@@ -441,6 +432,7 @@
 		4B96E27F223FC47F000953C3 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4B96E28F223FE508000953C3 /* AutoSizableTableView.swift */,
 				4BFBEFD5223A8DE600F2DE99 /* ExpandableSliderView.swift */,
 				4BFBEFD7223A8E0100F2DE99 /* HandlerView.swift */,
 			);
@@ -759,6 +751,7 @@
 				4B27CBC22238040D00AF42BB /* ChartView.swift in Sources */,
 				4BFBEFD4223A8C0800F2DE99 /* UIView+Constraints.swift in Sources */,
 				4B5E117822424B9C00F53886 /* PannableChartView.swift in Sources */,
+				4BCAD6262243E6D6002DB4CA /* AutoSizableTableView.swift in Sources */,
 				4BFBEFD8223A8E0100F2DE99 /* HandlerView.swift in Sources */,
 				4B96E286223FC9F8000953C3 /* CellProps.swift in Sources */,
 				4B2C065D22392A1E008B2D69 /* Line.swift in Sources */,
@@ -783,7 +776,6 @@
 				4B96E28C223FCDF5000953C3 /* Closure.swift in Sources */,
 				4B96E28A223FCDAD000953C3 /* Variable.swift in Sources */,
 				4B96E275223F8E90000953C3 /* Segment.swift in Sources */,
-				4B5E11802242D91300F53886 /* AutoSizableTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

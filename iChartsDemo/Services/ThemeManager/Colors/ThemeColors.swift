@@ -19,5 +19,5 @@ struct ThemeColors {
     let boldSeparator: UIColor
     let handler: UIColor
     let selection: UIColor
-    let isDarkNavigationBar: Bool
+    let isDarkMainColor: Bool
 }

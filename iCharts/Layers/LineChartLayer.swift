@@ -27,6 +27,8 @@ public final class LineChartLayer: CAShapeLayer {
         lineLayers.forEach { $0.circleColor = colors.circle }
     }
     
+    private var props: Props?
+    
     
     // MARK: - Init
     
@@ -57,6 +59,7 @@ public final class LineChartLayer: CAShapeLayer {
     public func render(props: Props) {
         renderVerticalLineLayer(props: props)
         renderLinesLayer(props: props)
+        self.props = props
     }
     
     private func renderVerticalLineLayer(props: Props) {
@@ -99,7 +102,14 @@ public final class LineChartLayer: CAShapeLayer {
     }
     
     private func renderNormalized(props: Props) {
-        CATransaction.animate(duration: 0) { transaction in
+        let duration: TimeInterval
+        if let oldProps = self.props, props.lines.count != oldProps.lines.count {
+            duration = 0.3
+        } else {
+            duration = 0
+        }
+        
+        CATransaction.animate(duration: duration) { transaction in
 //            let function = CAMediaTimingFunction(name: .linear)
 //            transaction.setAnimationTimingFunction(function)
             

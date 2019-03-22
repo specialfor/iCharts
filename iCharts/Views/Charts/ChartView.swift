@@ -452,7 +452,6 @@ private extension ChartView {
     typealias Limits = Segment<CGPoint>
     
     struct ExtendedProps {
-        
         var props: Props
         var limits: Limits?
     }

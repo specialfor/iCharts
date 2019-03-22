@@ -11,7 +11,7 @@ import Foundation
 private let cellIdentifier = "lol-kek-cheburek"
 
 public final class ChartInfoView: View {
-   
+    
     private var props: Props?
     
     public var colors: Colors = .initial {
@@ -19,10 +19,11 @@ public final class ChartInfoView: View {
     }
     
     private func setupColors() {
-        backgroundColor = colors.background
+        backgroundColor = colors.background.withAlphaComponent(0.8)
         dateMonthLabel.textColor = colors.title
         yearLabel.textColor = colors.title
     }
+    
     
     // MARK: - Subviews
     

@@ -19,7 +19,7 @@ extension ThemeColors {
         boldSeparator: .init(hexString: "#cfd1d2"),
         handler: .init(hexString: "#cad4de"),
         selection: .init(hexString: "#f3f3f3"),
-        isDarkNavigationBar: false)
+        isDarkMainColor: false)
     
     static let night = ThemeColors(
         main: .init(hexString: "#18222d"),
@@ -32,5 +32,5 @@ extension ThemeColors {
         boldSeparator: .init(hexString: "#131b23"),
         handler: .init(hexString: "#354659"),
         selection: .init(hexString: "#1b2734"),
-        isDarkNavigationBar: true)
+        isDarkMainColor: true)
 }

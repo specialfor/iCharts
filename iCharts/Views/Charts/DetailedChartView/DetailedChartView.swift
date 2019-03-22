@@ -6,8 +6,6 @@
 //  Copyright © 2019 Volodymyr Hryhoriev. All rights reserved.
 //
 
-import Utils
-
 private let cellIdentifier = "lol-kek-cheburek"
 
 public final class DetailedChartView: View {
