@@ -24,7 +24,55 @@ You may take part in beta testing on [TestFlight](https://testflight.apple.com/j
 - [x] Animate appearance/dissappearance of lines on chart
 
 
+## Usage
+
+The simplest case is shown below. You should just create props with arrat of `Line`s and pass it into `render(props:)` method.
+
+```
+let chartView = DetailedChartView() // ChartScrollView, PannableChartView, ChartView
+
+// Frame based layout or Auto Layout
+
+let props = ChartView.Props(lines: [
+              Line(title: "#1", xs: [1, 2, 3], ys: [3, 4, 5], color: .red),
+              Line(title: "#2", xs: [1, 2, 3], ys: [5, 4, 3], color: .green)
+            ])
+
+chartView.render(props: props)
+
+```
+
+In order to change theme you should just change `Colors` property.
+
+```
+chartView.colors = makeColors() // you should write `makeColors` method, it is just example
+```
+
+### ChartView.Props properties
+
+- `lines` - an array of `Line` structs
+- `lineWidth` - a positive real value which defines width of line on chart
+- `highlithedX` - a `x` coordinate which user highlight on `PannableChartView`
+- `estimatedGridSpace` - estimated space between 2 horizontal lines of grid
+- `estimatedXLabelWidth` - estimated width of label below `x` axis
+- `inset` - vertical inset when user renders chart as full-sized
+- `isInFullSize` - determines that should we render chart as full-sized
+- `range` - the range of visible part of chart in percents or points
+- `didHighlightX` - closure which fires when user highlight points on `PannableChartView`
+
+### Colors
+
+It is not necessary to enumerate all properties of `Colors` struct of each component. You should just know, that you can change color of any part of chart.
+
+[See `Colors` struct in `DetailedChartView` for more information.](https://github.com/specialfor/iCharts/blob/13c2a0fee782e9e602a9c897d62006e1b36d629e/iCharts/Views/Charts/DetailedChartView/DetailedChartView.swift#L143)
+
+## Instalation
+
+TBD
+
+
 ## Workspace structure
+
 - `iChartsDemo` is an iOS single view application project which demonstrates usage of `iCharts` framework
 - `iCharts` is a framework which contains `ChartView` source code
 - `Utils` is a static library which contains some useful structs and typealiases such as `Result`, `Variable`, etc.
