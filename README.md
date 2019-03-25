@@ -47,13 +47,13 @@ The implementation of `iCharts` framework is highly motivated by `Core Animaton`
 
 Also it should be remarked that all parts of UI are data-driven. `Props` is used as a dumb representation of UI state at each point of time. This approach makes possible to implement **[time-traveling debugging](https://github.com/calesce/redux-slider-monitor)** feature in future. 
 
-**ChartView Props example**
+**ChartView.Props example**
 
 ```
 extension ChartView {
 
   public struct Props {
-    public var lines: kek
+    public var lines: [Line]
     public var lineWidth: CGFloat
     public var highlithedX: CGFloat?
     public var estimatedGridSpace: Int?
@@ -68,6 +68,41 @@ extension ChartView {
 }
 ```
 
+In order to implement theming nicely `Colors` struct is used on each component too.
+
+**ChartView.Colors example**
+
+```
+extension ChartView {
+
+  public struct Colors {
+    public let labels: UIColor
+    public let horizontalLines: UIColor
+    public let lineChart: LineChartLayer.Colors
+    
+    // Init
+    
+    public static let initial = Colors(
+            labels: .gray,
+            horizontalLines: .gray,
+            lineChart: .initial)
+  }
+}
+```
+
+Each line of chart is represented by `Line` struct, where `Points` is typealias for `[CGPoint]`.
+
+```
+public struct Line {
+  public let title: String
+  public var points: Points
+  public var highlightedPoint: CGPoint?
+  public let color: UIColor
+  public var isHidden: Bool
+
+  // Init
+}
+```
 
 ### Views & Layers
 
