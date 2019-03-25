@@ -5,6 +5,7 @@ Completely implemented using [Core Animation](https://developer.apple.com/docume
 
 You may take part in beta testing on [TestFlight](https://testflight.apple.com/join/oV32hPvi).
 
+![Demo Gif](https://thumbs.gfycat.com/FlakyHardtofindFly.webp)
 
 ## Telegram "March Coding Competition" tasks
 
@@ -23,29 +24,43 @@ You may take part in beta testing on [TestFlight](https://testflight.apple.com/j
 
 ## Workspace structure
 - `iChartsDemo` is an iOS single view application project which demonstrates usage of `iCharts` framework
-- `iCharts` is a framework which contains chart view source code
+- `iCharts` is a framework which contains `ChartView` source code
 - `Utils` is a static library which contains some useful structs and typealiases such as `Result`, `Variable`, etc.
 
 
 ## Architecture
-The implementation of `iCharts` framework is highly motivated by `Core Animaton` capabilities and classes composition instead of inheritance in order to have flexible, extendable and easy-maintainable code base with SRP principle in the head.
+
+**TL;DR**
+
+- fully implemented on `CALayer`s
+- preferred composition over inheritance
+- fully data-driven UI
+- render only visible part of a chart
+
+The implementation of `iCharts` framework is highly motivated by `Core Animaton` `CALayer`s capabilities and classes composition instead of inheritance in order to have flexible, extendable and easy-maintainable code base with SRP principle in the head.
+
+Also it should be remarked that all parts of UI are data-driven. `Props` is used as a dumb representation of UI state at each point of time. This approach makes possible to implement **[time-traveling debugging](https://github.com/calesce/redux-slider-monitor)** feature in future. 
 
 **Note:** of course in competition situation with time boundaries it is very hard to find trade offs between speed and quality, that's why some principles of SOLID are violated sometime.
+
 
 ### Views & Layers
 
 - `ChartView` is a core view which is responsible for rendering all chart layers: 
 ![ChartView](https://i.ibb.co/SwVLZvF/Simulator-Screen-Shot-i-Phone-X-2019-03-25-at-13-02-41.png)
 ![Layer Hierarchy of `ChartView`](https://i.ibb.co/2MkdS2q/2019-03-25-12-56-28.jpg)
-  - `GridLayer` draws horizontal lines of grid
+  - `GridLayer` renders horizontal lines of grid
   - `LineChartLayer` contains `LineLayer`s and `VerticalLineLayer`
-    - LineLayer draws line based on `CGPoint` vector (if `VerticalLineLayer` is also appeared, it will also draw circle in order to show highlighted point)
-    - `VerticalLineLayer` draws vertical line through highlighted points
-  - `YLabelsLayer` draws labels above horizontal lines of `GridLayer` (`y` values of each line)
-  - `XLabelsLayer` draws labels below `LinearChartLayer` or `x` axis in a nutshell (dates in "MMM dd" format)
+    - LineLayer renders line based on `CGPoint` vector (if `VerticalLineLayer` is also appeared, it will also render circle in order to show highlighted point)
+    - `VerticalLineLayer` renders vertical line through highlighted points
+  - `YLabelsLayer` renders labels above horizontal lines of `GridLayer` (`y` values of each line)
+  - `XLabelsLayer` renders labels below `LinearChartLayer` or `x` axis in a nutshell (dates in "MMM dd" format)
 - `PannableChartView` is a subclass of `UIControl` which implements behaviour similar to `UIPanGestureRecognizer`. It tells `ChartView` to show highlighted points and shows `ChartInfoView` with details of the points above chart.
+![PannableChartView](https://i.ibb.co/Y7XLk5k/Simulator-Screen-Shot-i-Phone-X-2019-03-25-at-13-18-09.png)
 - `ChartScrollView` contains instance of `PannableChartView` and `ExpandableSliderView` which allows user to choose visible part of chart and its scale.
-- `DetailedChartView` contains instance of `ChartScrollView` and `UITableView` with names and colors of lines and capability to show/hide them.
+![ChartScrollView](https://i.ibb.co/s9jkSWq/Simulator-Screen-Shot-i-Phone-X-2019-03-25-at-13-18-13.png)
+- `DetailedChartView` contains instance of `ChartScrollView` and `UITableView` with names and colors of lines and capability to show/hide them
+![DetailedChartView](https://i.ibb.co/SfPqqhs/Simulator-Screen-Shot-i-Phone-X-2019-03-25-at-13-18-16.png)
   
 ### Normalizer
 
