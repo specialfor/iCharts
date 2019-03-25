@@ -39,16 +39,19 @@ You may take part in beta testing on [TestFlight](https://testflight.apple.com/j
 
 **Details**
 
+The implementation of `iCharts` framework is highly motivated by `Core Animaton` `CALayer`s capabilities and classes composition instead of inheritance in order to have flexible, extendable and easy-maintainable code base with SRP principle in the head.
 
-  The implementation of `iCharts` framework is highly motivated by `Core Animaton` `CALayer`s capabilities and classes composition instead of inheritance in order to have flexible, extendable and easy-maintainable code base with SRP principle in the head.
+**Note:** of course in competition situation with time boundaries it is very hard to find trade offs between speed and quality, that's why some principles of SOLID are violated sometime.
 
 Also it should be remarked that all parts of UI are data-driven. `Props` is used as a dumb representation of UI state at each point of time. This approach makes possible to implement **[time-traveling debugging](https://github.com/calesce/redux-slider-monitor)** feature in future. 
 
-<details>
-  <summary>Props example</summary>
-  ```
+**ChartView Props example**
+
+```
+extension ChartView {
+
   public struct Props {
-    public var lines: [Line]
+    public var lines: kek
     public var lineWidth: CGFloat
     public var highlithedX: CGFloat?
     public var estimatedGridSpace: Int?
@@ -57,13 +60,11 @@ Also it should be remarked that all parts of UI are data-driven. `Props` is used
     public var isInFullSize: Bool
     public var range: Range?
     public var didHighlightX: ClosureWith<Output>?
-    
+
     // Init
   }
-  ```
-</details>
-
-**Note:** of course in competition situation with time boundaries it is very hard to find trade offs between speed and quality, that's why some principles of SOLID are violated sometime.
+}
+```
 
 
 ### Views & Layers
