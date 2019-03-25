@@ -132,3 +132,8 @@ public struct Line {
 **Note about minY, maxY:** 
 - **Formal case:** minY, maxY are in {y | y in Y1 || Y2 || ... || Yn}, where `||` means union (set operation), Yi is a set of `y` values of the `i`th line 
 - **Informal case:** minY, maxY are selected among each y of each line in chart
+
+
+## License
+
+iCharts is available under the MIT license. See the LICENSE file for more info.
