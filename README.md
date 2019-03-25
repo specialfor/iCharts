@@ -1,4 +1,6 @@
-# iCharts
+# iCharts 
+
+![Swift version](https://img.shields.io/badge/Swift-4.2-orange.svg) ![Cocoapods](https://img.shields.io/cocoapods/p/iCharts.svg) ![License](https://img.shields.io/cocoapods/l/iCharts.svg)
 
 The solution for Telegram "March Coding Competition".
 Completely implemented using [Core Animation](https://developer.apple.com/documentation/quartzcore) and Auto Layout ([NSLayoutAnchor](https://developer.apple.com/documentation/uikit/nslayoutanchor)).
