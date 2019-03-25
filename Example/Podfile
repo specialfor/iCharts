@@ -1,0 +1,12 @@
+use_frameworks!
+
+target 'iCharts_Example' do
+  pod 'iCharts', :path => '../'
+  pod 'SnapKit'
+
+  target 'iCharts_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

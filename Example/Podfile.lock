@@ -1,0 +1,23 @@
+PODS:
+  - iCharts (1.0.0)
+  - SnapKit (4.2.0)
+
+DEPENDENCIES:
+  - iCharts (from `../`)
+  - SnapKit
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - SnapKit
+
+EXTERNAL SOURCES:
+  iCharts:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  iCharts: e2c2b4685be86a1a4c577f94ebdb56752e38fca7
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+
+PODFILE CHECKSUM: 032e6a371fea19508768d5875bb670129259f3d9
+
+COCOAPODS: 1.6.1
